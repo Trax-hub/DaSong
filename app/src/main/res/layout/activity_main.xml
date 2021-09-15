@@ -8,7 +8,7 @@
     android:background="#3A3A47">
 
     <LinearLayout
-        android:id="@+id/buttons"
+        android:id="@+id/buttonLayout"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,5 +32,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/descriptionLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false" >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/poids"
+            android:layout_width="354dp"
+            android:layout_height="88dp"
+            android:textColorHint="@drawable/login_button"
+            android:inputType="numberDecimal" />
+
+    </LinearLayout>
+
 </RelativeLayout>
