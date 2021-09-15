@@ -35,20 +35,19 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/descriptionLayout"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textField"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false" >
+        android:hint="Description"
+        android:textColorHint="#FFFFFF">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/poids"
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="354dp"
-            android:layout_height="88dp"
-            android:textColorHint="@drawable/login_button"
-            android:inputType="numberDecimal" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/description_background"
+            />
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>
