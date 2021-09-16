@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/component_1.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/description_backgroud.xml" value="0.16875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/description_background.xml" value="0.17135416666666667" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/login_button.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/rectangle4.xml" value="0.19282051282051282" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/song_background.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_connexion.xml" value="0.1796875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/connexion_layout.xml" value="0.1796875" />
