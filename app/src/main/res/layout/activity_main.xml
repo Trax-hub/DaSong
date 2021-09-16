@@ -8,6 +8,11 @@
     android:background="#3A3A47"
     android:orientation="vertical">
 
+    <SearchView
+        android:id="@+id/simpleSearchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <View
         android:id="@+id/view_song"
         android:layout_width="354dp"
