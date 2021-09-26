@@ -12,10 +12,9 @@
         android:id="@+id/simpleSearchView"
         android:layout_width="372dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/login_button"
-        />
+        android:layout_marginTop="16dp"
+        android:background="@drawable/login_button" />
 
     <View
         android:id="@+id/view_song"
@@ -64,14 +63,16 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button"
+            android:id="@+id/validateButton"
             android:layout_width="288dp"
             android:layout_height="52dp"
             android:background="@drawable/login_button"
             android:text="Valider"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+
+/>
 
     </LinearLayout>
 
