@@ -8,14 +8,6 @@
     android:background="#3A3A47"
     android:orientation="vertical">
 
-    <SearchView
-        android:id="@+id/simpleSearchView"
-        android:layout_width="372dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/login_button" />
-
     <View
         android:id="@+id/view_song"
         android:layout_width="352dp"
@@ -72,7 +64,8 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
 
-/>
+        />
+
 
     </LinearLayout>
 

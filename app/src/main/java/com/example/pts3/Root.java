@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Root {
     @SerializedName("data")
-    private ArrayList<com.example.bereal.Search> searches;
+    private ArrayList<Search> searches;
 
-    public Root(ArrayList<com.example.bereal.Search> searches) {
+    public Root(ArrayList<Search> searches) {
         this.searches = searches;
     }
 
@@ -20,12 +20,12 @@ public class Root {
     }
 
     public void display(){
-        for(com.example.bereal.Search search : searches){
+        for(Search search : searches){
             System.out.println(search.toString());
         }
     }
 
-    public ArrayList<com.example.bereal.Search> getSearches() {
+    public ArrayList<Search> getSearches() {
         return searches;
     }
 }

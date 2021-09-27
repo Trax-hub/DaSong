@@ -12,11 +12,11 @@ public class Search {
     private int rank;
     private boolean explicit_lyrics;
     private String preview;
-    private com.example.bereal.Artiste artist;
-    private com.example.bereal.Album album;
+    private Artiste artist;
+    private Album album;
     private String type;
 
-    public Search(int id, boolean readable, String title, String title_short, String title_version, String link, int duration, int rank, boolean explicit_lyrics, String preview, com.example.bereal.Artiste artist, com.example.bereal.Album album) {
+    public Search(int id, boolean readable, String title, String title_short, String title_version, String link, int duration, int rank, boolean explicit_lyrics, String preview, Artiste artist, Album album) {
         this.id = id;
         this.readable = readable;
         this.title = title;
@@ -90,11 +90,11 @@ public class Search {
         return preview;
     }
 
-    public com.example.bereal.Artiste getArtist() {
+    public Artiste getArtist() {
         return artist;
     }
 
-    public com.example.bereal.Album getAlbum() {
+    public Album getAlbum() {
         return album;
     }
 

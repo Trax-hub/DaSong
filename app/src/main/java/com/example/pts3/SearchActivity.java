@@ -29,8 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-
+public class SearchActivity extends AppCompatActivity {
     private Button validateButton;
 
     private TextView mGreetingTextView;
@@ -41,20 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        validateButton = (Button) findViewById(R.id.validateButton);
-
-
-        validateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //ACTION A REALISER
-            }
-        });
-
-
-
+        setContentView(R.layout.search);
 
         mGreetingTextView = findViewById(R.id.main_textview_greeting);
         mNameEditText = findViewById(R.id.main_editText_name);
@@ -156,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void display(Root root){
-        ListAdapter listAdapter = new ListAdapter(MainActivity.this , root.getSearches());
+        ListAdapter listAdapter = new ListAdapter(SearchActivity.this , root.getSearches());
         ListView listView = (ListView) findViewById(R.id.list_item);
         listView.setAdapter(listAdapter);
     }
