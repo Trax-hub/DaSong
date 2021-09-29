@@ -8,6 +8,32 @@
     android:background="#3A3A47"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/button_search_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:layout_above="@id/view_song">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search_button"
+            android:layout_width="350dp"
+            android:layout_height="52dp"
+            android:background="@drawable/login_button"
+            android:drawableStart="@drawable/search_icon"
+            android:paddingLeft="60dp"
+            android:paddingRight="50dp"
+            android:text="Rechercher"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+
+            />
+
+
+    </LinearLayout>
+
     <View
         android:id="@+id/view_song"
         android:layout_width="352dp"
@@ -31,7 +57,7 @@
         android:id="@+id/textField_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/buttonLayout"
+        android:layout_above="@id/button_validate_layout"
         android:layout_marginBottom="32dp"
         android:gravity="center_horizontal">
 
@@ -46,7 +72,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/buttonLayout"
+        android:id="@+id/button_validate_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -54,7 +80,7 @@
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/validateButton"
+            android:id="@+id/validate_button"
             android:layout_width="288dp"
             android:layout_height="52dp"
             android:background="@drawable/login_button"
