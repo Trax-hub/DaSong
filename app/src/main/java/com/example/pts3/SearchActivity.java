@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,13 +29,20 @@ public class SearchActivity extends AppCompatActivity {
     private EditText editText;
 
     private static HttpURLConnection connection;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+<<<<<<< Updated upstream
 
         editText = findViewById(R.id.editText);
+=======
+        listView = (ListView) findViewById(R.id.list_item);
+        mGreetingTextView = findViewById(R.id.main_textview_greeting);
+        mNameEditText = findViewById(R.id.main_editText_name);
+>>>>>>> Stashed changes
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,7 +77,6 @@ public class SearchActivity extends AppCompatActivity {
         });
 
     }
-
 
     private ArrayList<Track> getListTrack(String s){
 
@@ -132,7 +139,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private void display(ArrayList<Track> trackList){
         ListAdapter listAdapter = new ListAdapter(this, trackList);
-        ListView listView = (ListView) findViewById(R.id.list_item);
         listView.setAdapter(listAdapter);
     }
 

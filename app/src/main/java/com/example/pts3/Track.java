@@ -5,11 +5,11 @@ import java.net.URL;
 public class Track {
 
     private String title;
-    private URL preview;
+    private String preview;
     private String artistName;
     private String cover;
 
-    public Track(String title, URL preview, String artistName, String cover) {
+    public Track(String title, String preview, String artistName, String cover) {
         this.title = title;
         this.preview = preview;
         this.artistName = artistName;
@@ -20,7 +20,7 @@ public class Track {
         return title;
     }
 
-    public URL getPreview() {
+    public String getPreview() {
         return preview;
     }
 

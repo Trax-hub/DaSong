@@ -13,12 +13,12 @@ public class Search {
     private int duration;
     private int rank;
     private boolean explicit_lyrics;
-    private URL preview;
+    private String preview;
     private Artist artist;
     private Album album;
     private String type;
 
-    public Search(int id, boolean readable, String title, String title_short, String title_version, String link, int duration, int rank, boolean explicit_lyrics, URL preview, Artist artist, Album album) {
+    public Search(int id, boolean readable, String title, String title_short, String title_version, String link, int duration, int rank, boolean explicit_lyrics, String preview, Artist artist, Album album) {
         this.id = id;
         this.readable = readable;
         this.title = title;
@@ -88,7 +88,7 @@ public class Search {
         return explicit_lyrics;
     }
 
-    public URL getPreview() {
+    public String getPreview() {
         return preview;
     }
 
