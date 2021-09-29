@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static HttpURLConnection connection;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ACTION A REALISER
+                setContentView(R.layout.search);
             }
         });
 
