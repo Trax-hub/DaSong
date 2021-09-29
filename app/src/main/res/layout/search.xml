@@ -7,23 +7,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@drawable/search_background"
+    android:background="#4D4D5E"
     >
 
     <LinearLayout
         android:id="@+id/reseach"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_above="@+id/validateButton">
+        android:layout_height="550dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp">
 
         <TextView
             android:id="@+id/main_textview_greeting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rechercher un morceau"
             android:layout_marginStart="8dp"
             android:padding="8dp"
+            android:text="Rechercher un morceau"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -36,26 +36,40 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@color/white"
-            android:hint="Recherche..."/>
+            android:hint="Recherche..."
+            android:textColor="@color/white" />
 
         <ListView
-            android:id ="@+id/list_item"
-            android:layout_marginTop="10dp"
+            android:id="@+id/list_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_item"/>
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/list_item" />
+
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/reseach"
+        android:gravity="center_horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/validateButton"
+            layout_alignParentBottom="true"
             android:layout_width="288dp"
             android:layout_height="52dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/login_button"
             android:text="Valider"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="20sp"
 
+
+            />
+
+    </LinearLayout>
 
 </RelativeLayout>
