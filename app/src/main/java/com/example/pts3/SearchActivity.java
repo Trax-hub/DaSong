@@ -33,11 +33,10 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.Activity_search);
+        setContentView(R.layout.activity_search);
 
         mGreetingTextView = findViewById(R.id.main_textview_greeting);
         mNameEditText = findViewById(R.id.main_editText_name);
-
 
         mNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
