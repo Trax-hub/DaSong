@@ -14,11 +14,12 @@ import androidx.annotation.Nullable;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListAdapter extends ArrayAdapter<Search> {
+public class ListAdapter extends ArrayAdapter<Track> {
 
-    public ListAdapter(Context context, ArrayList<Search> searchArrayList){
-        super(context, R.layout.list_item,R.id.trackName,searchArrayList);
+    public ListAdapter(Context context, ArrayList<Track> searchArrayList){
+        super(context, R.layout.list_item,R.id.trackName, searchArrayList);
     }
 
     @NonNull
@@ -27,7 +28,7 @@ public class ListAdapter extends ArrayAdapter<Search> {
 
         View view = super.getView(position, convertView, parent);
 
-        Search search = getItem(position);
+        Track tracks = getItem(position);
 
         if (view == null){
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
@@ -37,9 +38,9 @@ public class ListAdapter extends ArrayAdapter<Search> {
         TextView track = view.findViewById(R.id.trackName);
         TextView artist = view.findViewById(R.id.artist);
 
-        Picasso.get().load(search.getAlbum().getCoverSmall()).fit().into(cover);
-        track.setText(search.getTitle());
-        artist.setText(search.getArtist().getName());
+        Picasso.get().load(tracks.getCover()).fit().into(cover);
+        track.setText(tracks.getTitle());
+        artist.setText(tracks.getArtistName());
 
         return view;
     }

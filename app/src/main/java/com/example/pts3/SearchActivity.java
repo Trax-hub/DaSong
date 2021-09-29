@@ -28,6 +28,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private Button validateButton;
@@ -64,32 +65,28 @@ public class SearchActivity extends AppCompatActivity {
                     return;
                 }
 
-                final Root[] root = new Root[1];
+                final ArrayList<Track>[] tracks = (ArrayList<Track>[]) new ArrayList<?>[1];
 
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        root[0] = getListTrack(s);
-                    }
-                });
+                Thread thread = new Thread(() -> tracks[0] = getListTrack(s));
                 thread.start();
                 try {
                     thread.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                display(root[0]);
+
+                display(tracks[0]);
             }
         });
 
     }
 
 
-    public Root getListTrack(String s){
+    private ArrayList<Track> getListTrack(String s){
 
         BufferedReader reader;
         String line;
-        StringBuffer responseContent = new StringBuffer();
+        StringBuilder responseContent = new StringBuilder();
         Root root = new Root(new ArrayList<Search>());
 
 
@@ -126,9 +123,6 @@ public class SearchActivity extends AppCompatActivity {
             root = gson.fromJson(responseContent.toString(), Root.class);
             System.out.println(root.toString());
             root.display();
-            for (Search search : root.getSearches()) {
-                System.out.println(search.getPreview());
-            }
 
             connection.disconnect();
 
@@ -138,12 +132,21 @@ public class SearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        return root;
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        for(Search search : root.getSearches()){
+            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover()));
+        }
+
+        return tracks;
     }
 
-    public void display(Root root){
-        ListAdapter listAdapter = new ListAdapter(SearchActivity.this , root.getSearches());
+    private void display(ArrayList<Track> trackList){
+        ListAdapter listAdapter = new ListAdapter(this, trackList);
         ListView listView = (ListView) findViewById(R.id.list_item);
         listView.setAdapter(listAdapter);
     }
+
+
+
 }
