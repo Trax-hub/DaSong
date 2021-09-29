@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.search);
+                //action a coder
             }
         });
 
