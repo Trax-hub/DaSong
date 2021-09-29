@@ -50,8 +50,10 @@ public class ListAdapter extends ArrayAdapter<Track> {
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayer.reset();
-               playAudio(tracks.getPreview());
+                if(mediaPlayer.isPlaying())
+                    mediaPlayer.reset();
+               else
+                   playAudio(tracks.getPreview());
             }
         });
 
