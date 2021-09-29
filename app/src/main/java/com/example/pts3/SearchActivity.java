@@ -35,14 +35,9 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-<<<<<<< Updated upstream
 
         editText = findViewById(R.id.editText);
-=======
         listView = (ListView) findViewById(R.id.list_item);
-        mGreetingTextView = findViewById(R.id.main_textview_greeting);
-        mNameEditText = findViewById(R.id.main_editText_name);
->>>>>>> Stashed changes
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
