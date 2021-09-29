@@ -21,7 +21,7 @@
             android:layout_width="350dp"
             android:layout_height="52dp"
             android:background="@drawable/login_button"
-            android:drawableStart="@drawable/search_icon"
+            android:drawableStart="@drawable/ic_search"
             android:paddingLeft="60dp"
             android:paddingRight="50dp"
             android:text="Rechercher"

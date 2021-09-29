@@ -25,8 +25,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
     private Button validateButton;
 
-    private TextView mGreetingTextView;
-    private EditText mNameEditText;
+    private EditText editText;
 
     private static HttpURLConnection connection;
 
@@ -35,10 +34,9 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        mGreetingTextView = findViewById(R.id.main_textview_greeting);
-        mNameEditText = findViewById(R.id.main_editText_name);
+        editText = findViewById(R.id.editText);
 
-        mNameEditText.addTextChangedListener(new TextWatcher() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
             }
