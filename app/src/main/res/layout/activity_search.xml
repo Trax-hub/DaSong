@@ -28,7 +28,7 @@
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
             android:hint="Recherche..."
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <ListView
             android:id="@+id/list_item"

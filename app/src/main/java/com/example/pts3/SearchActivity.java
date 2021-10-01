@@ -45,7 +45,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         editText = findViewById(R.id.editText);
+
         listView = (ListView) findViewById(R.id.list_item);
+        editText = findViewById(R.id.editText);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
