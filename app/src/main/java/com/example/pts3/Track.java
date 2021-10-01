@@ -32,5 +32,13 @@ public class Track {
         return cover;
     }
 
-
+    @Override
+    public String toString() {
+        return "Track{" +
+                "title='" + title + '\'' +
+                ", preview='" + preview + '\'' +
+                ", artistName='" + artistName + '\'' +
+                ", cover='" + cover + '\'' +
+                '}';
+    }
 }

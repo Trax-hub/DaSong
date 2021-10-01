@@ -57,6 +57,10 @@ public class ListAdapter extends ArrayAdapter<Track> {
             }
         });
 
+        System.out.println(tracks.getCover());
+        System.out.println();
+        System.out.println();
+        System.out.println();
         Picasso.get().load(tracks.getCover()).fit().into(cover);
         track.setText(tracks.getTitle());
         artist.setText(tracks.getArtistName());
@@ -77,4 +81,7 @@ public class ListAdapter extends ArrayAdapter<Track> {
 
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 }

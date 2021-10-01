@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button validateButton;
     private Button searchButton;
+    private Track track;
 
 
     private TextView mGreetingTextView;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
+    public void setTrack(Track track) {
+        this.track = track;
+    }
 }

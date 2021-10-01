@@ -1,12 +1,19 @@
 package com.example.pts3;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -30,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private static HttpURLConnection connection;
     ListView listView;
+    Track selectedTrack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,36 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
                 display(tracks[0]);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                selectedTrack = (Track) listView.getItemAtPosition(position);
+                System.out.println(selectedTrack.toString());
+                view.setSelected(true);
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Sélection");
+                builder.setMessage("Êtes-vous sûrs de votre choix ?");
+                builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // TODO Finir
+                        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        //startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
@@ -136,7 +174,5 @@ public class SearchActivity extends AppCompatActivity {
         ListAdapter listAdapter = new ListAdapter(this, trackList);
         listView.setAdapter(listAdapter);
     }
-
-
 
 }
