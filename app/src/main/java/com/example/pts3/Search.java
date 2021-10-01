@@ -105,13 +105,13 @@ public class Search {
     }
 
     public class Album{
-        public int id;
-        public String title;
-        public String cover;
-        public String cover_small;
-        public String cover_medium;
-        public String cover_big;
-        public String cover_xl;
+        private int id;
+        private String title;
+        private String cover;
+        private String cover_small;
+        private String cover_medium;
+        private String cover_big;
+        private String cover_xl;
 
         public Album(int id, String title, String cover, String cover_small, String cover_medium, String cover_big, String cover_xl) {
             this.id = id;
@@ -153,14 +153,14 @@ public class Search {
     }
 
     public class Artist{
-        public int id;
-        public String name;
-        public URL link;
-        public URL picture;
-        public URL picture_small;
-        public URL picture_medium;
-        public URL picture_big;
-        public URL picture_xl;
+        private int id;
+        private String name;
+        private URL link;
+        private URL picture;
+        private URL picture_small;
+        private URL picture_medium;
+        private URL picture_big;
+        private URL picture_xl;
 
         public Artist(int id, String name, URL link, URL picture, URL picture_small, URL picture_medium, URL picture_big, URL picture_xl) {
             this.id = id;

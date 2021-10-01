@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             track = (Track) i.getSerializableExtra("Track");
             selectedArtist.setText(track.getArtistName());
             selectedSong.setText(track.getTitle());
-            Picasso.get().load(track.getCover()).fit().into(selectedCover);
+            Picasso.get().load(track.getCoverMax()).fit().into(selectedCover);
         }
 
     }

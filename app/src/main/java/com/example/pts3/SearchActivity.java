@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
-    private Button validateButton;
 
     private EditText editText;
 
@@ -166,7 +165,7 @@ public class SearchActivity extends AppCompatActivity {
         ArrayList<Track> tracks = new ArrayList<>();
 
         for(Search search : root.getSearches()){
-            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover_medium()));
+            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover(), search.getAlbum().getCover_big()));
         }
 
         return tracks;
