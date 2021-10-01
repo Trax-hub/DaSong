@@ -16,11 +16,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private Button validateButton;
     private Button searchButton;
     private Track track;
-
+    private ImageView selectedCover;
+    private TextView selectedArtist;
+    private TextView selectedSong;
 
     private TextView mGreetingTextView;
     private EditText mNameEditText;
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         validateButton = (Button) findViewById(R.id.validate_button);
 
@@ -67,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent i = getIntent();
+
+        if(i.getSerializableExtra("Track") != null){
+            track = (Track) i.getSerializableExtra("Track");
+            selectedArtist.setText(track.getArtistName());
+            selectedSong.setText(track.getTitle());
+            Picasso.get().load(track.getCover()).fit().into(selectedCover);
+        }
+
     }
 
     public void openSearchActivity(){
@@ -74,7 +89,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void setTrack(Track track) {
-        this.track = track;
-    }
 }

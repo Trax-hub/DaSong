@@ -94,9 +94,9 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // TODO Finir
-                        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("Track", selectedTrack);
+                        startActivity(intent);
                     }
                 });
                 builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -166,7 +166,7 @@ public class SearchActivity extends AppCompatActivity {
         ArrayList<Track> tracks = new ArrayList<>();
 
         for(Search search : root.getSearches()){
-            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover()));
+            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover_medium()));
         }
 
         return tracks;
