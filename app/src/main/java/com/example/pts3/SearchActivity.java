@@ -164,7 +164,7 @@ public class SearchActivity extends AppCompatActivity {
         ArrayList<Track> tracks = new ArrayList<>();
 
         for(Search search : root.getSearches()){
-            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover()));
+            tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover_medium()));
         }
 
         return tracks;
