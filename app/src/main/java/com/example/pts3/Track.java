@@ -1,8 +1,9 @@
 package com.example.pts3;
 
+import java.io.Serializable;
 import java.net.URL;
 
-public class Track {
+public class Track implements Serializable {
 
     private String title;
     private String preview;

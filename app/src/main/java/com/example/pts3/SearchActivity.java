@@ -92,9 +92,9 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // TODO Finir
-                        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("Track", selectedTrack);
+                        startActivity(intent);
                     }
                 });
                 builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
