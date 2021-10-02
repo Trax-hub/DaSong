@@ -9,4 +9,12 @@ public class Post {
         this.track = track;
         this.description = description;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Track getTrack() {
+        return track;
+    }
 }

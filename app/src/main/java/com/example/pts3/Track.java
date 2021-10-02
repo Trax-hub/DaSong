@@ -46,6 +46,7 @@ public class Track implements Serializable {
                 ", preview='" + preview + '\'' +
                 ", artistName='" + artistName + '\'' +
                 ", cover='" + cover + '\'' +
+                ", coverMax='" + coverMax + '\'' +
                 '}';
     }
 }
