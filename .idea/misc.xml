@@ -9,6 +9,7 @@
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/description_backgroud.xml" value="0.16875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/description_background.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_play.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_search.xml" value="0.16510416666666666" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/login_button.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/rectangle4.xml" value="0.19282051282051282" />
@@ -16,8 +17,8 @@
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/song_background.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/Activity_search.xml" value="0.1796875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_connexion.xml" value="0.1796875" />
-        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_search.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_search.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/connexion_layout.xml" value="0.1796875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/list_item.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/search.xml" value="0.16666666666666666" />

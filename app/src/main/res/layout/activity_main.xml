@@ -13,14 +13,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:gravity="center"
-        android:layout_above="@id/view_song">
+        android:layout_marginTop="8dp"
+        android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/search_button"
             android:layout_width="350dp"
             android:layout_height="52dp"
-            android:background="@drawable/login_button"
+            android:background="@drawable/default_button"
             android:drawableStart="@drawable/ic_search"
             android:paddingLeft="60dp"
             android:paddingRight="50dp"
@@ -39,6 +39,7 @@
         android:layout_width="352dp"
         android:layout_height="340dp"
         android:layout_above="@id/description_label"
+        android:layout_below="@id/button_search_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:background="@drawable/song_background" />
@@ -63,7 +64,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="354dp"
-            android:layout_height="92dp"
+            android:layout_height="64dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/description_background"
             android:gravity="start"
@@ -76,20 +77,20 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/validate_button"
             android:layout_width="288dp"
             android:layout_height="52dp"
-            android:background="@drawable/login_button"
+            android:background="@drawable/default_button"
             android:text="Valider"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
 
-        />
+            />
 
 
     </LinearLayout>
