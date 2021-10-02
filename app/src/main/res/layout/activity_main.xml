@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#3A3A47"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/button_search_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center">
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/view_song"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/search_button"
@@ -30,95 +31,117 @@
             android:textSize="20sp"
 
             />
-
-
     </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/view_song"
-        android:layout_width="352dp"
-        android:layout_height="340dp"
-        android:layout_above="@id/description_label"
-        android:layout_below="@id/button_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
-    android:background="@drawable/song_background"
-    android:gravity="center">
+        android:layout_margin="16dp"
+        android:background="@drawable/song_background"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_search_layout">
 
-    <RelativeLayout
-        android:id="@+id/cover_layout"
-        android:layout_width="600px"
-        android:layout_height="600px"
-        android:layout_centerHorizontal="true">
+        <RelativeLayout
+            android:id="@+id/cover_layout"
+            android:layout_width="600px"
+            android:layout_height="600px"
+            android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:id="@+id/selected_cover"
-            android:layout_width="400px"
-            android:layout_height="400px"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            <ImageView
+                android:id="@+id/selected_cover"
+                android:layout_width="400px"
+                android:layout_height="400px"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
 
-        <ImageView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_play" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/track_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_play" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cover_layout"
+            android:layout_marginTop="1dp"
+            android:text="Titre du son"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/track_artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/track_title"
+            android:text="Artiste"
+            android:textAlignment="center"
+            android:layout_marginBottom="8dp"/>
+
+
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/track_title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/cover_layout"
-        android:text="Titre" />
-    <TextView
-        android:id="@+id/track_artist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/track_title"
-        android:text="Artiste"/>
-
-
-
-
-</RelativeLayout>
-
-    <TextView
-        android:id="@+id/description_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/textField_description"
-        android:layout_marginHorizontal="32dp"
-        android:text="Description"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField_description"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/button_validate_layout"
-        android:layout_marginBottom="32dp"
-        android:gravity="center_horizontal">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button_validate_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_song">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/description"
-            android:layout_width="354dp"
-            android:layout_height="64dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/description_background"
-            android:gravity="start"
-            android:padding="5dp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/description_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:text="Description"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description"
+                android:layout_width="354dp"
+                android:layout_height="64dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/description_background"
+                android:gravity="start"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/button_validate_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:gravity="center">
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/validate_button"
@@ -135,4 +158,5 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
