@@ -62,6 +62,7 @@
                 android:layout_centerVertical="true" />
 
             <ImageView
+                android:id="@+id/pause_play"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"

@@ -4,42 +4,24 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,19 +34,38 @@ public class MainActivity extends AppCompatActivity {
     private ImageView selectedCover;
     private TextView selectedArtist;
     private TextView selectedSong;
+    private ImageView pausePlay;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        selectedSong = findViewById(R.id.track_title);
-        selectedArtist = findViewById(R.id.track_artist);
-        selectedCover = findViewById(R.id.selected_cover);
-        description = findViewById(R.id.description);
-
+        selectedSong = (TextView) findViewById(R.id.track_title);
+        selectedArtist = (TextView) findViewById(R.id.track_artist);
+        selectedCover = (ImageView) findViewById(R.id.selected_cover);
+        description = (TextInputEditText) findViewById(R.id.description);
+        pausePlay = (ImageView) findViewById(R.id.pause_play);
         validateButton = (Button) findViewById(R.id.validate_button);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        pausePlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mediaPlayer == null){
+                    mediaPlayer = new MediaPlayer();
+                    playAudio(track.getPreview());
+                } else {
+                    if(mediaPlayer.isPlaying()){
+                        mediaPlayer.pause();
+                    } else {
+                        mediaPlayer.start();
+                    }
+                }
+
+            }
+        });
 
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +120,19 @@ public class MainActivity extends AppCompatActivity {
     public void openSearchActivity(){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
+    }
+
+    private void playAudio(String preview){
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+        try {
+            mediaPlayer.setDataSource(preview);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

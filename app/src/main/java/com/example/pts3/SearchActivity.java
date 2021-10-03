@@ -84,6 +84,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 selectedTrack = (Track) listView.getItemAtPosition(position);
+                ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+                listAdapter.getMediaPlayer().stop();
                 System.out.println(selectedTrack.toString());
                 view.setSelected(true);
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
@@ -93,6 +95,7 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.putExtra("Track", selectedTrack);
                         startActivity(intent);
