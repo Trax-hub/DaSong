@@ -21,14 +21,18 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -124,6 +128,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         try {
+            s = StringUtils.stripAccents(s);
             s = s.replace(" ", "");
             s = "https://api.deezer.com/search?q=" + s;
             URL url = new URL(s);

@@ -41,6 +41,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-firestore'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 }
 
 apply plugin: 'com.android.application'
