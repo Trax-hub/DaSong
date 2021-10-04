@@ -129,7 +129,7 @@ public class SearchActivity extends AppCompatActivity {
 
         try {
             s = StringUtils.stripAccents(s);
-            s = s.replace(" ", "");
+            s = s.replace(" ", "_");
             s = "https://api.deezer.com/search?q=" + s;
             URL url = new URL(s);
             connection = (HttpURLConnection) url.openConnection();
