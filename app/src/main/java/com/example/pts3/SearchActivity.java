@@ -94,7 +94,7 @@ public class SearchActivity extends AppCompatActivity {
                 view.setSelected(true);
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setCancelable(true);
-                builder.setTitle("Sélection");
+                builder.setTitle("Sélection :");
                 builder.setMessage("Êtes-vous sûrs de votre choix ?");
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
