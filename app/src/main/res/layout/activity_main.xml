@@ -22,7 +22,7 @@
             android:id="@+id/search_button"
             android:layout_width="350dp"
             android:layout_height="52dp"
-            android:background="@drawable/default_button"
+            android:background="@drawable/search_button"
             android:drawableStart="@drawable/ic_search"
             android:paddingLeft="60dp"
             android:paddingRight="50dp"
