@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         selectedSong = (TextView) findViewById(R.id.track_title);
         selectedArtist = (TextView) findViewById(R.id.track_artist);
         selectedCover = (ImageView) findViewById(R.id.selected_cover);

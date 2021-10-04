@@ -50,21 +50,22 @@
 
         <RelativeLayout
             android:id="@+id/cover_layout"
-            android:layout_width="600px"
-            android:layout_height="600px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true">
 
             <ImageView
+                android:layout_marginTop="32dp"
                 android:id="@+id/selected_cover"
-                android:layout_width="400px"
-                android:layout_height="400px"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/pause_play"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_play" />
         </RelativeLayout>
@@ -75,9 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cover_layout"
             android:layout_marginTop="1dp"
-            android:text="Titre du son"
+            android:text="Titre"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/track_artist"
@@ -85,8 +86,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/track_title"
             android:text="Artiste"
+            android:textSize="16sp"
             android:textAlignment="center"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="16dp" />
 
 
     </RelativeLayout>
@@ -154,7 +156,6 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-
             />
 
 
