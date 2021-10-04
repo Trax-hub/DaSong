@@ -26,6 +26,7 @@
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
+            android:paddingLeft="8dp"
             android:hint="Recherche..."
             android:textColor="@color/white" />
 
