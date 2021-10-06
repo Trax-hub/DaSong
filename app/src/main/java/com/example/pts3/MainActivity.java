@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mediaPlayer == null){
+                if(pausePlay.setImageResource()){
+                    if(mediaPlayer == null){
                     mediaPlayer = new MediaPlayer();
                     playAudio(track.getPreview());
                 } else {
