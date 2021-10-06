@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<Track> {
 
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
 
     public ListAdapter(Context context, ArrayList<Track> searchArrayList){
         super(context, R.layout.list_item,R.id.trackName, searchArrayList);

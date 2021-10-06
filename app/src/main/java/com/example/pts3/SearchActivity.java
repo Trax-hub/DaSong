@@ -39,8 +39,8 @@ public class SearchActivity extends AppCompatActivity {
     private EditText editText;
 
     private static HttpURLConnection connection;
-    ListView listView;
-    Track selectedTrack;
+    private ListView listView;
+    private Track selectedTrack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +177,13 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         return tracks;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+        listAdapter.getMediaPlayer().stop();
     }
 
     private void display(ArrayList<Track> trackList){
