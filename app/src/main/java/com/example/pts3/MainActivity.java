@@ -57,24 +57,26 @@ public class MainActivity extends AppCompatActivity {
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch(mLastRessource){
-                    case R.drawable.ic_play:
-                        pausePlay.setImageResource(R.drawable.ic_pause);
-                        mLastRessource = R.drawable.ic_pause;
-                        break;
-                    case R.drawable.ic_pause:
-                        pausePlay.setImageResource(R.drawable.ic_play);
-                        mLastRessource = R.drawable.ic_play;
-                        break;
-                }
-                if(mediaPlayer == null){
-                    mediaPlayer = new MediaPlayer();
-                    playAudio(track.getPreview());
-                } else {
-                    if(mediaPlayer.isPlaying()){
-                        mediaPlayer.pause();
+                if(track != null) {
+                    switch (mLastRessource) {
+                        case R.drawable.ic_play:
+                            pausePlay.setImageResource(R.drawable.ic_pause);
+                            mLastRessource = R.drawable.ic_pause;
+                            break;
+                        case R.drawable.ic_pause:
+                            pausePlay.setImageResource(R.drawable.ic_play);
+                            mLastRessource = R.drawable.ic_play;
+                            break;
+                    }
+                    if (mediaPlayer == null) {
+                        mediaPlayer = new MediaPlayer();
+                        playAudio(track.getPreview());
                     } else {
-                        mediaPlayer.start();
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                        } else {
+                            mediaPlayer.start();
+                        }
                     }
                 }
 
