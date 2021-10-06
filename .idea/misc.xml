@@ -10,7 +10,6 @@
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/description_backgroud.xml" value="0.16875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/description_background.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_pause.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_play.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/ic_search.xml" value="0.16510416666666666" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/drawable/login_button.xml" value="0.19583333333333333" />
@@ -21,14 +20,28 @@
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/Activity_search.xml" value="0.1796875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_connexion.xml" value="0.1796875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_constraint.xml" value="0.22" />
-        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_main.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_main.xml" value="0.12" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/activity_search.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/connexion_layout.xml" value="0.1796875" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/list_item.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Pablo/AndroidStudioProjects/PTS3/app/src/main/res/layout/search.xml" value="0.16666666666666666" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/cassette_logo.xml" value="0.42999984741701175" />
+        <entry key="app/src/main/res/drawable/color.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/custom_input.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/default_button.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/description_background.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/ic_cassette_tape_svgrepo_com_1.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/ic_play.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/search_background.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/select.xml" value="0.11822916666666666" />
+        <entry key="app/src/main/res/drawable/song_background.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10208333333333333" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.10208333333333333" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.13148148148148148" />
       </map>
     </option>
   </component>
