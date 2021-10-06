@@ -181,16 +181,9 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-        listAdapter.getMediaPlayer().stop();
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+        ListAdapter listAdapter= (ListAdapter) listView.getAdapter();
         listAdapter.getMediaPlayer().stop();
-        super.onDestroy();
     }
 
     private void display(ArrayList<Track> trackList){
