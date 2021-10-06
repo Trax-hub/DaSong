@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView selectedSong;
     private ImageView pausePlay;
     private MediaPlayer mediaPlayer;
+    private int mLastRessource = R.drawable.ic_play;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         selectedSong = (TextView) findViewById(R.id.track_title);
         selectedArtist = (TextView) findViewById(R.id.track_artist);
@@ -55,8 +57,17 @@ public class MainActivity extends AppCompatActivity {
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(pausePlay.setImageResource()){
-                    if(mediaPlayer == null){
+                switch(mLastRessource){
+                    case R.drawable.ic_play:
+                        pausePlay.setImageResource(R.drawable.ic_pause);
+                        mLastRessource = R.drawable.ic_pause;
+                        break;
+                    case R.drawable.ic_pause:
+                        pausePlay.setImageResource(R.drawable.ic_play);
+                        mLastRessource = R.drawable.ic_play;
+                        break;
+                }
+                if(mediaPlayer == null){
                     mediaPlayer = new MediaPlayer();
                     playAudio(track.getPreview());
                 } else {
