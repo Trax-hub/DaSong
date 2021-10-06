@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         description = (TextInputEditText) findViewById(R.id.description);
         pausePlay = (ImageView) findViewById(R.id.pause_play);
         validateButton = (Button) findViewById(R.id.validate_button);
-        selectedCover.setImageResource(R.drawable.bug_technique_m6);
+        selectedCover.setImageResource(R.drawable.general_cover);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
