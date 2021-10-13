@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView selectedSong;
     private ImageView pausePlay;
     private MediaPlayer mediaPlayer;
-    private int mLastRessource = R.drawable.ic_play;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,24 +57,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(track != null) {
-                    switch (mLastRessource) {
-                        case R.drawable.ic_play:
-                            pausePlay.setImageResource(R.drawable.ic_pause);
-                            mLastRessource = R.drawable.ic_pause;
-                            break;
-                        case R.drawable.ic_pause:
-                            pausePlay.setImageResource(R.drawable.ic_play);
-                            mLastRessource = R.drawable.ic_play;
-                            break;
-                    }
                     if (mediaPlayer == null) {
                         mediaPlayer = new MediaPlayer();
                         playAudio(track.getPreview());
+                        mediaPlayer.start();
+                        pausePlay.setImageResource(R.drawable.ic_pause);
                     } else {
                         if (mediaPlayer.isPlaying()) {
                             mediaPlayer.pause();
+                            pausePlay.setImageResource(R.drawable.ic_play);
                         } else {
                             mediaPlayer.start();
+                            pausePlay.setImageResource(R.drawable.ic_pause);
+                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                public void onCompletion(MediaPlayer mp) {
+                                    pausePlay.setImageResource(R.drawable.ic_play);
+                                    mediaPlayer = null; // finish current activity
+                                }
+                            });
                         }
                     }
                 }

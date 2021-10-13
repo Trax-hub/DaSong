@@ -90,7 +90,6 @@ public class SearchActivity extends AppCompatActivity {
                 selectedTrack = (Track) listView.getItemAtPosition(position);
                 ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
                 listAdapter.getMediaPlayer().stop();
-                System.out.println(selectedTrack.toString());
                 view.setSelected(true);
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setCancelable(true);
@@ -108,7 +107,6 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                     }
                 });
 
@@ -155,11 +153,9 @@ public class SearchActivity extends AppCompatActivity {
                 reader.close();
             }
 
-            System.out.println(responseContent.toString());
 
             Gson gson = new Gson();
             root = gson.fromJson(responseContent.toString(), Root.class);
-            System.out.println(root.toString());
             root.display();
 
             connection.disconnect();
@@ -175,15 +171,13 @@ public class SearchActivity extends AppCompatActivity {
         for(Search search : root.getSearches()){
             tracks.add( new Track(search.getTitle(), search.getPreview(), search.getArtist().getName(), search.getAlbum().getCover(), search.getAlbum().getCover_big()));
         }
-
-        return tracks;
+            return tracks;
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ListAdapter listAdapter= (ListAdapter) listView.getAdapter();
-        listAdapter.getMediaPlayer().stop();
+        finish();
     }
 
     private void display(ArrayList<Track> trackList){
@@ -191,4 +185,11 @@ public class SearchActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
     }
 
+    @Override
+    public void finish() {
+        ListAdapter listAdapter= (ListAdapter) listView.getAdapter();
+        super.finish();
+
+
+    }
 }
