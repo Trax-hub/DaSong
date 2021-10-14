@@ -19,11 +19,6 @@ public class Root {
                 '}';
     }
 
-    public void display(){
-        for(Search search : searches){
-            System.out.println(search.toString());
-        }
-    }
 
     public ArrayList<Search> getSearches() {
         return searches;

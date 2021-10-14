@@ -1,23 +1,17 @@
 package com.example.pts3;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import android.os.Parcelable;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
@@ -29,10 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -156,7 +147,6 @@ public class SearchActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             root = gson.fromJson(responseContent.toString(), Root.class);
-            root.display();
 
             connection.disconnect();
 

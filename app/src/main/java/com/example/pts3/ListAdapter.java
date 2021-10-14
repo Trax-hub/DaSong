@@ -3,7 +3,6 @@ package com.example.pts3;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,7 @@ import androidx.annotation.Nullable;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListAdapter extends ArrayAdapter<Track> {
 
@@ -57,7 +54,6 @@ public class ListAdapter extends ArrayAdapter<Track> {
             }
         });
 
-        System.out.println(tracks.getCover());
         Picasso.get().load(tracks.getCover()).fit().into(cover);
         track.setText(tracks.getTitle());
         artist.setText(tracks.getArtistName());

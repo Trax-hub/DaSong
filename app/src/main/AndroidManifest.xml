@@ -22,26 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity">
-            android:name=".SearchActivity"
+        <activity android:name=".SearchActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ConnectionActivity">
-            android:name=".ConnectionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignInActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <!--<service
+            android:name=""
+            android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </activity>
+        </service> -->
     </application>
 
 </manifest>

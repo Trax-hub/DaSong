@@ -2,8 +2,6 @@ package com.example.pts3;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -14,9 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -36,22 +39,32 @@ public class MainActivity extends AppCompatActivity {
     private TextView selectedSong;
     private ImageView pausePlay;
     private MediaPlayer mediaPlayer;
+    private FirebaseAuth firebaseAuth;
+    private Button logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
-
-
         selectedSong = (TextView) findViewById(R.id.track_title);
         selectedArtist = (TextView) findViewById(R.id.track_artist);
         selectedCover = (ImageView) findViewById(R.id.selected_cover);
         description = (TextInputEditText) findViewById(R.id.description);
         pausePlay = (ImageView) findViewById(R.id.pause_play);
         validateButton = (Button) findViewById(R.id.validate_button);
+        logOut = (Button) findViewById(R.id.logOut);
         selectedCover.setImageResource(R.drawable.general_cover);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            }
+        });
 
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +143,19 @@ public class MainActivity extends AppCompatActivity {
             Picasso.get().load(track.getCoverMax()).fit().into(selectedCover);
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser == null){
+            openSignInActivity();
+        }
+    }
+
+    private void openSignInActivity(){
+        startActivity(new Intent(this, SignInActivity.class));
     }
 
     public void openSearchActivity(){
