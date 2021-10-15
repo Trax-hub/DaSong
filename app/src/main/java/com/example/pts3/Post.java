@@ -4,10 +4,12 @@ public class Post {
 
     private Track track;
     private String description;
+    private String creatorUid;
 
-    public Post(Track track, String description) {
+    public Post(Track track, String description, String creatorUid) {
         this.track = track;
         this.description = description;
+        this.creatorUid = creatorUid;
     }
 
     public String getDescription() {

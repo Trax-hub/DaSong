@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(track != null){
-                    Post post = new Post(track, description.getText().toString());
+                    Post post = new Post(track, description.getText().toString(), firebaseAuth.getCurrentUser().getUid());
                     Map<String, Object> postMap = new HashMap<>();
                     postMap.put("artist", post.getTrack().getArtistName());
                     postMap.put("cover", post.getTrack().getCover());
