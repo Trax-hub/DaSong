@@ -24,10 +24,10 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/custom_input"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="12dp"
-            android:paddingLeft="8dp"
+            android:drawableEnd="@drawable/ic_search"
+            android:padding="16dp"
             android:hint="Recherche..."
+            android:imeOptions="actionGo"
             android:textColor="@color/white" />
 
         <ListView
