@@ -1,7 +1,5 @@
 package com.example.pts3;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -110,18 +108,19 @@ public class MainActivity extends AppCompatActivity {
                     postMap.put("description", post.getDescription());
                     postMap.put("preview", post.getTrack().getPreview());
                     postMap.put("title", post.getTrack().getTitle());
+                    postMap.put("userID", firebaseAuth.getCurrentUser().getUid());
                     db.collection("/Post")
                             .add(postMap)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "Document snapshot added with ID : " + documentReference.getId());
+                                    Log.d("Firestore", "Document snapshot added with ID : " + documentReference.getId());
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
+                                    Log.w("Firestore", "Error adding document", e);
                                 }
                             });
                 }
