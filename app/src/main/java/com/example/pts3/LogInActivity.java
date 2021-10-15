@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private Button signIn;
@@ -26,7 +26,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connection);
+        setContentView(R.layout.activity_login);
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -75,9 +75,10 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                    startActivity(new Intent(LogInActivity.this, MainActivity.class));
+                    finish();
                 } else {
-                    Toast.makeText(SignInActivity.this, "Failed to login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LogInActivity.this, "Failed to login", Toast.LENGTH_LONG).show();
                 }
             }
         });
