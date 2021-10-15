@@ -10,4 +10,12 @@ public class User implements Serializable {
         this.mail = mail;
         this.pseudo = pseudo;
     }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public String getMail(){
+        return mail;
+    }
 }
