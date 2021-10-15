@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class RegisterActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private EditText pseudo, mail, password;
     private Button button;
@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -97,10 +97,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if(task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this, "Nouvel utilisateur ajouté", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(RegisterActivity.this, SignInActivity.class));
+                                        Toast.makeText(SignUpActivity.this, "Nouvel utilisateur ajouté", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
                                     } else {
-                                        Toast.makeText(RegisterActivity.this, "Ajout non réussi", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpActivity.this, "Ajout non réussi", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });

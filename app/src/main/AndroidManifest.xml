@@ -26,10 +26,13 @@
         <activity android:name=".SearchActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".SignUpActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SignInActivity"
+        <activity android:name=".LogInActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LobbyActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <service

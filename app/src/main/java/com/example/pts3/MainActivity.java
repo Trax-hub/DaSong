@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                openLobbyActivity();
             }
         });
 
@@ -165,12 +165,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser == null){
-            openSignInActivity();
+            openLobbyActivity();
         }
     }
 
-    private void openSignInActivity(){
-        startActivity(new Intent(this, SignInActivity.class));
+    private void openLobbyActivity(){
+        startActivity(new Intent(this, LobbyActivity.class));
     }
 
     public void openSearchActivity(){
