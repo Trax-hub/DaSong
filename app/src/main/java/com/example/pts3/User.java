@@ -4,13 +4,10 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    public String name, surname,  age, email, pseudo;
+    public String pseudo, mail;
 
-    public User(String name, String surname, String age, String email, String pseudo) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.email = email;
+    public User(String pseudo, String mail) {
+        this.mail = mail;
         this.pseudo = pseudo;
     }
 }

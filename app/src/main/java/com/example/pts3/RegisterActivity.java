@@ -22,24 +22,21 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText name, surname, age, email, password, pseudo;
+    private EditText pseudo, mail, password;
     private Button button;
     private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register2);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        name = (EditText) findViewById(R.id.name);
-        surname = (EditText) findViewById(R.id.surname);
-        age = (EditText) findViewById(R.id.age);
-        email = (EditText) findViewById(R.id.email);
+        mail = (EditText) findViewById(R.id.mail);
         password = (EditText) findViewById(R.id.password);
         pseudo = (EditText) findViewById(R.id.pseudo);
-        button = (Button) findViewById(R.id.button2);
+        button = (Button) findViewById(R.id.signIn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,34 +49,19 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(){
-        String emailS = email.getText().toString().trim();
-        String nameS = name.getText().toString().trim();
-        String surnameS = surname.getText().toString().trim();
+        String mailS = mail.getText().toString().trim();
         String passwordS = password.getText().toString().trim();
-        String ageS = age.getText().toString().trim();
         String pseudoS = pseudo.getText().toString().trim();
 
-        if(emailS.isEmpty()){
-            email.setError("Champ requis");
-            email.requestFocus();
+        if(mailS.isEmpty()){
+            mail.setError("Champ requis");
+            mail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailS).matches()){
-            email.setError("Email non valide");
-            email.requestFocus();
-            return;
-        }
-
-        if(nameS.isEmpty()){
-            name.setError("Champ requis");
-            name.requestFocus();
-            return;
-        }
-
-        if(surnameS.isEmpty()){
-            surname.setError("Champ requis");
-            surname.requestFocus();
+        if(!Patterns.EMAIL_ADDRESS.matcher(mailS).matches()){
+            mail.setError("Email non valide");
+            mail.requestFocus();
             return;
         }
 
@@ -95,24 +77,18 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if(ageS.isEmpty()){
-            age.setError("Champ requis");
-            age.requestFocus();
-            return;
-        }
-
         if(pseudoS.isEmpty()){
             pseudo.setError("Champ requis");
             pseudo.requestFocus();
             return;
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(emailS, passwordS)
+        firebaseAuth.createUserWithEmailAndPassword(mailS, passwordS)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            User user = new User(nameS, surnameS, ageS, emailS, pseudoS);
+                            User user = new User(pseudoS, mailS);
 
                             FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app").getReference("Users")
                                     .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -131,6 +107,5 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 }
