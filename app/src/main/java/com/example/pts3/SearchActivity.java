@@ -2,17 +2,13 @@ package com.example.pts3;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -183,7 +179,5 @@ public class SearchActivity extends AppCompatActivity {
     public void finish() {
         ListAdapter listAdapter= (ListAdapter) listView.getAdapter();
         super.finish();
-
-
     }
 }

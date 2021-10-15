@@ -19,4 +19,8 @@ public class Post {
     public Track getTrack() {
         return track;
     }
+
+    public String getCreatorUid() {
+        return creatorUid;
+    }
 }

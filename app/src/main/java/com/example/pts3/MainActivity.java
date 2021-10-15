@@ -13,16 +13,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -144,20 +141,6 @@ public class MainActivity extends AppCompatActivity {
             selectedSong.setText(track.getTitle());
             Picasso.get().load(track.getCoverMax()).fit().into(selectedCover);
         }
-
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if(!task.isSuccessful()){
-                    Log.w("FirebaseMessage", "FCM registration token failed", task.getException());
-                    return;
-                }
-
-                String token = task.getResult();
-                Log.d("FirebaseMessage", token);
-            }
-        });
-
     }
 
     @Override
