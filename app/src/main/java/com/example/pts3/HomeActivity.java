@@ -1,10 +1,7 @@
 package com.example.pts3;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -23,41 +19,20 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
 
     private ListView listView;
-    private FirebaseFirestore db;
     private ArrayList<Post> posts;
-    private Button doAPost, signOut;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         posts = new ArrayList<>();
-        doAPost = (Button) findViewById(R.id.doAPost);
-        signOut = (Button) findViewById(R.id.signOut);
         listView = (ListView) findViewById(R.id.homeSong);
         getData();
-
-        doAPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-            }
-        });
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                startActivity(new Intent(HomeActivity.this, LobbyActivity.class));
-            }
-        });
-
+        display();
     }
 
     private void getData(){
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("/Post")
                 .get()
@@ -79,10 +54,8 @@ public class HomeActivity extends AppCompatActivity {
                                 String creatorUid = document.get("userID").toString();
 
                                 posts.add(new Post(track, description, creatorUid));
+
                             }
-
-                            display(posts);
-
                         } else {
                             Log.d("FirebaseFirestore", "Error getting documents: ", task.getException());
                         }
@@ -90,9 +63,10 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
-    private void display(ArrayList<Post> postArrayList){
-        HomeAdapter homeAdapter = new HomeAdapter(this, postArrayList);
+    private void display(){
+        HomeAdapter homeAdapter = new HomeAdapter(this, posts);
         listView.setAdapter(homeAdapter);
+        homeAdapter.notifyDataSetChanged();
     }
 
 }

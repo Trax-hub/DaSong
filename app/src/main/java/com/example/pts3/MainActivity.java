@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Log.d("Firestore", "Document snapshot added with ID : " + documentReference.getId());
-                                    openHomeActivity();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -157,13 +156,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, LobbyActivity.class));
     }
 
-    private void openSearchActivity(){
+    public void openSearchActivity(){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
-    }
-
-    private void openHomeActivity(){
-        startActivity(new Intent(this, HomeActivity.class));
     }
 
     private void playAudio(String preview){

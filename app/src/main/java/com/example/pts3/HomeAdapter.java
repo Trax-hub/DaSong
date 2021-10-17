@@ -23,7 +23,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
     private MediaPlayer mediaPlayer;
 
     public HomeAdapter(Context context, ArrayList<Post> postArrayList){
-        super(context, R.layout.home, R.id.home_track_title, postArrayList);
+        super(context, R.layout.home, postArrayList);
     }
 
     @NonNull
@@ -45,7 +45,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         ImageView like = view.findViewById(R.id.like);
         ImageView add = view.findViewById(R.id.add);
 
-        Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
+        Picasso.get().load(post.getTrack().getCover()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
 
