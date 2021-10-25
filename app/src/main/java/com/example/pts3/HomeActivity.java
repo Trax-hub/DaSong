@@ -26,7 +26,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private ArrayList<Post> posts;
     private Button doAPost, signOut;
-    //TODO REMOVE
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
