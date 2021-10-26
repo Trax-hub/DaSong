@@ -25,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -168,7 +169,53 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
+            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+            if(listAdapter.getMediaPlayer() != null){
+                listAdapter.getMediaPlayer().stop();
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
+            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+            if(listAdapter.getMediaPlayer() != null){
+                listAdapter.getMediaPlayer().stop();
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
+            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+            if(listAdapter.getMediaPlayer() != null){
+                if(listAdapter.getMediaPlayer().isPlaying()){
+                    listAdapter.getMediaPlayer().stop();
+                }
+                finish();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
+            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+            if(listAdapter.getMediaPlayer() != null){
+                if(!listAdapter.getMediaPlayer().isPlaying()){
+                    listAdapter.getMediaPlayer().start();
+                }
+                finish();
+            }
+        }
     }
 
     private void display(ArrayList<Track> trackList){
@@ -176,9 +223,5 @@ public class SearchActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
     }
 
-    @Override
-    public void finish() {
-        ListAdapter listAdapter= (ListAdapter) listView.getAdapter();
-        super.finish();
-    }
+
 }
