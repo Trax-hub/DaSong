@@ -49,8 +49,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
 
-        mediaPlayer = new MediaPlayer();
-
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,14 +56,13 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                     if (mediaPlayer == null) {
                         mediaPlayer = new MediaPlayer();
                         playAudio(post.getTrack().getPreview());
-                        mediaPlayer.start();
                         pausePlay.setImageResource(R.drawable.ic_pause);
                     } else {
                         if (mediaPlayer.isPlaying()) {
                             mediaPlayer.pause();
                             pausePlay.setImageResource(R.drawable.ic_play);
                         } else {
-                            mediaPlayer.start();
+                            playAudio(post.getTrack().getPreview());
                             pausePlay.setImageResource(R.drawable.ic_pause);
                             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 public void onCompletion(MediaPlayer mp) {
@@ -85,18 +82,18 @@ public class HomeAdapter extends ArrayAdapter<Post> {
 
     private void playAudio(String preview){
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
         try {
             mediaPlayer.setDataSource(preview);
             mediaPlayer.prepare();
-            mediaPlayer.start();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
     }
 }
