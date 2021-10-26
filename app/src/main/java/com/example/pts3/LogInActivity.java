@@ -43,6 +43,13 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(LogInActivity.this, LobbyActivity.class));
+        finish();
+    }
+
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -70,12 +77,12 @@ public class LogInActivity extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(LogInActivity.this, MainActivity.class));
+                    startActivity(new Intent(LogInActivity.this, HomeActivity.class));
                     finish();
                 } else {
                     Toast.makeText(LogInActivity.this, "Failed to login", Toast.LENGTH_LONG).show();

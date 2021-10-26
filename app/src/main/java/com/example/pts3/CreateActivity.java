@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity {
 
     private Button validateButton;
     private Button searchButton;
@@ -38,31 +38,21 @@ public class MainActivity extends AppCompatActivity {
     private ImageView pausePlay;
     private MediaPlayer mediaPlayer;
     private FirebaseAuth firebaseAuth;
-    private Button logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create);
         selectedSong = (TextView) findViewById(R.id.track_title);
         selectedArtist = (TextView) findViewById(R.id.track_artist);
         selectedCover = (ImageView) findViewById(R.id.selected_cover);
         description = (TextInputEditText) findViewById(R.id.description);
         pausePlay = (ImageView) findViewById(R.id.pause_play);
         validateButton = (Button) findViewById(R.id.validate_button);
-        logOut = (Button) findViewById(R.id.logOut);
         selectedCover.setImageResource(R.drawable.general_cover);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                openLobbyActivity();
-            }
-        });
 
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,19 +132,6 @@ public class MainActivity extends AppCompatActivity {
             selectedSong.setText(track.getTitle());
             Picasso.get().load(track.getCoverMax()).fit().into(selectedCover);
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser == null){
-            openLobbyActivity();
-        }
-    }
-
-    private void openLobbyActivity(){
-        startActivity(new Intent(this, LobbyActivity.class));
     }
 
     public void openSearchActivity(){

@@ -2,7 +2,6 @@ package com.example.pts3;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,7 +25,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -93,7 +91,7 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
                         intent.putExtra("Track", selectedTrack);
                         startActivity(intent);
                     }

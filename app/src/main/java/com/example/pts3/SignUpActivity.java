@@ -48,6 +48,13 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(SignUpActivity.this, LobbyActivity.class));
+        finish();
+    }
+
     private void registerUser(){
         String mailS = mail.getText().toString().trim();
         String passwordS = password.getText().toString().trim();
