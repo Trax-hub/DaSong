@@ -149,7 +149,12 @@ public class CreateActivity extends AppCompatActivity {
         try {
             mediaPlayer.setDataSource(preview);
             mediaPlayer.prepare();
-            mediaPlayer.start();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,24 +164,25 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(mediaPlayer != null){
-            mediaPlayer.stop();
-        }
+        releaseMediaPlayer();
+        finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mediaPlayer != null){
-            mediaPlayer.stop();
-        }
+        releaseMediaPlayer();
+        finish();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if(mediaPlayer != null){
-            mediaPlayer.pause();
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.pause();
+                mediaPlayer.release();
+            }
         }
     }
 
@@ -184,7 +190,21 @@ public class CreateActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(mediaPlayer != null){
-            mediaPlayer.start();
+            if(!mediaPlayer.isPlaying()){
+                mediaPlayer.start();
+                mediaPlayer.release();
+            }
+        }
+    }
+
+    private void releaseMediaPlayer(){
+        Log.d("MediaPlayer", "Dans releaseMediaPlayer");
+        if(mediaPlayer != null){
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+            }
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 }
