@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
         doAPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 startActivity(new Intent(HomeActivity.this, CreateActivity.class));
             }
         });
@@ -50,7 +49,6 @@ public class HomeActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
             }
         });

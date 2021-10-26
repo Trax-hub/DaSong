@@ -39,7 +39,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         }
 
         ImageView cover = view.findViewById(R.id.homeCover);
-        ImageView playPause = view.findViewById(R.id.home_pause_play);
+        ImageView pausePlay = view.findViewById(R.id.home_pause_play);
         TextView trackTitle = view.findViewById(R.id.home_track_title);
         TextView trackArtist = view.findViewById(R.id.home_track_artist);
         ImageView like = view.findViewById(R.id.like);
@@ -51,13 +51,32 @@ public class HomeAdapter extends ArrayAdapter<Post> {
 
         mediaPlayer = new MediaPlayer();
 
-        playPause.setOnClickListener(new View.OnClickListener() {
+        pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mediaPlayer.isPlaying())
-                    mediaPlayer.reset();
-                else
-                    playAudio(post.getTrack().getPreview());
+                if(post.getTrack() != null) {
+                    if (mediaPlayer == null) {
+                        mediaPlayer = new MediaPlayer();
+                        playAudio(post.getTrack().getPreview());
+                        mediaPlayer.start();
+                        pausePlay.setImageResource(R.drawable.ic_pause);
+                    } else {
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                            pausePlay.setImageResource(R.drawable.ic_play);
+                        } else {
+                            mediaPlayer.start();
+                            pausePlay.setImageResource(R.drawable.ic_pause);
+                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                public void onCompletion(MediaPlayer mp) {
+                                    pausePlay.setImageResource(R.drawable.ic_play);
+                                    mediaPlayer = null; // finish current activity
+                                }
+                            });
+                        }
+                    }
+                }
+
             }
         });
 
