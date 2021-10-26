@@ -2,6 +2,7 @@ package com.example.pts3;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -169,30 +170,23 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-            if(listAdapter.getMediaPlayer() != null){
-                listAdapter.getMediaPlayer().stop();
-                finish();
-            }
-        }
+        Log.d("MediaPlayer", "Dans on back pressed");
+        releaseMediaPlayer();
+        finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-            if(listAdapter.getMediaPlayer() != null){
-                listAdapter.getMediaPlayer().stop();
-                finish();
-            }
-        }
+        Log.d("MediaPlayer", "Dans on destroy");
+        releaseMediaPlayer();
+        finish();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("MediaPlayer", "Dans on pause");
         if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
             ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
             if(listAdapter.getMediaPlayer() != null){
@@ -218,10 +212,31 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("MediaPlayer", "Dans on stop");
+        releaseMediaPlayer();
+        finish();
+    }
+
     private void display(ArrayList<Track> trackList){
         ListAdapter listAdapter = new ListAdapter(this, trackList);
         listView.setAdapter(listAdapter);
     }
 
+
+    private void releaseMediaPlayer(){
+        Log.d("MediaPlayer", "Dans releaseMediaPlayer");
+        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
+            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
+            if(listAdapter.getMediaPlayer() != null){
+                Log.d("MediaPlayer", "MediaPlayer != null");
+                listAdapter.getMediaPlayer().reset();
+                listAdapter.getMediaPlayer().release();
+                listAdapter.setMediaPlayer(null);
+            }
+        }
+    }
 
 }

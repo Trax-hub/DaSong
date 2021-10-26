@@ -72,7 +72,12 @@ public class ListAdapter extends ArrayAdapter<Track> {
         try {
             mediaPlayer.setDataSource(preview);
             mediaPlayer.prepare();
-            mediaPlayer.start();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,5 +86,9 @@ public class ListAdapter extends ArrayAdapter<Track> {
 
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    public void setMediaPlayer(MediaPlayer mediaPlayer) {
+        this.mediaPlayer = mediaPlayer;
     }
 }
