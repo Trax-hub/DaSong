@@ -54,6 +54,11 @@ public class ListAdapter extends ArrayAdapter<Track> {
             }
         });
 
+        if(tracks.getCover().isEmpty()){
+            tracks.setCover("https://drive.google.com/drive/u/0/folders/1KrHiDVmSoHVJDUHZ3l6Uvk949CeHYfp2");
+            tracks.setCoverMax("https://drive.google.com/drive/u/0/folders/1KrHiDVmSoHVJDUHZ3l6Uvk949CeHYfp2");
+        }
+
         Picasso.get().load(tracks.getCover()).fit().into(cover);
         track.setText(tracks.getTitle());
         artist.setText(tracks.getArtistName());

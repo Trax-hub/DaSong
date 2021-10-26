@@ -39,6 +39,14 @@ public class Track implements Serializable {
         return coverMax;
     }
 
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public void setCoverMax(String coverMax) {
+        this.coverMax = coverMax;
+    }
+
     @Override
     public String toString() {
         return "Track{" +

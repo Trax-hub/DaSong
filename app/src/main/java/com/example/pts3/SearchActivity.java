@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -55,9 +56,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String s = editable.toString();
-                System.out.println(s);
 
                 if(s.isEmpty()){
+                    display(new ArrayList<Track>());
                     return;
                 }
 
@@ -85,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("Sélection :");
-                builder.setMessage("Êtes-vous sûrs de votre choix ?");
+                builder.setMessage("Êtes-vous sûr de votre choix ?");
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
