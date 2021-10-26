@@ -62,7 +62,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                             mediaPlayer.pause();
                             pausePlay.setImageResource(R.drawable.ic_play);
                         } else {
-                            playAudio(post.getTrack().getPreview());
+                            mediaPlayer.start();
                             pausePlay.setImageResource(R.drawable.ic_pause);
                             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 public void onCompletion(MediaPlayer mp) {

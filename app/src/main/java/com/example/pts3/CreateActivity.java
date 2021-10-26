@@ -67,7 +67,7 @@ public class CreateActivity extends AppCompatActivity {
                             mediaPlayer.pause();
                             pausePlay.setImageResource(R.drawable.ic_play);
                         } else {
-                            playAudio(track.getPreview());
+                            mediaPlayer.start();
                             pausePlay.setImageResource(R.drawable.ic_pause);
                             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 public void onCompletion(MediaPlayer mp) {
