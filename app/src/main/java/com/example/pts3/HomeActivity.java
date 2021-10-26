@@ -18,7 +18,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -75,11 +81,22 @@ public class HomeActivity extends AppCompatActivity {
                                 Track track = new Track(title, preview, artistName, cover, coverMax);
                                 String description = document.get("description").toString();
                                 String creatorUid = document.get("userID").toString();
+                                String date = document.get("date").toString();
 
-                                posts.add(new Post(track, description, creatorUid));
-
+                                try {
+                                    Date date1=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(date);
+                                    posts.add(new Post(track, description, creatorUid, date1));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
-
+                            Collections.sort(posts, new Comparator<Post>() {
+                                @Override
+                                public int compare(Post post, Post post2) {
+                                    return post.getDate().compareTo(post2.getDate());
+                                }
+                            });
+                            Collections.reverse(posts);
                             display(posts);
 
                         } else {

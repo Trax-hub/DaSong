@@ -3,6 +3,7 @@ package com.example.pts3;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,11 +20,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,6 +92,7 @@ public class CreateActivity extends AppCompatActivity {
         });
 
         validateButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 if(track != null){
@@ -95,6 +105,9 @@ public class CreateActivity extends AppCompatActivity {
                     postMap.put("preview", post.getTrack().getPreview());
                     postMap.put("title", post.getTrack().getTitle());
                     postMap.put("userID", firebaseAuth.getCurrentUser().getUid());
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    postMap.put("date", dtf.format(now));
                     db.collection("/Post")
                             .add(postMap)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -133,7 +146,7 @@ public class CreateActivity extends AppCompatActivity {
         }
     }
 
-    public void openSearchActivity(){
+    private void openSearchActivity(){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
