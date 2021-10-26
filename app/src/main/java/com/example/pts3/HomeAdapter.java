@@ -77,4 +77,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
 
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 }
