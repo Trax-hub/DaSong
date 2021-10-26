@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,8 @@ public class HomeActivity extends AppCompatActivity {
     private ListView listView;
     private FirebaseFirestore db;
     private ArrayList<Post> posts;
-    private Button doAPost, signOut;
+    private Button doAPost;
+    private ImageView profile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
         doAPost = (Button) findViewById(R.id.doAPost);
-        signOut = (Button) findViewById(R.id.signOut);
+        profile = (ImageView) findViewById(R.id.signOut);
         listView = (ListView) findViewById(R.id.homeSong);
         getData();
 
@@ -46,12 +48,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        signOut.setOnClickListener(new View.OnClickListener() {
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(HomeActivity.this, LobbyActivity.class));
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
             }
         });
 
