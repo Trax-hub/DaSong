@@ -170,7 +170,6 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d("MediaPlayer", "Dans on back pressed");
         releaseMediaPlayer();
         finish();
     }
@@ -178,7 +177,6 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("MediaPlayer", "Dans on destroy");
         releaseMediaPlayer();
         finish();
     }
@@ -186,14 +184,12 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("MediaPlayer", "Dans on pause");
         if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-            if(listAdapter.getMediaPlayer() != null){
-                if(listAdapter.getMediaPlayer().isPlaying()){
-                    listAdapter.getMediaPlayer().stop();
+            if(((ListAdapter) listView.getAdapter()).getMediaPlayer() != null){
+                if(((ListAdapter) listView.getAdapter()).getMediaPlayer().isPlaying()){
+                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().pause();
+                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().release();
                 }
-                finish();
             }
         }
     }
@@ -202,12 +198,12 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-            if(listAdapter.getMediaPlayer() != null){
-                if(!listAdapter.getMediaPlayer().isPlaying()){
-                    listAdapter.getMediaPlayer().start();
+            if(((ListAdapter) listView.getAdapter()).getMediaPlayer() != null){
+                if(!((ListAdapter) listView.getAdapter()).getMediaPlayer().isPlaying()){
+                    Log.d("MediaPlayer", "OnResume pas normal");
+                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().start();
+                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().release();
                 }
-                finish();
             }
         }
     }
@@ -215,7 +211,6 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("MediaPlayer", "Dans on stop");
         releaseMediaPlayer();
         finish();
     }
@@ -229,12 +224,12 @@ public class SearchActivity extends AppCompatActivity {
     private void releaseMediaPlayer(){
         Log.d("MediaPlayer", "Dans releaseMediaPlayer");
         if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-            if(listAdapter.getMediaPlayer() != null){
-                Log.d("MediaPlayer", "MediaPlayer != null");
-                listAdapter.getMediaPlayer().reset();
-                listAdapter.getMediaPlayer().release();
-                listAdapter.setMediaPlayer(null);
+            if(((ListAdapter) listView.getAdapter()).getMediaPlayer() != null){
+                if(((ListAdapter) listView.getAdapter()).getMediaPlayer().isPlaying()){
+                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().stop();
+                }
+                ((ListAdapter) listView.getAdapter()).getMediaPlayer().release();
+                ((ListAdapter) listView.getAdapter()).setMediaPlayer(null);
             }
         }
     }
