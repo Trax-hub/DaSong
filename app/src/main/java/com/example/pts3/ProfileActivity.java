@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity{
     private ListView friendList;
     private ImageView signOut;
+    private Button goToFav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,15 @@ public class ProfileActivity extends AppCompatActivity{
 
         friendList = (ListView) findViewById(R.id.friendList);
         signOut = findViewById(R.id.signOut);
+        goToFav = (Button) findViewById(R.id.goToFav);
+
+        goToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(ProfileActivity.this, FavoriteActivity.class));
+            }
+        });
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override

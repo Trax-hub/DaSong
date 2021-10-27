@@ -3,20 +3,30 @@ package com.example.pts3;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class HomeAdapter extends ArrayAdapter<Post> {
 
@@ -48,6 +58,32 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("track", post.getTrack());
+                map.put("date", post.getDate());
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("/Favorite")
+                        .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                        .collection("/Tracks")
+                        .add(map)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("Firestore", "Document snapshot added with ID : " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Firestore", "Error adding document", e);
+                            }
+                        });
+            }
+        });
 
         pausePlay.setOnClickListener(new View.OnClickListener() {
             @Override

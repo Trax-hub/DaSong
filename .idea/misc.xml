@@ -62,7 +62,10 @@
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/select.xml" value="0.11822916666666666" />
         <entry key="app/src/main/res/drawable/song_background.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10208333333333333" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.10208333333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.13148148148148148" />
