@@ -55,14 +55,13 @@ public class FavoriteActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            List<Map<String, Object>> list = new ArrayList<>();
                             for(QueryDocumentSnapshot document : task.getResult()){
                                 String title = document.get("title").toString();
                                 String preview = document.get("preview").toString();
                                 String artistName = document.get("artiste").toString();
                                 String cover = document.get("cover").toString();
                                 String coverMax = document.get("coverMax").toString();
-                                
+
                                 tracks.add(new Track(title, preview, artistName, cover, coverMax));
                             }
                             display(tracks);

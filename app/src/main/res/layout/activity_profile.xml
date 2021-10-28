@@ -65,5 +65,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signOut" />
 
+    <Button
+        android:id="@+id/findFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find friends"
+        app:layout_constraintBottom_toTopOf="@+id/goToFav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signOut" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

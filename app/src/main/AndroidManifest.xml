@@ -44,6 +44,9 @@
         <activity android:name=".FavoriteActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
+        <activity android:name=".FindFriendsActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false"

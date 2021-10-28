@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,11 +40,17 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            startActivity(new Intent(this, LobbyActivity.class));
+        }
+
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
         doAPost = (Button) findViewById(R.id.doAPost);
         profile = (ImageView) findViewById(R.id.signOut);
         listView = (ListView) findViewById(R.id.homeSong);
+
         getData();
 
         doAPost.setOnClickListener(new View.OnClickListener() {

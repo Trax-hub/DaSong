@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreateActivity"
+    android:background="#3A3A47"
+    >
+
+    <LinearLayout
+        android:id="@+id/friendsResearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/seekingForFriends"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/custom_input"
+            android:drawableEnd="@drawable/ic_search"
+            android:padding="16dp"
+            android:hint="Recherche..."
+            android:imeOptions="actionGo"
+            android:textColor="@color/white" />
+
+        <ListView
+            android:id="@+id/friends_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:choiceMode="singleChoice"
+            android:listSelector="#2E2E3C"
+            tools:listitem="@layout/friends_item" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

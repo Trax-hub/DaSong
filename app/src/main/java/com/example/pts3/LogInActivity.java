@@ -77,6 +77,7 @@ public class LogInActivity extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
+
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
             @Override
