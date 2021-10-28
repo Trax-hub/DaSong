@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -64,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
     private void getData(){
 
         db.collection("Post")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -81,22 +83,10 @@ public class HomeActivity extends AppCompatActivity {
                                 Track track = new Track(title, preview, artistName, cover, coverMax);
                                 String description = document.get("description").toString();
                                 String creatorUid = document.get("userID").toString();
-                                String date = document.get("date").toString();
 
-                                try {
-                                    Date date1=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(date);
-                                    posts.add(new Post(track, description, creatorUid, date1));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
+                                posts.add(new Post(track, description, creatorUid));
                             }
-                            Collections.sort(posts, new Comparator<Post>() {
-                                @Override
-                                public int compare(Post post, Post post2) {
-                                    return post.getDate().compareTo(post2.getDate());
-                                }
-                            });
-                            Collections.reverse(posts);
+
                             display(posts);
 
                         } else {

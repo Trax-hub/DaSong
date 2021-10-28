@@ -3,6 +3,7 @@ package com.example.pts3;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,11 +64,18 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         trackTitle.setText(post.getTrack().getTitle());
 
         add.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 Map<String, Object> map = new HashMap<>();
-                map.put("track", post.getTrack());
-                map.put("date", post.getDate());
+                map.put("title", post.getTrack().getTitle());
+                map.put("preview", post.getTrack().getPreview());
+                map.put("artiste", post.getTrack().getArtistName());
+                map.put("cover", post.getTrack().getCover());
+                map.put("coverMax", post.getTrack().getCoverMax());
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                map.put("date", dtf.format(now));
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("/Favorite")
                         .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
