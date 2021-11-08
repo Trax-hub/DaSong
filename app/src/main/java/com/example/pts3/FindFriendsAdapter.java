@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class FindFriendsAdapter extends ArrayAdapter<User> {
 
     public FindFriendsAdapter(Context context, ArrayList<User> users){
-        super(context, R.layout.activity_find_friends, R.id.seek_username,  users);
+        super(context, R.layout.activity_find_friends, R.id.usernameSeeked,  users);
     }
 
     @NonNull
@@ -31,8 +31,9 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
             view = LayoutInflater.from(this.getContext()).inflate(R.layout.friends_item, parent, false);
         }
 
-        TextView friendUsername = view.findViewById(R.id.seek_username);
+        TextView friendUsername = view.findViewById(R.id.usernameSeeked);
         ImageView friendImage = view.findViewById(R.id.friendImage);
+        ImageView addFriend = view.findViewById(R.id.addFriend);
 
         friendImage.setImageResource(R.drawable.ic_account);
         friendUsername.setText(user.getPseudo());
