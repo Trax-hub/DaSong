@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,7 +55,6 @@ public class FindFriendsActivity extends AppCompatActivity {
                 getData(editable.toString());
             }
         });
-
     }
 
     private void getData(String str){
@@ -61,15 +62,19 @@ public class FindFriendsActivity extends AppCompatActivity {
                 .getReference("Users")
                 .orderByChild("pseudo")
                 .startAt(str)
+                .endAt(str + "\uf8ff")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         ArrayList<User> users = new ArrayList<>();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            String profilePicture = (String) dataSnapshot.child("profilePicture").getValue();
-                            String pseudo = (String) dataSnapshot.child("pseudo").getValue();
-                            String mail = (String) dataSnapshot.child("mail").getValue();
-                            users.add(new User(pseudo, mail));
+                            if(!dataSnapshot.child("uid").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                                String profilePicture = (String) dataSnapshot.child("profilePicture").getValue();
+                                String pseudo = (String) dataSnapshot.child("pseudo").getValue();
+                                String mail = (String) dataSnapshot.child("mail").getValue();
+                                String uid = (String) dataSnapshot.child("uid").getValue();
+                                users.add(new User(pseudo, mail, uid));
+                            }
                         }
 
                         display(users);

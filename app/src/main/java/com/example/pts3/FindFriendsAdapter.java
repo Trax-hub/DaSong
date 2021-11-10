@@ -7,16 +7,32 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FindFriendsAdapter extends ArrayAdapter<User> {
 
+    String currentState;
+
     public FindFriendsAdapter(Context context, ArrayList<User> users){
-        super(context, R.layout.activity_find_friends, R.id.usernameSeeked,  users);
+        super(context, R.layout.friends_item, R.id.usernameSeeked,  users);
     }
 
     @NonNull
@@ -34,9 +50,199 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         TextView friendUsername = view.findViewById(R.id.usernameSeeked);
         ImageView friendImage = view.findViewById(R.id.friendImage);
         ImageView addFriend = view.findViewById(R.id.addFriend);
+        ImageView declineFriend = view.findViewById(R.id.declineFriend);
 
         friendImage.setImageResource(R.drawable.ic_account);
         friendUsername.setText(user.getPseudo());
+
+        currentState = "not_friends";
+        DatabaseReference friendRequestDB = FirebaseDatabase.getInstance().getReference().child("friendReq");
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference friendsDB = FirebaseDatabase.getInstance().getReference().child("Friends");
+
+        friendRequestDB.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(user.getUid())){
+                    String req_type = snapshot.child(user.getUid()).child("requestType").getValue().toString();
+                    if(req_type.equals("received")){
+                        currentState = "req_received";
+                        addFriend.setImageResource(R.drawable.ic_accept);
+                        declineFriend.setImageResource(R.drawable.ic_close);
+                    } else if (req_type.equals("sent")){
+                        currentState = "req_sent";
+                        addFriend.setImageResource(R.drawable.ic_close);
+                    }
+                } else {
+                    friendsDB.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChild(user.getUid())){
+                                currentState = "friends";
+                                addFriend.setImageResource(R.drawable.ic_friends);
+                                declineFriend.setImageResource(R.drawable.ic_close);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        if(currentState.equals("not_friends")){
+            addFriend.setImageResource(R.drawable.ic_add);
+        }
+
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFriend.setEnabled(false);
+                if(currentState.equals("not_friends")){
+                    friendRequestDB.child(currentUser.getUid())
+                            .child(user.getUid())
+                            .child("requestType")
+                            .setValue("sent")
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        friendRequestDB.child(user.getUid())
+                                                .child(currentUser.getUid())
+                                                .child("requestType")
+                                                .setValue("received")
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(view.getContext(), "Request sent", Toast.LENGTH_LONG);
+                                                        currentState = "req_sent";
+                                                        addFriend.setImageResource(R.drawable.ic_close);
+                                                    }
+                                                });
+                                    } else {
+                                        Toast.makeText(view.getContext(), "Failed sending request", Toast.LENGTH_LONG).show();
+                                    }
+                                    addFriend.setEnabled(true);
+                                }
+                            });
+                } else if(currentState.equals("req_sent")){
+                    friendRequestDB.child(currentUser.getUid())
+                            .child(user.getUid())
+                            .removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            friendRequestDB.child(user.getUid())
+                                    .child(currentUser.getUid())
+                                    .removeValue()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            addFriend.setEnabled(true);
+                                            currentState = "not_friends";
+                                            addFriend.setImageResource(R.drawable.ic_add);
+                                        }
+                                    });
+                        }
+                    });
+                } else if(currentState.equals("req_received")){
+                    String currentDate = DateFormat.getDateInstance().format(new Date());
+                    friendsDB.child(currentUser.getUid())
+                            .child(user.getUid())
+                            .setValue(currentDate)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            friendsDB.child(user.getUid())
+                                    .child(currentUser.getUid())
+                                    .setValue(currentDate)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            friendRequestDB.child(currentUser.getUid())
+                                                    .child(user.getUid())
+                                                    .removeValue()
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            friendRequestDB.child(user.getUid())
+                                                                    .child(currentUser.getUid())
+                                                                    .removeValue()
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void unused) {
+                                                                            addFriend.setEnabled(true);
+                                                                            currentState = "friends";
+                                                                            addFriend.setImageResource(R.drawable.ic_friends);
+                                                                            declineFriend.setImageResource(R.drawable.ic_close);
+                                                                        }
+                                                                    });
+                                                        }
+                                                    });
+                                        }
+                                    });
+                        }
+                    });
+                }
+            }
+        });
+
+        declineFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentState.equals("req_received")){
+                    friendRequestDB.child(currentUser.getUid())
+                            .child(user.getUid())
+                            .removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    friendRequestDB.child(user.getUid())
+                                            .child(currentUser.getUid())
+                                            .removeValue()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    addFriend.setEnabled(true);
+                                                    currentState = "not_friends";
+                                                    addFriend.setImageResource(R.drawable.ic_add);
+                                                    declineFriend.setImageResource(android.R.color.transparent);
+                                                }
+                                            });
+                                }
+                            });
+                } else if(currentState.equals("friends")){
+                    friendsDB.child(currentUser.getUid())
+                            .child(user.getUid())
+                            .removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    friendsDB.child(user.getUid())
+                                            .child(currentUser.getUid())
+                                            .removeValue()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    addFriend.setEnabled(true);
+                                                    currentState = "not_friends";
+                                                    addFriend.setImageResource(R.drawable.ic_add);
+                                                    declineFriend.setImageResource(android.R.color.transparent);
+                                                }
+                                            });
+                                }
+                            });
+                }
+            }
+        });
 
         return view;
     }

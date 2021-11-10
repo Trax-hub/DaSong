@@ -8,11 +8,13 @@ public class User implements Serializable {
     private String pseudo, mail;
     private String profilePicture;
     private ArrayList<User> friendList;
+    private String uid;
 
 
-    public User(String pseudo, String mail) {
+    public User(String pseudo, String mail, String uid) {
         this.mail = mail;
         this.pseudo = pseudo;
+        this.uid = uid;
         this.profilePicture = "";
         this.friendList = new ArrayList<User>();
     }
@@ -28,4 +30,8 @@ public class User implements Serializable {
     public String getProfilePicture() { return profilePicture; }
 
     public ArrayList<User> getFriendList() { return friendList; }
+
+    public String getUid() {
+        return uid;
+    }
 }
