@@ -31,6 +31,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -88,8 +89,6 @@ public class HomeActivity extends AppCompatActivity {
 
                                 if(FirebaseAuth.getInstance().getCurrentUser() != null){
 
-                                    ArrayList<Post> postArrayList = new ArrayList<>();
-
                                     FirebaseDatabase.getInstance()
                                             .getReference("Friends")
                                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -101,7 +100,8 @@ public class HomeActivity extends AppCompatActivity {
                                                     if(other.isSuccessful()){
                                                         if(other.getResult() != null && other.getResult().getValue() != null){
                                                             if(other.getResult().getValue().toString().equals("Friends")){
-                                                                posts.add(post(document));
+                                                                addPost(document);
+                                                                display(posts);
                                                             }
                                                         }
                                                     }
@@ -109,8 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                                             });
 
                                     if (Objects.requireNonNull(document.get("userID")).toString().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                                        Post post = post(document);
-                                        posts.add(post);
+                                        addPost(document);
                                     }
 
                                 }
@@ -131,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
         listView.setAdapter(homeAdapter);
     }
 
-    private Post post(QueryDocumentSnapshot document){
+    private void addPost(QueryDocumentSnapshot document){
         String title = document.get("title").toString();
         String preview = document.get("preview").toString();
         String artistName = document.get("artist").toString();
@@ -142,6 +141,8 @@ public class HomeActivity extends AppCompatActivity {
         String description = document.get("description").toString();
         String creatorUid = document.get("userID").toString();
 
-        return new Post(track, description, creatorUid);
+        posts.add(new Post(track, description, creatorUid));
     }
+
+
 }
