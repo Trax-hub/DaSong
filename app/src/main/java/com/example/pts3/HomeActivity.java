@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,6 +29,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -81,17 +85,36 @@ public class HomeActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("FirebaseFirestore", document.getId() + " => " + document.getData());
 
-                                String title = document.get("title").toString();
-                                String preview = document.get("preview").toString();
-                                String artistName = document.get("artist").toString();
-                                String cover = document.get("cover").toString();
-                                String coverMax = document.get("coverMax").toString();
 
-                                Track track = new Track(title, preview, artistName, cover, coverMax);
-                                String description = document.get("description").toString();
-                                String creatorUid = document.get("userID").toString();
+                                if(FirebaseAuth.getInstance().getCurrentUser() != null){
 
-                                posts.add(new Post(track, description, creatorUid));
+                                    ArrayList<Post> postArrayList = new ArrayList<>();
+
+                                    FirebaseDatabase.getInstance()
+                                            .getReference("Friends")
+                                            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                                            .child(Objects.requireNonNull(document.get("userID").toString()))
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DataSnapshot> other) {
+                                                    if(other.isSuccessful()){
+                                                        if(other.getResult() != null && other.getResult().getValue() != null){
+                                                            if(other.getResult().getValue().toString().equals("Friends")){
+                                                                posts.add(post(document));
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                    if (Objects.requireNonNull(document.get("userID")).toString().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                                        Post post = post(document);
+                                        posts.add(post);
+                                    }
+
+                                }
+
                             }
 
                             display(posts);
@@ -108,4 +131,17 @@ public class HomeActivity extends AppCompatActivity {
         listView.setAdapter(homeAdapter);
     }
 
+    private Post post(QueryDocumentSnapshot document){
+        String title = document.get("title").toString();
+        String preview = document.get("preview").toString();
+        String artistName = document.get("artist").toString();
+        String cover = document.get("cover").toString();
+        String coverMax = document.get("coverMax").toString();
+
+        Track track = new Track(title, preview, artistName, cover, coverMax);
+        String description = document.get("description").toString();
+        String creatorUid = document.get("userID").toString();
+
+        return new Post(track, description, creatorUid);
+    }
 }

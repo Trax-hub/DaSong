@@ -22,10 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class FindFriendsAdapter extends ArrayAdapter<User> {
 
@@ -154,16 +152,15 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
                         }
                     });
                 } else if(currentState.equals("req_received")){
-                    String currentDate = DateFormat.getDateInstance().format(new Date());
                     friendsDB.child(currentUser.getUid())
                             .child(user.getUid())
-                            .setValue(currentDate)
+                            .setValue("Friends")
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             friendsDB.child(user.getUid())
                                     .child(currentUser.getUid())
-                                    .setValue(currentDate)
+                                    .setValue("Friends")
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
