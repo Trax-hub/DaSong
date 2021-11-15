@@ -134,6 +134,14 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //NON FONCTIONNEL
+                if(like.getDrawable().equals(R.drawable.ic_add)){
+                    like.setImageResource(R.drawable.ic_close);
+                }else if(like.getDrawable().equals(R.drawable.ic_close)){
+                    like.setImageResource(R.drawable.ic_add);
+                    //TODO remove favorite frome DB
+                }
+
                 CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
                 db.whereEqualTo("date", post.getDate())
                         .whereEqualTo("userID", post.getCreatorUid())
