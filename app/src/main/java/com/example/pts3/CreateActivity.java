@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,7 +97,9 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(track != null){
-                    Post post = new Post(track, description.getText().toString(), firebaseAuth.getCurrentUser().getUid());
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
+                    Post post = new Post(track, description.getText().toString(), firebaseAuth.getCurrentUser().getUid(), dtf.format(now), new ArrayList<>());
                     Map<String, Object> postMap = new HashMap<>();
                     postMap.put("artist", post.getTrack().getArtistName());
                     postMap.put("cover", post.getTrack().getCover());
@@ -105,8 +108,7 @@ public class CreateActivity extends AppCompatActivity {
                     postMap.put("preview", post.getTrack().getPreview());
                     postMap.put("title", post.getTrack().getTitle());
                     postMap.put("userID", firebaseAuth.getCurrentUser().getUid());
-                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                    LocalDateTime now = LocalDateTime.now();
+                    postMap.put("peopleWhoLiked", post.getUidWhoLiked());
                     postMap.put("date", dtf.format(now));
                     db.collection("/Post")
                             .add(postMap)

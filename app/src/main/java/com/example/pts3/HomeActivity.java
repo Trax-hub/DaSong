@@ -140,8 +140,10 @@ public class HomeActivity extends AppCompatActivity {
         Track track = new Track(title, preview, artistName, cover, coverMax);
         String description = document.get("description").toString();
         String creatorUid = document.get("userID").toString();
+        ArrayList<String> uidWhoLiked = (ArrayList<String>) document.get("peopleWhoLiked");
+        String date = document.get("date").toString();
 
-        posts.add(new Post(track, description, creatorUid));
+        posts.add(new Post(track, description, creatorUid, date, uidWhoLiked));
     }
 
 

@@ -74,14 +74,19 @@
                 android:id="@+id/like"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginRight="7dp"
                 android:src="@drawable/ic_favorite_empty" />
+            <TextView
+                android:id="@+id/nbLike"
+                android:layout_marginRight="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <ImageView
                 android:id="@+id/add"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="25dp"
                 android:src="@drawable/ic_add" />
 
 

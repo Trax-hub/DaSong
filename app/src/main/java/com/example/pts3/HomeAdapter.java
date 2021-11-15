@@ -17,11 +17,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -58,6 +64,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         TextView trackArtist = view.findViewById(R.id.home_track_artist);
         ImageView like = view.findViewById(R.id.like);
         ImageView add = view.findViewById(R.id.add);
+        TextView nbLike = view.findViewById(R.id.nbLike);
 
         Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
@@ -121,6 +128,37 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                     }
                 }
 
+            }
+        });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
+                db.whereEqualTo("date", post.getDate())
+                        .whereEqualTo("userID", post.getCreatorUid())
+                        .whereEqualTo("title", post.getTrack().getTitle())
+                        .whereEqualTo("artist", post.getTrack().getArtistName())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    Log.d("Home", "Task succesful");
+                                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                            //TODO Faire le tri pour les likes
+                                            /*if(db.document(documentSnapshot.getId())
+                                                    .collection("/uidWhoLiked")
+                                                    .e);*/
+                                            HashMap<String, String> map = new HashMap<>();
+                                            map.put(FirebaseAuth.getInstance().getUid().toString(), "liked");
+                                            db.document(documentSnapshot.getId())
+                                                    .collection("/uidWhoLiked")
+                                                    .add(map);
+                                    }
+                                }
+                            }
+                        });
             }
         });
 
