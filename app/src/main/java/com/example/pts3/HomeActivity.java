@@ -11,6 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<Post> posts;
     private Button doAPost;
     private ImageView profile;
+    private SwipeRefreshLayout pullToRefresh;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         doAPost = (Button) findViewById(R.id.doAPost);
         profile = (ImageView) findViewById(R.id.signOut);
         listView = (ListView) findViewById(R.id.homeSong);
+        pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
 
         getData();
 
@@ -69,6 +72,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getData();
+                pullToRefresh.setRefreshing(false);
             }
         });
 
@@ -143,7 +154,27 @@ public class HomeActivity extends AppCompatActivity {
         ArrayList<String> uidWhoLiked = (ArrayList<String>) document.get("peopleWhoLiked");
         String date = document.get("date").toString();
 
-        posts.add(new Post(track, description, creatorUid, date, uidWhoLiked));
+        boolean same = false;
+
+        for(Post post : posts){
+            if (post.getTrack().getTitle().equals(title) &&
+                    post.getTrack().getPreview().equals(preview) &&
+                    post.getTrack().getArtistName().equals(artistName) &&
+                    post.getTrack().getCover().equals(cover) &&
+                    post.getTrack().getCoverMax().equals(coverMax) &&
+                    post.getDescription().equals(description) &&
+                    post.getCreatorUid().equals(creatorUid) &&
+                    post.getDate().equals(date)) {
+
+                same = true;
+                break;
+            }
+        }
+
+        if (!same){
+            posts.add(new Post(track, description, creatorUid, date, uidWhoLiked));
+        }
+
     }
 
 

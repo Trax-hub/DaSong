@@ -2,6 +2,7 @@ package com.example.pts3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -100,12 +101,11 @@ public class SignUpActivity extends AppCompatActivity {
                             String uid = firebaseUser.getUid();
                             User user = new User(pseudoS, mailS, uid);
 
-                            FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app").getReference("Users")
+                            FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
                                     .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-
                                     if(task.isSuccessful()){
                                         Toast.makeText(SignUpActivity.this, "Nouvel utilisateur ajouté", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
