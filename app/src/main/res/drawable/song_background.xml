@@ -7,8 +7,8 @@
                 android:endColor="#7745B5"
                 android:type="linear"
                 android:angle="-45" />
-            <size android:width="240dp"
-                android:height="240dp"/>
+            <size android:width="50dp"
+                android:height="50dp"/>
             <corners android:radius="25dp"/>
         </shape>
     </item>

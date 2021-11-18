@@ -51,6 +51,9 @@
         <activity android:name=".FindFriendsActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
+        <activity android:name=".CommentActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false"

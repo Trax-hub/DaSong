@@ -56,9 +56,16 @@
         <entry key="app/src/main/res/drawable/custom_input.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/default_button.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/description_background.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/drawable/field.xml" value="0.49537037037037035" />
+        <entry key="app/src/main/res/drawable/ic_accept.xml" value="0.49537037037037035" />
+        <entry key="app/src/main/res/drawable/ic_account.xml" value="0.49537037037037035" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1283539578839735" />
         <entry key="app/src/main/res/drawable/ic_cassette_tape_svgrepo_com_1.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.3260416666666667" />
+        <entry key="app/src/main/res/drawable/ic_commentary.xml" value="0.5203703703703704" />
+        <entry key="app/src/main/res/drawable/ic_favorite_empty.xml" value="0.5203703703703704" />
+        <entry key="app/src/main/res/drawable/ic_favorite_full.xml" value="0.49537037037037035" />
+        <entry key="app/src/main/res/drawable/ic_friends.xml" value="0.49537037037037035" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/ic_login.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/ic_pause.xml" value="0.321025641025641" />
@@ -69,6 +76,8 @@
         <entry key="app/src/main/res/drawable/search_button.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/select.xml" value="0.11822916666666666" />
         <entry key="app/src/main/res/drawable/song_background.xml" value="0.321025641025641" />
+        <entry key="app/src/main/res/layout/activity_comment.xml" value="0.5235897435897436" />
+        <entry key="app/src/main/res/layout/activity_create.xml" value="0.5235897435897436" />
         <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_find_friends.xml" value="0.11481481481481481" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.3098958333333333" />
@@ -77,8 +86,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10208333333333333" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.10208333333333333" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.5235897435897436" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/activty_find_friends.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/comment_item.xml" value="0.5235897435897436" />
         <entry key="app/src/main/res/layout/friends_item.xml" value="0.2578823819114296" />
         <entry key="app/src/main/res/layout/home.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.2037037037037037" />

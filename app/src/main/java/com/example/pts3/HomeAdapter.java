@@ -1,6 +1,7 @@
 package com.example.pts3;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -22,7 +23,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -65,10 +68,50 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         ImageView like = view.findViewById(R.id.like);
         ImageView add = view.findViewById(R.id.add);
         TextView nbLike = view.findViewById(R.id.nbLike);
+        TextView creatorOfPost = view.findViewById(R.id.creatorOfPost);
+        ImageView comment = view.findViewById(R.id.comment);
 
         Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child("Users")
+                .child(post.getCreatorUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+                        creatorOfPost.setText(dataSnapshot.child("pseudo").getValue().toString());
+                    }
+                });
+
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CommentActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                FirebaseFirestore.getInstance()
+                        .collection("/Post")
+                        .whereEqualTo("date", post.getDate())
+                        .whereEqualTo("userID", post.getCreatorUid())
+                        .whereEqualTo("title", post.getTrack().getTitle())
+                        .whereEqualTo("artist", post.getTrack().getArtistName())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    Log.d("Home", "Task succesful");
+                                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        intent.putExtra("PostID", documentSnapshot.getId());
+                                        getContext().startActivity(intent);
+                                    }
+                                }
+                            }
+                        });
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
