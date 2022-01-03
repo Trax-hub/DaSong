@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -100,22 +101,24 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             String uid = firebaseUser.getUid();
                             User user = new User(pseudoS, mailS, uid);
-
                             FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
                                     .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(user);
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(pseudoS).build();
+                            firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(SignUpActivity.this, "Nouvel utilisateur ajouté", Toast.LENGTH_LONG).show();
+                                    if (task.isSuccessful()) {
+                                        Log.d("SignUp", "User profile updated.");
                                         startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "Ajout non réussi", Toast.LENGTH_LONG).show();
+
                                     }
                                 }
                             });
                         }
                     }
                 });
+
     }
 }

@@ -18,7 +18,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.HashMap;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -86,6 +90,21 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    FirebaseMessaging.getInstance().getToken()
+                            .addOnCompleteListener(task2 -> {
+                                if (!task2.isSuccessful()) {
+                                    Log.w("Token", "Fetching FCM registration token failed", task2.getException());
+                                    return;
+                                }
+                                String token = task2.getResult();
+                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                FirebaseDatabase.getInstance().getReference().child("Tokens").child(currentUser.getUid())
+                                        .child("token")
+                                        .setValue(token)
+                                        .addOnCompleteListener(task1 -> {
+                                            Log.d("Token", "Token send to server");
+                                        });
+                            });
                     FirebaseMessaging.getInstance().subscribeToTopic("dailyNotification").addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

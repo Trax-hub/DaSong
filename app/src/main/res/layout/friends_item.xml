@@ -5,43 +5,46 @@
     android:layout_height="match_parent"
     android:background="@color/fui_transparent">
 
-        <LinearLayout
-            android:id="@+id/wrap_friends"
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/wrap_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp">
+
+
+    <ImageView
+            android:id="@+id/friendImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp" />
+
+        <TextView
+            android:id="@+id/usernameSeeked"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:orientation="horizontal">
+            android:text="Username"
+            android:textColor="#FFFFFF"
+            android:textSize="23sp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/friendImage"
+            android:layout_marginLeft="20dp"/>
 
-            <ImageView
-                android:id="@+id/friendImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="20dp" />
 
-            <TextView
-                android:id="@+id/usernameSeeked"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_gravity="center"
-                android:text="Username"
-                android:textColor="#FFFFFF"
-                android:textSize="26sp"/>
+        <ImageView
+            android:id="@+id/addFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/declineFriend"/>
 
-            <ImageView
-                android:id="@+id/addFriend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp"/>
 
-            <ImageView
-                android:id="@+id/declineFriend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+        <ImageView
+            android:id="@+id/declineFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
 
-        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
