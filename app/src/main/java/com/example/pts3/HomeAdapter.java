@@ -182,7 +182,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                     like.setImageResource(R.drawable.ic_close);
                 }else if(like.getDrawable().equals(R.drawable.ic_close)){
                     like.setImageResource(R.drawable.ic_add);
-                    //TODO remove favorite frome DB
+                    //TODO remove favorite from DB
                 }
 
                 CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");

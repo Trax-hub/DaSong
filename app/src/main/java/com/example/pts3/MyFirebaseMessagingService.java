@@ -34,10 +34,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.ic_cassette_tape_svgrepo_com_1)
                 .setAutoCancel(true);
 
-        if(title.equals("C'est l'heure du post")){
-            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, CreateActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-            notification.setContentIntent(contentIntent);
-        }
+//        if(title.equals("C'est l'heure du post")){
+//            PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, CreateActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+//            notification.setContentIntent(contentIntent);
+//        }
 
         NotificationManagerCompat.from(this).notify(1, notification.build());
         super.onMessageReceived(remoteMessage);

@@ -52,6 +52,8 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(new Intent(this, LobbyActivity.class));
         }
 
+        //TODO Si pas d'ami, faire bouton chercher des amis
+
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
         doAPost = (Button) findViewById(R.id.doAPost);

@@ -22,7 +22,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private Button signIn;
-    EditText editTextEmail, editTextPassword;
+    private EditText editTextEmail, editTextPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

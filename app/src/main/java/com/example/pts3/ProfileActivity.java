@@ -22,7 +22,7 @@ public class ProfileActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        friendList = (ListView) findViewById(R.id.friendList);
+        friendList = (ListView) findViewById(R.id.friendsInvite);
         findFriends = (Button) findViewById(R.id.findFriends);
         signOut = findViewById(R.id.signOut);
         goToFav = (Button) findViewById(R.id.goToFav);
