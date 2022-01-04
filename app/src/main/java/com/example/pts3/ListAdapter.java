@@ -49,8 +49,8 @@ public class ListAdapter extends ArrayAdapter<Track> {
             public void onClick(View view) {
                 if(mediaPlayer.isPlaying())
                     mediaPlayer.reset();
-               else
-                   playAudio(tracks.getPreview());
+                else
+                    playAudio(tracks.getPreview());
             }
         });
 
