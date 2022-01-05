@@ -48,7 +48,7 @@
             android:background="@drawable/field"
             android:paddingStart="8dp"
             android:maxLines="1"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

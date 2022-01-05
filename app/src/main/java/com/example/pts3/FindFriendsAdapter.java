@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,8 +48,8 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
 
         TextView friendUsername = view.findViewById(R.id.usernameSeeked);
         ImageView friendImage = view.findViewById(R.id.friendImage);
-        ImageView addFriend = view.findViewById(R.id.addFriend);
-        ImageView declineFriend = view.findViewById(R.id.declineFriend);
+        ImageButton addFriend = view.findViewById(R.id.addFriend);
+        ImageButton declineFriend = view.findViewById(R.id.declineFriend);
 
         friendImage.setImageResource(R.drawable.ic_account);
         friendUsername.setText(user.getPseudo());
@@ -103,6 +104,7 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("caca");
                 addFriend.setEnabled(false);
                 switch (currentState) {
                     case "not_friends":

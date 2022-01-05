@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:background="#3A3A47">
 
-    <Button
+    <ImageButton
         android:id="@+id/backComment"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/ic_back"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_back"
+        android:background="#3A3A47"
         app:layout_constraintBottom_toTopOf="@+id/listViewComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -27,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/backComment"
         tools:listitem="@layout/comment_item" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,15 +43,24 @@
             android:id="@+id/postAComment"
             android:layout_width="315dp"
             android:layout_height="52dp"
-            android:layout_marginRight="10dp" />
+            android:background="@drawable/custom_input"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sendComment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/sendComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send" />
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="#3A3A47"
+            android:src="@drawable/ic_send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/postAComment"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
