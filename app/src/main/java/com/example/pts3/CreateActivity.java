@@ -108,7 +108,6 @@ public class CreateActivity extends AppCompatActivity {
                     postMap.put("preview", post.getTrack().getPreview());
                     postMap.put("title", post.getTrack().getTitle());
                     postMap.put("userID", firebaseAuth.getCurrentUser().getUid());
-                    postMap.put("peopleWhoLiked", post.getUidWhoLiked());
                     postMap.put("date", dtf.format(now));
                     db.collection("/Post")
                             .add(postMap)

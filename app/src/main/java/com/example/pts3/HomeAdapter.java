@@ -26,7 +26,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -116,6 +115,10 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                CollectionReference db = FirebaseFirestore.getInstance().collection("/Favorite")
+                        .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                        .collection("/Tracks");
+
                 Map<String, Object> map = new HashMap<>();
                 map.put("title", post.getTrack().getTitle());
                 map.put("preview", post.getTrack().getPreview());
@@ -125,23 +128,24 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 map.put("date", dtf.format(now));
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("/Favorite")
-                        .document(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
-                        .collection("/Tracks")
-                        .add(map)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+
+                db.whereEqualTo("title", post.getTrack().getTitle())
+                        .whereEqualTo("preview", post.getTrack().getPreview())
+                        .whereEqualTo("artiste", post.getTrack().getArtistName())
+                        .whereEqualTo("cover", post.getTrack().getCover())
+                        .whereEqualTo("coverMax", post.getTrack().getCoverMax())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d("Firestore", "Document snapshot added with ID : " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("Firestore", "Error adding document", e);
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+                                    if(!queryDocumentSnapshot.exists()){
+                                        db.add(map);
+                                    }
+                                }
                             }
                         });
+
             }
         });
 
@@ -176,6 +180,14 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //NON FONCTIONNEL
+                if(like.getDrawable().equals(R.drawable.ic_add)){
+                    like.setImageResource(R.drawable.ic_favorite_full);
+                }else if(like.getDrawable().equals(R.drawable.ic_close)){
+                    like.setImageResource(R.drawable.ic_favorite_empty);
+                }
+
+
                 CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
                 db.whereEqualTo("date", post.getDate())
                         .whereEqualTo("userID", post.getCreatorUid())
