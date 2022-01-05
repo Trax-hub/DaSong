@@ -17,9 +17,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,9 +30,13 @@ import java.util.Objects;
 public class FavoriteAdapter extends ArrayAdapter<Track>{
 
         private MediaPlayer mediaPlayer;
+        private FavoriteAdapter adapter;
+        private ArrayList<Track> trackArrayList;
 
-        public FavoriteAdapter(Context context, ArrayList<Track> searchArrayList){
-            super(context, R.layout.list_item,R.id.trackName, searchArrayList);
+        public FavoriteAdapter(Context context, ArrayList<Track> trackArrayList){
+            super(context, R.layout.favorite_item,R.id.trackName, trackArrayList);
+            this.adapter = this;
+            this.trackArrayList = trackArrayList;
         }
 
         @NonNull
@@ -46,7 +48,7 @@ public class FavoriteAdapter extends ArrayAdapter<Track>{
             Track tracks = getItem(position);
 
             if (view == null){
-                view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+                view = LayoutInflater.from(getContext()).inflate(R.layout.favorite_item, parent, false);
             }
 
             ImageView cover = view.findViewById(R.id.cover);
@@ -75,6 +77,8 @@ public class FavoriteAdapter extends ArrayAdapter<Track>{
                                         for(DocumentSnapshot documentSnapshot : task.getResult()){
                                             collecRef.document(documentSnapshot.getId()).delete();
                                         }
+                                        trackArrayList.remove(tracks);
+                                        adapter.notifyDataSetChanged();
                                     }
                                 }
                             });
