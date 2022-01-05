@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fui_transparent">
-
+    
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/wrap_friends"
             android:layout_width="match_parent"
