@@ -25,13 +25,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cover_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/creatorOfPost"
             android:layout_centerHorizontal="true">
 
             <ImageView
@@ -39,15 +42,24 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="100dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/home_pause_play"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_play" />
-        </RelativeLayout>
+                android:src="@drawable/ic_play"
+                app:layout_constraintBottom_toBottomOf="@+id/homeCover"
+                app:layout_constraintEnd_toEndOf="@+id/homeCover"
+                app:layout_constraintStart_toStartOf="@+id/homeCover"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/home_track_title"
@@ -55,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cover_layout"
             android:layout_marginTop="1dp"
-            android:text="Titre"
             android:textAlignment="center"
             android:textSize="24sp" />
 
@@ -65,12 +76,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/home_track_title"
             android:layout_marginBottom="16dp"
-            android:text="Artiste"
             android:textAlignment="center"
             android:textSize="16sp" />
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/icon_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,33 +88,53 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/like"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginRight="7dp"
-                android:src="@drawable/ic_favorite_empty" />
-            <TextView
-                android:id="@+id/nbLike"
-                android:layout_marginRight="25dp"
+            <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/comment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/like"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginRight="7dp"
+                    android:src="@drawable/ic_favorite_empty" />
+
+                <TextView
+                    android:id="@+id/nbLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="32dp"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_commentary"/>
+                android:src="@drawable/ic_commentary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/add"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/add"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="25dp"
-                android:src="@drawable/ic_add" />
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/comment"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
 
