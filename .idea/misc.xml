@@ -62,7 +62,7 @@
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_home.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_lobby.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_login.xml" value="0.2958974358974359" />
-        <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_profile.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_profile.xml" value="0.5" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_signup.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/comment_item.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/friends_item.xml" value="0.30052083333333335" />
@@ -79,7 +79,7 @@
         <entry key="app/src/main/res/drawable/ic_accept.xml" value="0.49537037037037035" />
         <entry key="app/src/main/res/drawable/ic_account.xml" value="0.49537037037037035" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1283539578839735" />
-        <entry key="app/src/main/res/drawable/ic_cassette_tape_svgrepo_com_1.xml" value="0.2796875" />
+        <entry key="app/src/main/res/drawable/ic_cassette_tape_svgrepo_com_1.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/drawable/ic_close.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_commentary.xml" value="0.5203703703703704" />
         <entry key="app/src/main/res/drawable/ic_favorite_empty.xml" value="0.5203703703703704" />
@@ -98,7 +98,7 @@
         <entry key="app/src/main/res/layout/activity_comment.xml" value="0.5235897435897436" />
         <entry key="app/src/main/res/layout/activity_create.xml" value="0.5235897435897436" />
         <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_find_friends.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_find_friends.xml" value="0.11481481481481481" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_lobby.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5635416666666667" />
@@ -109,16 +109,13 @@
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.1515625" />
         <entry key="app/src/main/res/layout/activty_find_friends.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/comment_item.xml" value="0.5235897435897436" />
-        <entry key="app/src/main/res/layout/friends_item.xml" value="0.45614035087719296" />
+        <entry key="app/src/main/res/layout/friends_item.xml" value="0.2578823819114296" />
         <entry key="app/src/main/res/layout/home.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.2037037037037037" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.13148148148148148" />
       </map>
     </option>
-  </component>
-  <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
