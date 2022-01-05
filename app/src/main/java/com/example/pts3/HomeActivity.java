@@ -173,7 +173,6 @@ public class HomeActivity extends AppCompatActivity {
         Track track = new Track(title, preview, artistName, cover, coverMax);
         String description = document.get("description").toString();
         String creatorUid = document.get("userID").toString();
-        ArrayList<String> uidWhoLiked = (ArrayList<String>) document.get("peopleWhoLiked");
         String date = document.get("date").toString();
 
         boolean same = false;
@@ -194,7 +193,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         if (!same){
-            posts.add(new Post(track, description, creatorUid, date, uidWhoLiked));
+            posts.add(new Post(track, description, creatorUid, date));
         }
 
     }

@@ -8,14 +8,12 @@ public class Post {
     private Track track;
     private String description;
     private String creatorUid;
-    private List<String> uidWhoLiked;
     private String date;
 
-    public Post(Track track, String description, String creatorUid, String date, List<String> uidWhoLiked) {
+    public Post(Track track, String description, String creatorUid, String date) {
         this.track = track;
         this.description = description;
         this.creatorUid = creatorUid;
-        this.uidWhoLiked = uidWhoLiked;
         this.date = date;
     }
 
@@ -35,7 +33,4 @@ public class Post {
         return date;
     }
 
-    public List<String> getUidWhoLiked() {
-        return uidWhoLiked;
-    }
 }

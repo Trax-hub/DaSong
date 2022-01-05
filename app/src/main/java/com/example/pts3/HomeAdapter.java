@@ -22,11 +22,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -42,7 +45,7 @@ import java.util.Objects;
 public class HomeAdapter extends ArrayAdapter<Post> {
 
     private MediaPlayer mediaPlayer;
-
+    private boolean liked;
 
     public HomeAdapter(Context context, ArrayList<Post> postArrayList){
         super(context, R.layout.post_item, R.id.home_track_title,  postArrayList);
@@ -72,6 +75,38 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
+        Query queryPost = db.whereEqualTo("date", post.getDate())
+                .whereEqualTo("userID", post.getCreatorUid())
+                .whereEqualTo("title", post.getTrack().getTitle())
+                .whereEqualTo("artist", post.getTrack().getArtistName());
+        queryPost.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    Log.d("Home", "Task succesful");
+                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+
+                        db.document(documentSnapshot.getId())
+                                .collection("/uidWhoLiked").document(currentUser.getUid())
+                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.getResult().exists()) {
+                                    liked = true;
+                                    like.setImageResource(R.drawable.ic_favorite_full);
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+
         FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users")
@@ -89,13 +124,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CommentActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                FirebaseFirestore.getInstance()
-                        .collection("/Post")
-                        .whereEqualTo("date", post.getDate())
-                        .whereEqualTo("userID", post.getCreatorUid())
-                        .whereEqualTo("title", post.getTrack().getTitle())
-                        .whereEqualTo("artist", post.getTrack().getArtistName())
-                        .get()
+                queryPost.get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -129,12 +158,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                 LocalDateTime now = LocalDateTime.now();
                 map.put("date", dtf.format(now));
 
-                db.whereEqualTo("title", post.getTrack().getTitle())
-                        .whereEqualTo("preview", post.getTrack().getPreview())
-                        .whereEqualTo("artiste", post.getTrack().getArtistName())
-                        .whereEqualTo("cover", post.getTrack().getCover())
-                        .whereEqualTo("coverMax", post.getTrack().getCoverMax())
-                        .get()
+                queryPost.get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -184,39 +208,48 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //NON FONCTIONNEL
-                if(like.getDrawable().equals(R.drawable.ic_add)){
-                    like.setImageResource(R.drawable.ic_favorite_full);
-                }else if(like.getDrawable().equals(R.drawable.ic_close)){
+                if(liked){
                     like.setImageResource(R.drawable.ic_favorite_empty);
-                }
-
-
-                CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
-                db.whereEqualTo("date", post.getDate())
-                        .whereEqualTo("userID", post.getCreatorUid())
-                        .whereEqualTo("title", post.getTrack().getTitle())
-                        .whereEqualTo("artist", post.getTrack().getArtistName())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()){
-                                    Log.d("Home", "Task succesful");
-                                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                                            //TODO Faire le tri pour les likes
-                                            /*if(db.document(documentSnapshot.getId())
-                                                    .collection("/uidWhoLiked")
-                                                    .e);*/
+                    queryPost.get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        Log.d("Home", "Task succesful");
+                                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                             HashMap<String, String> map = new HashMap<>();
                                             map.put(FirebaseAuth.getInstance().getUid().toString(), "liked");
                                             db.document(documentSnapshot.getId())
-                                                    .collection("/uidWhoLiked")
-                                                    .add(map);
+                                                    .collection("/uidWhoLiked").document(currentUser.getUid())
+                                                    .delete();
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                    liked=false;
+
+                }else{
+                    like.setImageResource(R.drawable.ic_favorite_full);
+                    queryPost.get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        Log.d("Home", "Task succesful");
+                                        for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                            HashMap<String, String> map = new HashMap<>();
+                                            map.put(FirebaseAuth.getInstance().getUid().toString(), "liked");
+                                            db.document(documentSnapshot.getId())
+                                                    .collection("/uidWhoLiked").document(currentUser.getUid())
+                                                    .set(map);
+                                        }
+                                    }
+                                }
+                            });
+                    liked=true;
+                }
+
+
             }
         });
 

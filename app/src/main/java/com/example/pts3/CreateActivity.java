@@ -102,7 +102,7 @@ public class CreateActivity extends AppCompatActivity {
                 if(track != null){
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
-                    Post post = new Post(track, description.getText().toString(), firebaseAuth.getCurrentUser().getUid(), dtf.format(now), new ArrayList<>());
+                    Post post = new Post(track, description.getText().toString(), firebaseAuth.getCurrentUser().getUid(), dtf.format(now));
                     Map<String, Object> postMap = new HashMap<>();
                     postMap.put("artist", post.getTrack().getArtistName());
                     postMap.put("cover", post.getTrack().getCover());
