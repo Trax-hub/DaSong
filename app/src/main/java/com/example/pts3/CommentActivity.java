@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,9 +22,9 @@ import java.util.Map;
 
 public class CommentActivity extends AppCompatActivity {
 
-    private Button backComment;
+    private ImageButton backComment;
     private EditText postAComment;
-    private Button sendComment;
+    private ImageButton sendComment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,9 +33,9 @@ public class CommentActivity extends AppCompatActivity {
         Log.d("Comment", getIntent().getStringExtra("PostID").toString());
         String postID = getIntent().getStringExtra("PostID").toString();
 
-        backComment = (Button) findViewById(R.id.backComment);
+        backComment = (ImageButton) findViewById(R.id.backComment);
         postAComment = (EditText) findViewById(R.id.postAComment);
-        sendComment = (Button) findViewById(R.id.sendComment);
+        sendComment = (ImageButton) findViewById(R.id.sendComment);
 
 
         backComment.setOnClickListener(new View.OnClickListener() {

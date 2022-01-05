@@ -58,14 +58,10 @@
         <activity android:name=".CommentActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <service
-            android:name=".MyFirebaseMessagingService"
-            android:exported="false"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_cassette_tape_svgrepo_com_1" />
     </application>
 
 </manifest>
