@@ -1,6 +1,7 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +68,21 @@ public class HomeActivity extends AppCompatActivity {
         pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
 
         getData();
+
+        db.collection("/Post")
+                .whereEqualTo("userID", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            if(task.getResult().size() != 0){
+                                doAPost.setEnabled(false);
+                                doAPost.setColorFilter(Color.GRAY);
+                            }
+                        }
+                    }
+                });
 
         doAPost.setOnClickListener(new View.OnClickListener() {
             @Override
