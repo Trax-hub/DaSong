@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -43,8 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     private ListView listView;
     private FirebaseFirestore db;
     private ArrayList<Post> posts;
-    private Button doAPost;
-    private ImageView profile;
+    private ImageButton doAPost, profile;
     private SwipeRefreshLayout pullToRefresh;
 
     @Override
@@ -60,8 +60,8 @@ public class HomeActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
-        doAPost = (Button) findViewById(R.id.doAPost);
-        profile = (ImageView) findViewById(R.id.signOut);
+        doAPost = (ImageButton) findViewById(R.id.doAPost);
+        profile = (ImageButton) findViewById(R.id.signOut);
         listView = (ListView) findViewById(R.id.homeSong);
         pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
 

@@ -6,35 +6,57 @@
     android:background="#3A3A47"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/signOut"
-        android:src="@drawable/ic_account"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:text="Log out"
-        app:layout_constraintBottom_toTopOf="@+id/pullToRefresh"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/doAPost"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/ic_add"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/pullToRefresh"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/ic_cassette_tape_svgrepo_com_1"
-        app:layout_constraintBottom_toTopOf="@+id/pullToRefresh"
-        app:layout_constraintEnd_toStartOf="@+id/doAPost"
-        app:layout_constraintStart_toEndOf="@+id/signOut"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/signOut"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="82dp"
+            android:src="@drawable/ic_account"
+            android:background="@color/fui_transparent"
+            android:text="Log out"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:src="@drawable/ic_cassette_tape_svgrepo_com_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/doAPost"
+            app:layout_constraintStart_toEndOf="@+id/signOut"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/doAPost"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="82dp"
+            android:src="@drawable/ic_add"
+            android:background="@color/fui_transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/pullToRefresh"
@@ -43,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signOut"
+        app:layout_constraintTop_toBottomOf="@+id/header"
         android:paddingBottom="48dp">
 
         <ListView
@@ -56,7 +78,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/signOut"
-            tools:listitem="@layout/home" />
+            tools:listitem="@layout/post_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

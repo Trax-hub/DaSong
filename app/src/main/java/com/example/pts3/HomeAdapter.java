@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -46,7 +44,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
     private MediaPlayer mediaPlayer;
 
     public HomeAdapter(Context context, ArrayList<Post> postArrayList){
-        super(context, R.layout.home, R.id.home_track_title,  postArrayList);
+        super(context, R.layout.post_item, R.id.home_track_title,  postArrayList);
     }
 
     @NonNull
@@ -58,7 +56,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         Post post = getItem(position);
 
         if(view == null){
-            view = LayoutInflater.from(getContext()).inflate(R.layout.home, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.post_item, parent, false);
         }
 
         ImageView cover = view.findViewById(R.id.homeCover);
