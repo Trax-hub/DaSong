@@ -48,7 +48,12 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ProfileActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="POST_NOTIFICATION_FRIEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".FavoriteActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
