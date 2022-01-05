@@ -31,15 +31,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="48dp"
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifImageView"
+            android:layout_width="64dp"
             android:layout_height="48dp"
-            app:layout_constraintHorizontal_weight="1"
-            android:src="@drawable/ic_cassette_tape_svgrepo_com_1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/android"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/doAPost"
-            app:layout_constraintStart_toEndOf="@+id/signOut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -47,7 +49,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="82dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_create"
             android:background="@color/fui_transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -175,15 +176,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //NON FONCTIONNEL
-                if(like.getDrawable().equals(R.drawable.ic_add)){
-                    like.setImageResource(R.drawable.ic_favorite_full);
-                }else if(like.getDrawable().equals(R.drawable.ic_close)){
-                    like.setImageResource(R.drawable.ic_favorite_empty);
-                    //TODO remove favorite from DB
-                }
-
-
                 CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
                 db.whereEqualTo("date", post.getDate())
                         .whereEqualTo("userID", post.getCreatorUid())
