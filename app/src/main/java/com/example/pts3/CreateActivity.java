@@ -15,14 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -109,21 +112,22 @@ public class CreateActivity extends AppCompatActivity {
                     postMap.put("title", post.getTrack().getTitle());
                     postMap.put("userID", firebaseAuth.getCurrentUser().getUid());
                     postMap.put("date", dtf.format(now));
+
                     db.collection("/Post")
-                            .add(postMap)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            .whereEqualTo("userID", firebaseAuth.getCurrentUser().getUid())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d("Firestore", "Document snapshot added with ID : " + documentReference.getId());
-                                    openHomeActivity();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("Firestore", "Error adding document", e);
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        if(task.getResult().size() == 0){
+                                            db.collection("/Post").add(postMap);
+                                        }
+                                    }
                                 }
                             });
+                    
+                    openHomeActivity();
                 }
             }
         });
