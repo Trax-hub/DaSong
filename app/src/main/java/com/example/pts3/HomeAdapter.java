@@ -43,6 +43,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
 
     private MediaPlayer mediaPlayer;
 
+
     public HomeAdapter(Context context, ArrayList<Post> postArrayList){
         super(context, R.layout.post_item, R.id.home_track_title,  postArrayList);
     }
@@ -65,7 +66,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         TextView trackArtist = view.findViewById(R.id.home_track_artist);
         ImageView like = view.findViewById(R.id.like);
         ImageView add = view.findViewById(R.id.add);
-        TextView nbLike = view.findViewById(R.id.nbLike);
         TextView creatorOfPost = view.findViewById(R.id.creatorOfPost);
         ImageView comment = view.findViewById(R.id.comment);
 
@@ -177,11 +177,12 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             public void onClick(View view) {
                 //NON FONCTIONNEL
                 if(like.getDrawable().equals(R.drawable.ic_add)){
-                    like.setImageResource(R.drawable.ic_close);
+                    like.setImageResource(R.drawable.ic_favorite_full);
                 }else if(like.getDrawable().equals(R.drawable.ic_close)){
-                    like.setImageResource(R.drawable.ic_add);
+                    like.setImageResource(R.drawable.ic_favorite_empty);
                     //TODO remove favorite from DB
                 }
+
 
                 CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
                 db.whereEqualTo("date", post.getDate())
