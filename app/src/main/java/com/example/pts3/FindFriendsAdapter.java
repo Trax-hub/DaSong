@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class FindFriendsAdapter extends ArrayAdapter<User> {
@@ -107,10 +108,14 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
                 addFriend.setEnabled(false);
                 switch (currentState) {
                     case "not_friends":
+
+                        HashMap<String, String> data = new HashMap<>();
+                        data.put("receiver", user.getUid());
+                        data.put("sender", currentUser.getUid());
+                        data.put("requestType", "sent");
                         friendRequestDB.child(currentUser.getUid())
                                 .child(user.getUid())
-                                .child("requestType")
-                                .setValue("sent")
+                                .setValue(data)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

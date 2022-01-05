@@ -6,16 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity{
     private ListView friendList;
     private ImageView signOut;
     private Button goToFav;
     private Button findFriends;
+    private TextView pseudo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,10 @@ public class ProfileActivity extends AppCompatActivity{
         findFriends = (Button) findViewById(R.id.findFriends);
         signOut = findViewById(R.id.signOut);
         goToFav = (Button) findViewById(R.id.goToFav);
+        pseudo = findViewById(R.id.textViewPseudo);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        pseudo.setText(currentUser.getDisplayName());
 
         goToFav.setOnClickListener(new View.OnClickListener() {
             @Override
