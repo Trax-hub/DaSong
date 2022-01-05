@@ -138,14 +138,18 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
-                                    if(!queryDocumentSnapshot.exists()){
+                                if(task.isSuccessful()){
+                                    if (task.getResult().size() == 0){
                                         db.add(map);
+                                    }
+                                    for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
+                                        if(!queryDocumentSnapshot.exists()){
+                                            db.add(map);
+                                        }
                                     }
                                 }
                             }
                         });
-
             }
         });
 
