@@ -56,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startActivity(new Intent(this, LobbyActivity.class));
+            finish();
         }
 
         //TODO Si pas d'ami, faire bouton chercher des amis
@@ -70,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
         getData();
 
         db.collection("/Post")
-                .whereEqualTo("userID", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .whereEqualTo("userID", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

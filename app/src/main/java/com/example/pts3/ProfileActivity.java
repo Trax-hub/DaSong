@@ -15,13 +15,20 @@ import android.widget.TextView;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
 import java.net.URI;
+import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity{
 
@@ -45,7 +52,17 @@ public class ProfileActivity extends AppCompatActivity{
         goToFav = (Button) findViewById(R.id.goToFav);
         pseudo = findViewById(R.id.pseudo);
         profilePic = findViewById(R.id.profilePic);
-        URI picURI = null;
+
+        FirebaseStorage.getInstance().getReference()
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profilePic);
+                    }
+                });
+
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         pseudo.setText(currentUser.getDisplayName());
@@ -98,6 +115,9 @@ public class ProfileActivity extends AppCompatActivity{
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
                     profilePic.setImageURI(selectedImageUri);
+                    FirebaseStorage.getInstance().getReference()
+                            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                            .putFile(selectedImageUri);
                 }
             }
         }
