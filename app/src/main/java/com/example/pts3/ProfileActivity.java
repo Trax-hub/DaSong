@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity{
         findFriends = (Button) findViewById(R.id.findFriends);
         signOut = findViewById(R.id.signOut);
         goToFav = (Button) findViewById(R.id.goToFav);
-        pseudo = findViewById(R.id.textViewPseudo);
+        pseudo = findViewById(R.id.pseudo);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         pseudo.setText(currentUser.getDisplayName());

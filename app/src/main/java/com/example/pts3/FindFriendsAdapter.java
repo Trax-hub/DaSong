@@ -105,7 +105,6 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("caca");
                 addFriend.setEnabled(false);
                 switch (currentState) {
                     case "not_friends":
