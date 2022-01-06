@@ -21,11 +21,11 @@
     <ListView
         android:id="@+id/listViewComment"
         android:layout_width="wrap_content"
-        android:layout_height="600dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        android:layout_height="592dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backComment"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/comment_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="8dp"
         app:layout_constraintBaseline_toBottomOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +44,14 @@
             android:id="@+id/postAComment"
             android:layout_width="315dp"
             android:layout_height="52dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/custom_input"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendComment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:imeOptions="actionGo"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageButton
             android:id="@+id/sendComment"

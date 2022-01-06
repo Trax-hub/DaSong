@@ -2,6 +2,7 @@ package com.example.pts3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -191,6 +192,8 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().size() == 0) {
                                         db.add(map);
+                                        //TODO : changer couleur en gris pour le bouton add
+                                        //add.setColorFilter(Color.GRAY);
                                     }
                                     for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                                         if (!queryDocumentSnapshot.exists()) {
