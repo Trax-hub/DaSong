@@ -119,8 +119,10 @@ public class CreateActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (!task.isSuccessful()){
+                                    if (task.isSuccessful()){
+                                        if(task.getResult().size() == 0){
                                             db.collection("/Post").add(postMap);
+                                        }
                                     }
                                 }
                             });
@@ -155,7 +157,9 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void openHomeActivity(){
-        startActivity(new Intent(this, HomeActivity.class));
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void playAudio(String preview){

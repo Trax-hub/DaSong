@@ -69,26 +69,13 @@ public class HomeActivity extends AppCompatActivity {
         pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
 
         getData();
-
-        db.collection("/Post")
-                .whereEqualTo("userID", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            if(task.getResult().size() != 0){
-                                doAPost.setEnabled(false);
-                                doAPost.setColorFilter(Color.GRAY);
-                            }
-                        }
-                    }
-                });
+        verifPost();
 
         doAPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, CreateActivity.class));
+                finish();
             }
         });
 
@@ -103,13 +90,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 getData();
+                verifPost();
                 pullToRefresh.setRefreshing(false);
             }
         });
     }
 
     private void getData(){
-
         db.collection("Post")
                 .orderBy("date", Query.Direction.DESCENDING)
                 .get()
@@ -199,5 +186,27 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private void verifPost(){
+        db.collection("/Post")
+                .whereEqualTo("userID", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            if(task.getResult().size() != 0){
+                                doAPost.setEnabled(false);
+                                doAPost.setColorFilter(Color.GRAY);
+                            }
+                        }
+                    }
+                });
+    }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
 }
