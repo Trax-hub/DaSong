@@ -255,56 +255,55 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             @Override
             public void onClick(View view) {
                 if(isLiked(post, currentUser)){
+                    like.setEnabled(false);
                     queryPost.get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
-                                        Log.d("Home", "Task succesful");
                                         for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                             db.document(documentSnapshot.getId())
                                                     .collection("/uidWhoLiked").document(currentUser.getUid())
-                                                    .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    ArrayList<String> uid = post.getUidLiked();
-                                                    uid.remove(currentUser.getUid());
-                                                    post.setUidLiked(uid);
-                                                    like.setImageResource(R.drawable.ic_favorite_empty);
-                                                    int nbLikes=post.getNbLikes()-1;
-                                                    post.setNbLikes(nbLikes);
-                                                    nbLike.setText(post.getNbLikes() +" like(s)");
-                                                }
-                                            });
+                                                    .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            ArrayList<String> uid = post.getUidLiked();
+                                                            uid.remove(currentUser.getUid());
+                                                            post.setUidLiked(uid);
+                                                            like.setEnabled(true);
+                                                            like.setImageResource(R.drawable.ic_favorite_empty);
+                                                            int nbLikes=post.getNbLikes()-1;
+                                                            post.setNbLikes(nbLikes);
+                                                            nbLike.setText(post.getNbLikes() +" like(s)");
+                                                        }
+                                                    });
                                         }
 
                                     }
                                 }
                             });
                 }else{
+                    like.setEnabled(false);
                     queryPost.get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()){
-                                        Log.d("Home", "Task succesful");
                                         for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                             HashMap<String, String> map = new HashMap<>();
-                                            map.put("liked", FirebaseAuth.getInstance().getUid().toString());
+                                            map.put("liked", FirebaseAuth.getInstance().getUid());
                                             db.document(documentSnapshot.getId())
                                                     .collection("/uidWhoLiked").document(currentUser.getUid())
-                                                    .set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    ArrayList<String> uid = post.getUidLiked();
-                                                    uid.add(currentUser.getUid());
-                                                    post.setUidLiked(uid);
-                                                    like.setImageResource(R.drawable.ic_favorite_full);
-                                                    int nbLikes=post.getNbLikes()+1;
-                                                    post.setNbLikes(nbLikes);
-                                                    nbLike.setText(post.getNbLikes() +" like(s)");
-                                                }
-                                            });
+                                                    .set(map).addOnSuccessListener(unused -> {
+                                                        ArrayList<String> uid = post.getUidLiked();
+                                                        uid.add(currentUser.getUid());
+                                                        post.setUidLiked(uid);
+                                                        like.setEnabled(true);
+                                                        like.setImageResource(R.drawable.ic_favorite_full);
+                                                        int nbLikes=post.getNbLikes()+1;
+                                                        post.setNbLikes(nbLikes);
+                                                        nbLike.setText(post.getNbLikes() +" like(s)");
+                                                    });
                                         }
 
                                     }
