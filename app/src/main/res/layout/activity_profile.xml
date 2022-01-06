@@ -7,11 +7,11 @@
     android:background="#3A3A47"
     android:padding="32dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePic"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:src="@drawable/ic_account"
+        app:circularflow_radiusInDP="10dp"
         app:layout_constraintBottom_toTopOf="@+id/pseudo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
