@@ -35,6 +35,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -74,10 +76,14 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         ImageView add = view.findViewById(R.id.add);
         TextView creatorOfPost = view.findViewById(R.id.creatorOfPost);
         ImageView comment = view.findViewById(R.id.comment);
+        TextView descriptionPost = view.findViewById(R.id.descriptionPost);
 
         Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
+        if(!post.getDescription().isEmpty()){
+            descriptionPost.setText(post.getDescription());
+        }
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 

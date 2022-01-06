@@ -122,6 +122,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description"
+                android:maxLength="200"
                 android:layout_width="354dp"
                 android:layout_height="64dp"
                 android:layout_centerHorizontal="true"
