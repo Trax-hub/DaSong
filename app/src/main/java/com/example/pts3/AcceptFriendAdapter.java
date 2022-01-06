@@ -30,7 +30,7 @@ public class AcceptFriendAdapter extends ArrayAdapter<User> {
     private ArrayList<User> users;
 
     public AcceptFriendAdapter(Context context, ArrayList<User> users){
-        super(context, R.layout.friends_item, R.id.usernameSeeked,  users);
+        super(context, R.layout.friend_request_item, R.id.usernameSeeked,  users);
         this.adapter = this;
         this.users = users;
     }
@@ -43,13 +43,13 @@ public class AcceptFriendAdapter extends ArrayAdapter<User> {
         User user = getItem(position);
 
         if (view == null){
-            view = LayoutInflater.from(this.getContext()).inflate(R.layout.friends_item, parent, false);
+            view = LayoutInflater.from(this.getContext()).inflate(R.layout.friend_request_item, parent, false);
         }
 
         TextView friendUsername = view.findViewById(R.id.usernameSeeked);
         ImageView profilePic = view.findViewById(R.id.profilePic);
-        ImageView addFriend = view.findViewById(R.id.addFriend);
-        ImageView declineFriend = view.findViewById(R.id.declineFriend);
+        ImageView addFriend = view.findViewById(R.id.yesToRequest);
+        ImageView declineFriend = view.findViewById(R.id.noToRequest);
 
         profilePic.setImageResource(R.drawable.ic_account);
 

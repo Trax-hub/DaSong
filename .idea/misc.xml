@@ -65,7 +65,7 @@
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_comment.xml" value="0.22" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_create.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_favorite.xml" value="0.30052083333333335" />
-        <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_find_friends.xml" value="0.36302083333333335" />
+        <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_find_friends.xml" value="0.22" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_home.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_lobby.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_login.xml" value="0.2958974358974359" />
@@ -74,6 +74,7 @@
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_signup.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/activity_splash_screen.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/comment_item.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/favorite_item.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/friends_item.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/home.xml" value="0.22314814814814815" />
         <entry key="..\:/Users/Pablo/git/PTS3/app/src/main/res/layout/list_item.xml" value="0.30052083333333335" />

@@ -2,7 +2,9 @@ package com.example.pts3;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,11 +39,14 @@ public class FavoriteActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private ArrayList<Track> tracks;
     private FavoriteAdapter favoriteAdapter;
+    private TextView vide;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
+        vide = (TextView) findViewById(R.id.vide);
 
         db = FirebaseFirestore.getInstance();
         tracks = new ArrayList<>();
@@ -67,6 +74,11 @@ public class FavoriteActivity extends AppCompatActivity {
                                 tracks.add(new Track(title, preview, artistName, cover, coverMax));
                             }
                             display(tracks);
+                            if(tracks.size() == 0){
+                                vide.setVisibility(View.VISIBLE);
+                            }else{
+                                vide.setVisibility(View.INVISIBLE);
+                            }
                         }
                     }
                 });

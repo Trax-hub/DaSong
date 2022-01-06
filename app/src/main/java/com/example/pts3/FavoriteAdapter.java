@@ -54,9 +54,9 @@ public class FavoriteAdapter extends ArrayAdapter<Track>{
             ImageView cover = view.findViewById(R.id.cover);
             TextView track = view.findViewById(R.id.trackName);
             TextView artist = view.findViewById(R.id.artist);
-            ImageButton imageButton = view.findViewById(R.id.deleteFavorite);
+            ImageButton delete = view.findViewById(R.id.deleteFavorite);
 
-            imageButton.setOnClickListener(new View.OnClickListener() {
+            delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 

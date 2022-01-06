@@ -40,6 +40,8 @@
             tools:listitem="@layout/friends_item" />
 
 
+
+
     </LinearLayout>
 
 </RelativeLayout>
