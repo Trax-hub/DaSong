@@ -9,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,9 +50,14 @@ public class ProfileActivity extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profilePic);
+                            Picasso.get().load(uri).into(profilePic);
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePic.setImageResource(R.drawable.ic_account);
+            }
+        });
 
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

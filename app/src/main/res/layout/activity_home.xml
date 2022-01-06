@@ -23,7 +23,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="82dp"
-            android:src="@drawable/ic_account"
             android:background="@color/fui_transparent"
             android:text="Log out"
             app:layout_constraintBottom_toBottomOf="parent"

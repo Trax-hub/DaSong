@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
@@ -48,7 +49,12 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).into(profilePic);
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePic.setImageResource(R.drawable.ic_account);
+            }
+        });
 
         commentItem.setText(comment.getComment());
 

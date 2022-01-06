@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +59,12 @@ public class HomeActivity extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).into(profilePic);
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePic.setImageResource(R.drawable.ic_account);
+            }
+        });
 
         //TODO Si pas d'ami, faire bouton chercher des amis
 
