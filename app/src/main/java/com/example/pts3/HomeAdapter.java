@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -68,6 +70,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.post_item, parent, false);
         }
 
+        ImageView profilePic = view.findViewById(R.id.profilePic);
         ImageView cover = view.findViewById(R.id.homeCover);
         ImageView pausePlay = view.findViewById(R.id.home_pause_play);
         TextView trackTitle = view.findViewById(R.id.home_track_title);
@@ -82,6 +85,24 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         Picasso.get().load(post.getTrack().getCoverMax()).fit().into(cover);
         trackArtist.setText(post.getTrack().getArtistName());
         trackTitle.setText(post.getTrack().getTitle());
+
+
+        FirebaseStorage.getInstance()
+                .getReference()
+                .child(post.getCreatorUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profilePic);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePic.setImageResource(R.drawable.ic_account);
+            }
+        });
+
         if(!post.getDescription().isEmpty()){
             descriptionPost.setText(post.getDescription());
         }
