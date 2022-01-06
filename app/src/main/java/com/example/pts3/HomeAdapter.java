@@ -84,6 +84,8 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         trackTitle.setText(post.getTrack().getTitle());
         if(!post.getDescription().isEmpty()){
             descriptionPost.setText(post.getDescription());
+        } else {
+            descriptionPost.setVisibility(View.INVISIBLE);
         }
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
