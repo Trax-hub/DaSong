@@ -2,51 +2,42 @@ package com.example.pts3;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ListView listView;
     private FirebaseFirestore db;
     private ArrayList<Post> posts;
-    private ImageButton doAPost, profile;
+    private ImageButton doAPost;
+    private ImageView profilePic;
     private SwipeRefreshLayout pullToRefresh;
 
     @Override
@@ -59,12 +50,22 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
 
+        FirebaseStorage.getInstance().getReference()
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profilePic);
+                    }
+                });
+
         //TODO Si pas d'ami, faire bouton chercher des amis
 
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
         doAPost = (ImageButton) findViewById(R.id.doAPost);
-        profile = (ImageButton) findViewById(R.id.signOut);
+        profilePic = (ImageView) findViewById(R.id.profilePic);
         listView = (ListView) findViewById(R.id.homeSong);
         pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
 
@@ -79,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        profile.setOnClickListener(new View.OnClickListener() {
+        profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));

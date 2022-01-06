@@ -36,7 +36,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.comment_item, parent, false);
         }
 
-        ImageView pictureItem = view.findViewById(R.id.pictureItem);
+        ImageView profilePic = view.findViewById(R.id.profilePic);
         TextView commentItem = view.findViewById(R.id.commentItem);
 
         FirebaseStorage.getInstance()
@@ -46,7 +46,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(pictureItem);
+                        Picasso.get().load(uri).into(profilePic);
                     }
                 });
 
