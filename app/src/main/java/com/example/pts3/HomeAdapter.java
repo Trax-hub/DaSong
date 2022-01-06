@@ -79,10 +79,12 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
+
         Query queryPost = db.whereEqualTo("date", post.getDate())
                 .whereEqualTo("userID", post.getCreatorUid())
                 .whereEqualTo("title", post.getTrack().getTitle())
                 .whereEqualTo("artist", post.getTrack().getArtistName());
+
         queryPost.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -158,20 +160,26 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                 LocalDateTime now = LocalDateTime.now();
                 map.put("date", dtf.format(now));
 
-                queryPost.get()
+                db.whereEqualTo("title", post.getTrack().getTitle())
+                        .whereEqualTo("preview", post.getTrack().getPreview())
+                        .whereEqualTo("artiste", post.getTrack().getArtistName())
+                        .whereEqualTo("cover", post.getTrack().getCover())
+                        .whereEqualTo("coverMax", post.getTrack().getCoverMax())
+                        .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    if (task.getResult().size() == 0){
+                                if (task.isSuccessful()) {
+                                    if (task.getResult().size() == 0) {
                                         db.add(map);
                                     }
-                                    for(QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()){
-                                        if(!queryDocumentSnapshot.exists()){
+                                    for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                        if (!queryDocumentSnapshot.exists()) {
                                             db.add(map);
                                         }
                                     }
                                 }
+
                             }
                         });
             }

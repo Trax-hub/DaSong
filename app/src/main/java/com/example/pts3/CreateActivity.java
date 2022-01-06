@@ -119,10 +119,8 @@ public class CreateActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()){
-                                        if(task.getResult().size() == 0){
+                                    if (!task.isSuccessful()){
                                             db.collection("/Post").add(postMap);
-                                        }
                                     }
                                 }
                             });
