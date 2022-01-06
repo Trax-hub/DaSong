@@ -14,6 +14,10 @@ import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
@@ -39,6 +43,24 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
 
         ImageView profilePic = view.findViewById(R.id.profilePic);
         TextView commentItem = view.findViewById(R.id.commentItem);
+        TextView pseudoComment = view.findViewById(R.id.pseudoComment);
+
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child("/Users")
+                .child(comment.getUidComment())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String pseudo = snapshot.child("pseudo").getValue().toString();
+                        pseudoComment.setText(pseudo);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         FirebaseStorage.getInstance()
                 .getReference()

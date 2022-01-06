@@ -2,6 +2,7 @@ package com.example.pts3;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -127,10 +129,10 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Friend", "Click sur add");
                 addFriend.setEnabled(false);
                 switch (currentState) {
                     case "not_friends":
-
                         HashMap<String, String> data = new HashMap<>();
                         data.put("receiver", user.getUid());
                         data.put("sender", currentUser.getUid());
@@ -227,6 +229,7 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         declineFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Friend", "Click sur decline");
                 if(currentState.equals("req_received")){
                     friendRequestDB.child(currentUser.getUid())
                             .child(user.getUid())
