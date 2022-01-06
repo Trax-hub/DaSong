@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +47,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
 
     private MediaPlayer mediaPlayer;
     private boolean liked;
+    private int currentNbLike;
 
     public HomeAdapter(Context context, ArrayList<Post> postArrayList){
         super(context, R.layout.post_item, R.id.home_track_title,  postArrayList);
@@ -68,6 +70,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         TextView trackTitle = view.findViewById(R.id.home_track_title);
         TextView trackArtist = view.findViewById(R.id.home_track_artist);
         ImageView like = view.findViewById(R.id.like);
+        TextView nbLike = view.findViewById(R.id.nbLike);
         ImageView add = view.findViewById(R.id.add);
         TextView creatorOfPost = view.findViewById(R.id.creatorOfPost);
         ImageView comment = view.findViewById(R.id.comment);
@@ -91,7 +94,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                 if (task.isSuccessful()){
                     Log.d("Home", "Task succesful");
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-
                         db.document(documentSnapshot.getId())
                                 .collection("/uidWhoLiked").document(currentUser.getUid())
                                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -103,11 +105,22 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                 }
                             }
                         });
-
+                        db.document(documentSnapshot.getId())
+                                .collection("/uidWhoLiked").
+                                get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                currentNbLike = task.getResult().size();
+                                nbLike.setText(currentNbLike +" like(s)");
+                            }
+                        });
                     }
                 }
             }
+
+
         });
+
 
         FirebaseDatabase.getInstance()
                 .getReference()
@@ -218,6 +231,8 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             public void onClick(View view) {
                 if(liked){
                     like.setImageResource(R.drawable.ic_favorite_empty);
+                    currentNbLike --;
+                    nbLike.setText(currentNbLike +" like(s)");
                     queryPost.get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -238,6 +253,8 @@ public class HomeAdapter extends ArrayAdapter<Post> {
 
                 }else{
                     like.setImageResource(R.drawable.ic_favorite_full);
+                    currentNbLike ++;
+                    nbLike.setText(currentNbLike +" like(s)");
                     queryPost.get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
