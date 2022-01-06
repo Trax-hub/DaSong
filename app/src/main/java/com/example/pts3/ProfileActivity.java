@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,9 +37,7 @@ public class ProfileActivity extends AppCompatActivity{
     static final int REQUEST_IMAGE_GET = 1;
 
     private ListView friendList;
-    private ImageView signOut;
-    private Button goToFav;
-    private Button findFriends;
+    private ImageButton signOut, back, findFriends, goToFav;
     private TextView pseudo;
     private ImageView profilePic;
 
@@ -48,10 +47,11 @@ public class ProfileActivity extends AppCompatActivity{
         setContentView(R.layout.activity_profile);
 
         friendList = (ListView) findViewById(R.id.friendsInvite);
-        findFriends = (Button) findViewById(R.id.findFriends);
-        signOut = findViewById(R.id.signOut);
-        goToFav = (Button) findViewById(R.id.goToFav);
-        pseudo = findViewById(R.id.pseudo);
+        findFriends = (ImageButton) findViewById(R.id.findFriends);
+        signOut = (ImageButton) findViewById(R.id.signOut);
+        back = (ImageButton) findViewById(R.id.back);
+        goToFav = (ImageButton) findViewById(R.id.goToFav);
+        pseudo = (TextView) findViewById(R.id.pseudo);
         profilePic = findViewById(R.id.profilePic);
 
         getData();
@@ -75,10 +75,15 @@ public class ProfileActivity extends AppCompatActivity{
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         pseudo.setText(currentUser.getDisplayName());
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         goToFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 startActivity(new Intent(ProfileActivity.this, FavoriteActivity.class));
             }
         });
@@ -102,7 +107,6 @@ public class ProfileActivity extends AppCompatActivity{
         findFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 startActivity(new Intent(ProfileActivity.this, FindFriendsActivity.class));
             }
         });
