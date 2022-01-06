@@ -31,11 +31,11 @@ public class AcceptFriendAdapter extends ArrayAdapter<User> {
         }
 
         TextView friendUsername = view.findViewById(R.id.usernameSeeked);
-        ImageView friendImage = view.findViewById(R.id.friendImage);
+        ImageView profilePic = view.findViewById(R.id.profilePic);
         ImageView addFriend = view.findViewById(R.id.addFriend);
         ImageView declineFriend = view.findViewById(R.id.declineFriend);
 
-        friendImage.setImageResource(R.drawable.ic_account);
+        profilePic.setImageResource(R.drawable.ic_account);
         friendUsername.setText(user.getPseudo());
 
 
