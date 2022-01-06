@@ -16,26 +16,16 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -126,7 +116,6 @@ public class CreateActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-
                     openHomeActivity();
                 }
             }
@@ -217,7 +206,6 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void releaseMediaPlayer(){
-        Log.d("MediaPlayer", "Dans releaseMediaPlayer");
         if(mediaPlayer != null){
             if(mediaPlayer.isPlaying()){
                 mediaPlayer.stop();

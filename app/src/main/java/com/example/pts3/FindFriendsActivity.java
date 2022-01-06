@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class FindFriendsActivity extends AppCompatActivity {
@@ -69,11 +70,9 @@ public class FindFriendsActivity extends AppCompatActivity {
                         ArrayList<User> users = new ArrayList<>();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                             if(!dataSnapshot.child("uid").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                                String profilePicture = (String) dataSnapshot.child("profilePicture").getValue();
                                 String pseudo = (String) dataSnapshot.child("pseudo").getValue();
-                                String mail = (String) dataSnapshot.child("mail").getValue();
                                 String uid = (String) dataSnapshot.child("uid").getValue();
-                                users.add(new User(pseudo, mail, uid));
+                                users.add(new User(pseudo, uid));
                             }
                         }
 

@@ -18,15 +18,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="@+id/profilePic"
+        app:layout_constraintEnd_toEndOf="@+id/profilePic"
+        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintStart_toStartOf="@+id/profilePic"
+        app:layout_constraintTop_toTopOf="@+id/profilePic"
+        app:layout_constraintVertical_bias="0.843" />
+
     <TextView
         android:id="@+id/pseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Pseudo"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@color/fui_transparent"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toTopOf="@+id/pseudo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/signOut"
@@ -41,28 +67,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <ImageButton
         android:id="@+id/goToFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Favorite songs"
+        android:background="@color/fui_transparent"
+        android:src="@drawable/ic_song_list"
         app:layout_constraintBottom_toTopOf="@+id/friendsInvite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findFriends" />
+        app:layout_constraintStart_toEndOf="@+id/findFriends"
+        app:layout_constraintTop_toBottomOf="@+id/pseudo" />
 
-    <Button
+    <ImageButton
         android:id="@+id/findFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@color/fui_transparent"
+        android:src="@drawable/ic_friend_add"
         android:text="Find friends"
-        app:layout_constraintBottom_toTopOf="@+id/goToFav"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/friendsInvite"
+        app:layout_constraintEnd_toStartOf="@+id/goToFav"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pseudo" />
 
     <ListView
         android:id="@+id/friendsInvite"
+        android:background="@drawable/song_background"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginBottom="4dp"

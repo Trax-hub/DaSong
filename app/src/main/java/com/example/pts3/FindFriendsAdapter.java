@@ -1,6 +1,7 @@
 package com.example.pts3;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,8 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class FindFriendsAdapter extends ArrayAdapter<User> {
@@ -48,12 +54,28 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         }
 
         TextView friendUsername = view.findViewById(R.id.usernameSeeked);
-        ImageView friendImage = view.findViewById(R.id.friendImage);
+        ImageView profilePic = view.findViewById(R.id.profilePic);
         ImageButton addFriend = view.findViewById(R.id.addFriend);
         ImageButton declineFriend = view.findViewById(R.id.declineFriend);
 
-        friendImage.setImageResource(R.drawable.ic_account);
+        profilePic.setImageResource(R.drawable.ic_account);
         friendUsername.setText(user.getPseudo());
+
+        FirebaseStorage.getInstance()
+                .getReference()
+                .child(user.getUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profilePic);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePic.setImageResource(R.drawable.ic_account);
+            }
+        });
 
         currentState = "not_friends";
         DatabaseReference friendRequestDB = FirebaseDatabase.getInstance().getReference().child("friendReq");

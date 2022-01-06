@@ -100,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                             String uid = firebaseUser.getUid();
-                            User user = new User(pseudoS, mailS, uid);
+                            User user = new User(pseudoS, uid);
                             FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
                                     .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                                     .setValue(user);
