@@ -1,6 +1,7 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,12 +68,16 @@ public class CommentActivity extends AppCompatActivity {
         });
 
         sendComment.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 if(!postAComment.getText().toString().isEmpty()){
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
                     Map<String, Object> comment = new HashMap<>();
                     comment.put("comment", postAComment.getText().toString());
                     comment.put("uid", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+                    comment.put("date", dtf.format(now));
                     FirebaseFirestore
                             .getInstance()
                             .collection("/Post")
@@ -78,23 +86,31 @@ public class CommentActivity extends AppCompatActivity {
                             .add(comment);
 
                     postAComment.getText().clear();
+                    comments.clear();
+                    getData();
                 }
             }
         });
 
         postAComment.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_GO && !postAComment.getText().toString().isEmpty()){
                     Map<String, Object> comment = new HashMap<>();
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
                     comment.put("comment", postAComment.getText().toString());
                     comment.put("uid", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
+                    comment.put("date", dtf.format(now));
                     FirebaseFirestore
                             .getInstance()
                             .collection("/Post")
                             .document(postID)
                             .collection("/comment")
                             .add(comment);
+                    comments.clear();
+                    getData();
 
                     return true;
                 }
@@ -109,6 +125,7 @@ public class CommentActivity extends AppCompatActivity {
                 .collection("/Post")
                 .document(postID)
                 .collection("/comment")
+                .orderBy("date")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -118,7 +135,8 @@ public class CommentActivity extends AppCompatActivity {
                                 String uid = document.get("uid").toString();
                                 System.out.println();
                                 String comment = document.get("comment").toString();
-                                comments.add(new Comment(uid, comment));
+                                String date = document.get("date").toString();
+                                comments.add(new Comment(uid, comment, date));
                             }
                         }
                         display(comments);
@@ -130,5 +148,4 @@ public class CommentActivity extends AppCompatActivity {
         commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
     }
-
 }
