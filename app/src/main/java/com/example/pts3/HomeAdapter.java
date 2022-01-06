@@ -46,8 +46,6 @@ import java.util.Objects;
 public class HomeAdapter extends ArrayAdapter<Post> {
 
     private MediaPlayer mediaPlayer;
-    private boolean liked;
-    private int currentNbLike;
 
     public HomeAdapter(Context context, ArrayList<Post> postArrayList){
         super(context, R.layout.post_item, R.id.home_track_title,  postArrayList);
@@ -82,7 +80,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         CollectionReference db = FirebaseFirestore.getInstance().collection("/Post");
-
         Query queryPost = db.whereEqualTo("date", post.getDate())
                 .whereEqualTo("userID", post.getCreatorUid())
                 .whereEqualTo("title", post.getTrack().getTitle())
@@ -95,31 +92,27 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                     Log.d("Home", "Task succesful");
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                         db.document(documentSnapshot.getId())
-                                .collection("/uidWhoLiked").document(currentUser.getUid())
-                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.getResult().exists()) {
-                                    liked = true;
-                                    like.setImageResource(R.drawable.ic_favorite_full);
-                                }
-                            }
-                        });
-                        db.document(documentSnapshot.getId())
                                 .collection("/uidWhoLiked").
                                 get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                currentNbLike = task.getResult().size();
-                                nbLike.setText(currentNbLike +" like(s)");
+                                ArrayList<String> uid = new ArrayList<>();
+                                for(DocumentSnapshot document : task.getResult()){
+                                    uid.add((String) document.get("liked"));
+                                }
+                                post.setUidLiked(uid);
+                                post.setNbLikes(uid.size());
+                                if (isLiked(post, currentUser)){
+                                    like.setImageResource(R.drawable.ic_favorite_full);
+                                }
+                                nbLike.setText(post.getNbLikes() +" like(s)");
                             }
                         });
                     }
                 }
             }
-
-
         });
+
 
 
         FirebaseDatabase.getInstance()
@@ -229,10 +222,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(liked){
-                    like.setImageResource(R.drawable.ic_favorite_empty);
-                    currentNbLike --;
-                    nbLike.setText(currentNbLike +" like(s)");
+                if(isLiked(post, currentUser)){
                     queryPost.get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -240,21 +230,26 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                     if (task.isSuccessful()){
                                         Log.d("Home", "Task succesful");
                                         for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                                            HashMap<String, String> map = new HashMap<>();
-                                            map.put(FirebaseAuth.getInstance().getUid().toString(), "liked");
                                             db.document(documentSnapshot.getId())
                                                     .collection("/uidWhoLiked").document(currentUser.getUid())
-                                                    .delete();
+                                                    .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    ArrayList<String> uid = post.getUidLiked();
+                                                    uid.remove(currentUser.getUid());
+                                                    post.setUidLiked(uid);
+                                                    like.setImageResource(R.drawable.ic_favorite_empty);
+                                                    int nbLikes=post.getNbLikes()-1;
+                                                    post.setNbLikes(nbLikes);
+                                                    nbLike.setText(post.getNbLikes() +" like(s)");
+                                                }
+                                            });
                                         }
+
                                     }
                                 }
                             });
-                    liked=false;
-
                 }else{
-                    like.setImageResource(R.drawable.ic_favorite_full);
-                    currentNbLike ++;
-                    nbLike.setText(currentNbLike +" like(s)");
                     queryPost.get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -263,18 +258,27 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                         Log.d("Home", "Task succesful");
                                         for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                             HashMap<String, String> map = new HashMap<>();
-                                            map.put(FirebaseAuth.getInstance().getUid().toString(), "liked");
+                                            map.put("liked", FirebaseAuth.getInstance().getUid().toString());
                                             db.document(documentSnapshot.getId())
                                                     .collection("/uidWhoLiked").document(currentUser.getUid())
-                                                    .set(map);
+                                                    .set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    ArrayList<String> uid = post.getUidLiked();
+                                                    uid.add(currentUser.getUid());
+                                                    post.setUidLiked(uid);
+                                                    like.setImageResource(R.drawable.ic_favorite_full);
+                                                    int nbLikes=post.getNbLikes()+1;
+                                                    post.setNbLikes(nbLikes);
+                                                    nbLike.setText(post.getNbLikes() +" like(s)");
+                                                }
+                                            });
                                         }
+
                                     }
                                 }
                             });
-                    liked=true;
                 }
-
-
             }
         });
 
@@ -295,6 +299,16 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private boolean isLiked(Post post, FirebaseUser user){
+        if (!post.getUidLiked().isEmpty()){
+            for (String uid : post.getUidLiked()){
+                if (uid.equals(user.getUid())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
