@@ -112,12 +112,7 @@ public class LogInActivity extends AppCompatActivity {
                                             Log.d("Token", "Token send to server");
                                         });
                             });
-                    FirebaseMessaging.getInstance().subscribeToTopic("dailyNotification").addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    FirebaseMessaging.getInstance().subscribeToTopic("dailyNotification");
                     startActivity(new Intent(LogInActivity.this, HomeActivity.class));
                     finish();
                 } else {
