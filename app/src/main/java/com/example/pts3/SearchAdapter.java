@@ -20,10 +20,13 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends ArrayAdapter<Track> {
 
-    private MusicHandler musicHandler;
+    private MediaPlayer mediaPlayer;
+    private boolean mediaPlayerReady=true;
+    private String currentPreviewPlayed;
 
-    public SearchAdapter(Context context, ArrayList<Track> searchArrayList){
+    public SearchAdapter(Context context, ArrayList<Track> searchArrayList, MediaPlayer mediaPlayer){
         super(context, R.layout.list_item,R.id.trackName, searchArrayList);
+        this.mediaPlayer = mediaPlayer;
     }
 
     @NonNull
@@ -38,7 +41,6 @@ public class SearchAdapter extends ArrayAdapter<Track> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
-        musicHandler = new MusicHandler(this.getContext());
         ImageView cover = view.findViewById(R.id.cover);
         TextView track = view.findViewById(R.id.trackName);
         TextView artist = view.findViewById(R.id.artist);
@@ -46,8 +48,34 @@ public class SearchAdapter extends ArrayAdapter<Track> {
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                musicHandler.playMusic(tracks.getPreview());
-
+                System.out.println(tracks.getPreview());
+                if(mediaPlayer.isPlaying() && tracks.getPreview().equals(currentPreviewPlayed) && !mediaPlayerReady){
+                    mediaPlayer.pause();
+                    mediaPlayerReady = true;
+                }
+                else if(!mediaPlayer.isPlaying() && tracks.getPreview().equals(currentPreviewPlayed) && mediaPlayerReady){
+                    mediaPlayer.start();
+                    mediaPlayerReady = false;
+                }
+                else{
+                    mediaPlayer.reset();
+                    try {
+                        mediaPlayer.setDataSource(tracks.getPreview());
+                        mediaPlayer.setVolume(0.5f, 0.5f);
+                        mediaPlayer.prepare();
+                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mediaPlayer) {
+                                mediaPlayer.setLooping(false);
+                                mediaPlayer.start();
+                                currentPreviewPlayed=tracks.getPreview();
+                                mediaPlayerReady=false;
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -61,9 +89,5 @@ public class SearchAdapter extends ArrayAdapter<Track> {
         artist.setText(tracks.getArtistName());
 
         return view;
-    }
-
-    public MusicHandler getMusicHandler() {
-        return musicHandler;
     }
 }

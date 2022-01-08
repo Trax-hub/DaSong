@@ -2,6 +2,7 @@ package com.example.pts3;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     private static HttpURLConnection connection;
     private ListView listView;
     private Track selectedTrack;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         editText = findViewById(R.id.editText);
         listView = (ListView) findViewById(R.id.list_item);
 
+        mediaPlayer = new MediaPlayer();
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
@@ -77,8 +80,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 selectedTrack = (Track) listView.getItemAtPosition(position);
-                SearchAdapter searchAdapter = (SearchAdapter) listView.getAdapter();
-                searchAdapter.getMusicHandler().pause();
                 view.setSelected(true);
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setCancelable(true);
@@ -87,7 +88,6 @@ public class SearchActivity extends AppCompatActivity {
                 builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
                         Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
                         intent.putExtra("Track", selectedTrack);
                         startActivity(intent);
@@ -112,7 +112,6 @@ public class SearchActivity extends AppCompatActivity {
         String line;
         StringBuilder responseContent = new StringBuilder();
         Root root = new Root(new ArrayList<Search>());
-
 
         try {
             s = StringUtils.stripAccents(s);
@@ -165,41 +164,32 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
-            SearchAdapter searchAdapter = (SearchAdapter) listView.getAdapter();
-            searchAdapter.getMusicHandler().pause();
-        }
+        mediaPlayer.reset();
         finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
-            ((SearchAdapter) listView.getAdapter()).getMusicHandler().pause();
-        }
+        mediaPlayer.reset();
         finish();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
-            ((SearchAdapter) listView.getAdapter()).getMusicHandler().pause();
-        }
+        mediaPlayer.reset();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
-            ((SearchAdapter) listView.getAdapter()).getMusicHandler().pause();
-        }
+        mediaPlayer.reset();
         finish();
     }
 
     private void display(ArrayList<Track> trackList){
-        SearchAdapter searchAdapter = new SearchAdapter(this, trackList);
+        SearchAdapter searchAdapter = new SearchAdapter(this, trackList, mediaPlayer);
         listView.setAdapter(searchAdapter);
     }
 
