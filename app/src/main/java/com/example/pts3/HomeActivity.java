@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,16 +40,26 @@ public class HomeActivity extends AppCompatActivity {
     private ImageButton doAPost;
     private ImageView profilePic;
     private SwipeRefreshLayout pullToRefresh;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
-            startActivity(new Intent(this, LobbyActivity.class));
-            finish();
-        }
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user==null){
+                    Intent intent = new Intent(HomeActivity.this, LogInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
 
         FirebaseStorage.getInstance().getReference()
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -60,11 +70,11 @@ public class HomeActivity extends AppCompatActivity {
                         Picasso.get().load(uri).into(profilePic);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                profilePic.setImageResource(R.drawable.ic_account);
-            }
-        });
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        profilePic.setImageResource(R.drawable.ic_account);
+                    }
+                });
 
         //TODO Si pas d'ami, faire bouton chercher des amis
 
@@ -75,14 +85,30 @@ public class HomeActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.homeSong);
         pullToRefresh = (SwipeRefreshLayout) findViewById(R.id.pullToRefresh);
 
+        pullToRefresh.setRefreshing(false);
+
         getData();
         verifPost();
 
         doAPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, CreateActivity.class));
-                finish();
+                db.collection("/Post")
+                        .whereEqualTo("userID", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    if(task.getResult().size() != 0){
+                                        doAPost.setEnabled(false);
+                                        doAPost.setColorFilter(Color.GRAY);
+                                    } else if(task.getResult().size() == 0){
+                                        startActivity(new Intent(HomeActivity.this, CreateActivity.class));
+                                    }
+                                }
+                            }
+                        });
             }
         });
 
@@ -101,6 +127,7 @@ public class HomeActivity extends AppCompatActivity {
                 pullToRefresh.setRefreshing(false);
             }
         });
+
     }
 
     private void getData(){
@@ -112,9 +139,6 @@ public class HomeActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("FirebaseFirestore", document.getId() + " => " + document.getData());
-
-
                                 if(FirebaseAuth.getInstance().getCurrentUser() != null){
 
                                     FirebaseDatabase.getInstance()
@@ -146,8 +170,6 @@ public class HomeActivity extends AppCompatActivity {
 
                             display(posts);
 
-                        } else {
-                            Log.d("FirebaseFirestore", "Error getting documents: ", task.getException());
                         }
                     }
                 });
@@ -173,15 +195,7 @@ public class HomeActivity extends AppCompatActivity {
         boolean same = false;
 
         for(Post post : posts){
-            if (post.getTrack().getTitle().equals(title) &&
-                    post.getTrack().getPreview().equals(preview) &&
-                    post.getTrack().getArtistName().equals(artistName) &&
-                    post.getTrack().getCover().equals(cover) &&
-                    post.getTrack().getCoverMax().equals(coverMax) &&
-                    post.getDescription().equals(description) &&
-                    post.getCreatorUid().equals(creatorUid) &&
-                    post.getDate().equals(date)) {
-
+            if (post.getCreatorUid().equals(creatorUid)) {
                 same = true;
                 break;
             }
@@ -211,9 +225,20 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRestart() {
-        super.onRestart();
-        finish();
-        startActivity(getIntent());
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
     }
 }

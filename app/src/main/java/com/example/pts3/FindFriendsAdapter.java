@@ -2,7 +2,6 @@ package com.example.pts3;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +128,6 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Friend", "Click sur add");
                 addFriend.setEnabled(false);
                 switch (currentState) {
                     case "not_friends":
@@ -229,7 +227,6 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         declineFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Friend", "Click sur decline");
                 if(currentState.equals("req_received")){
                     friendRequestDB.child(currentUser.getUid())
                             .child(user.getUid())

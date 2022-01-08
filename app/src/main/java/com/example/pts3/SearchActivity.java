@@ -165,13 +165,9 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d("Music", "On back pressed");
         if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
-            Log.d("Music", "Adapter non null et adapter instance of SearchAdapter");
-            Log.d("Music", String.valueOf(((SearchAdapter) listView.getAdapter()).getMusicHandler().isPlaying()));
             SearchAdapter searchAdapter = (SearchAdapter) listView.getAdapter();
             searchAdapter.getMusicHandler().pause();
-            Log.d("Music", String.valueOf(((SearchAdapter) listView.getAdapter()).getMusicHandler().isPlaying()));
         }
         finish();
     }

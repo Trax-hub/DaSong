@@ -5,7 +5,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -116,7 +115,10 @@ public class CreateActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                    openHomeActivity();
+
+                    Intent intent = new Intent(CreateActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -145,12 +147,6 @@ public class CreateActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openHomeActivity(){
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
     private void playAudio(String preview){
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
@@ -173,6 +169,7 @@ public class CreateActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         releaseMediaPlayer();
+        startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 

@@ -90,6 +90,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pseudo" />
 
+    <Button
+        android:id="@+id/managingProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paramètres du compte"
+        app:layout_constraintBottom_toTopOf="@+id/friendsInvite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findFriends" />
+
     <ListView
         android:id="@+id/friendsInvite"
         android:background="@drawable/song_background"

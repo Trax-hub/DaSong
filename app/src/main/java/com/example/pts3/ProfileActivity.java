@@ -3,7 +3,6 @@ package com.example.pts3;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -12,14 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,15 +26,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class ProfileActivity extends AppCompatActivity{
+public class ProfileActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_GET = 1;
+    static final int REQUEST_MANAGE_PROFILE = 2;
 
     private ListView friendList;
     private ImageButton signOut, back, findFriends, goToFav;
+    private Button managingProfile;
     private TextView pseudo;
     private ImageView profilePic;
 
@@ -53,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity{
         goToFav = (ImageButton) findViewById(R.id.goToFav);
         pseudo = (TextView) findViewById(R.id.pseudo);
         profilePic = findViewById(R.id.profilePic);
+        managingProfile = findViewById(R.id.managingProfile);
 
         getData();
 
@@ -62,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity{
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                            Picasso.get().load(uri).into(profilePic);
+                        Picasso.get().load(uri).into(profilePic);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -71,8 +70,15 @@ public class ProfileActivity extends AppCompatActivity{
             }
         });
 
+        managingProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProfileActivity.this, ProfileManagerActivity.class), REQUEST_MANAGE_PROFILE);
+            }
+        });
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         pseudo.setText(currentUser.getDisplayName());
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +87,7 @@ public class ProfileActivity extends AppCompatActivity{
                 finish();
             }
         });
+
         goToFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,11 +138,14 @@ public class ProfileActivity extends AppCompatActivity{
                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                             .putFile(selectedImageUri);
                 }
+            } else if (requestCode == REQUEST_MANAGE_PROFILE) {
+                String result = data.getStringExtra("pseudo");
+                pseudo.setText(result);
             }
         }
     }
 
-    private void getData(){
+    private void getData() {
         DatabaseReference friendRequestDB = FirebaseDatabase.getInstance().getReference().child("friendReq");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
@@ -144,52 +154,58 @@ public class ProfileActivity extends AppCompatActivity{
                 .getReference("Users")
                 .orderByChild("pseudo")
                 .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            ArrayList<User> users = new ArrayList<>();
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                if(!dataSnapshot.child("uid").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                                    String pseudo = (String) dataSnapshot.child("pseudo").getValue();
-                                    String uid = (String) dataSnapshot.child("uid").getValue();
-                                    users.add(new User(pseudo, uid));
-                                }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<User> users = new ArrayList<>();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (!dataSnapshot.child("uid").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                String pseudo = (String) dataSnapshot.child("pseudo").getValue();
+                                String uid = (String) dataSnapshot.child("uid").getValue();
+                                users.add(new User(pseudo, uid));
                             }
-                            Log.d("AddFriends", String.valueOf(users.size()));
-                            ArrayList<User> requestUser = new ArrayList<>();
-                            friendRequestDB.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    Log.d("AddFriends", String.valueOf(users.size()));
-                                    for(User user : users) {
-                                        if (snapshot.hasChild(user.getUid())) {
-                                            String req_type = snapshot.child(user.getUid()).child("requestType").getValue().toString();
-                                            if (req_type.equals("received")) {
-                                                requestUser.add(user);
-                                            }
+                        }
+                        ArrayList<User> requestUser = new ArrayList<>();
+                        friendRequestDB.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (User user : users) {
+                                    if (snapshot.hasChild(user.getUid())) {
+                                        String req_type = snapshot.child(user.getUid()).child("requestType").getValue().toString();
+                                        if (req_type.equals("received")) {
+                                            requestUser.add(user);
                                         }
                                     }
-                                    Log.d("AddFriends", String.valueOf(requestUser.size()) + " Request");
-                                    display(requestUser);
                                 }
+                                display(requestUser);
+                            }
 
-                                @Override
-                                public void onCancelled (@NonNull DatabaseError error){
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
-                        }
+                            }
+                        });
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                    }
+                });
 
     }
 
-    private void display(ArrayList<User> users){
+    private void display(ArrayList<User> users) {
         AcceptFriendAdapter adapter = new AcceptFriendAdapter(this, users);
         friendList.setAdapter(adapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 }

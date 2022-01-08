@@ -3,11 +3,9 @@ package com.example.pts3;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -46,7 +44,6 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
-        Log.d("Comment", getIntent().getStringExtra("PostID").toString());
         postID = getIntent().getStringExtra("PostID").toString();
 
         comments = new ArrayList<>();

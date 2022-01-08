@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/changingPseudo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/default_button"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nouveau pseudo :"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/newPseudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Nouveau pseudo"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="39dp" />
+
+        <Button
+            android:id="@+id/sendNewPseudo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Changer de pseudo"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/changingPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/default_button"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changingPseudo">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ancien mot de passe : "
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="135dp" />
+
+        <EditText
+            android:id="@+id/oldPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Ancien mot de passe"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="162dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nouveau mot de passe : "
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="231dp" />
+
+        <EditText
+            android:id="@+id/newPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Nouveau mot de passe"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="267dp" />
+
+        <Button
+            android:id="@+id/sendNewPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Changer le mot de passe"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/changingEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/default_button"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changingPassword">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nouvel email :"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="336dp" />
+
+        <EditText
+            android:id="@+id/newMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Nouvel email"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="378dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mot de passe :"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="436dp" />
+
+        <EditText
+            android:id="@+id/emailPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Mot de passe"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="471dp" />
+
+        <Button
+            android:id="@+id/sendNewMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Changer l'email"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

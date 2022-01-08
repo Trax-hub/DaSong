@@ -2,17 +2,14 @@ package com.example.pts3;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -119,7 +116,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
-                    Log.d("Home", "Task succesful");
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                         db.document(documentSnapshot.getId())
                                 .collection("/uidWhoLiked").
@@ -167,7 +163,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()){
-                                    Log.d("Home", "Task succesful");
                                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                         intent.putExtra("PostID", documentSnapshot.getId());
                                         getContext().startActivity(intent);
@@ -208,8 +203,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().size() == 0) {
                                         db.add(map);
-                                        //TODO : changer couleur en gris pour le bouton add
-                                        //add.setColorFilter(Color.GRAY);
                                     }
                                     for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                                         if (!queryDocumentSnapshot.exists()) {
