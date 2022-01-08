@@ -29,7 +29,6 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity {
 
     private EditText editText;
-
     private static HttpURLConnection connection;
     private ListView listView;
     private Track selectedTrack;
@@ -40,9 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         editText = findViewById(R.id.editText);
-
         listView = (ListView) findViewById(R.id.list_item);
-        editText = findViewById(R.id.editText);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,8 +77,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 selectedTrack = (Track) listView.getItemAtPosition(position);
-                ListAdapter listAdapter = (ListAdapter) listView.getAdapter();
-                listAdapter.getMediaPlayer().stop();
+                SearchAdapter searchAdapter = (SearchAdapter) listView.getAdapter();
+                searchAdapter.getMusicHandler().pause();
                 view.setSelected(true);
                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
                 builder.setCancelable(true);
@@ -168,68 +165,46 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        releaseMediaPlayer();
+        Log.d("Music", "On back pressed");
+        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
+            Log.d("Music", "Adapter non null et adapter instance of SearchAdapter");
+            Log.d("Music", String.valueOf(((SearchAdapter) listView.getAdapter()).getMusicHandler().isPlaying()));
+            SearchAdapter searchAdapter = (SearchAdapter) listView.getAdapter();
+            searchAdapter.getMusicHandler().pause();
+            Log.d("Music", String.valueOf(((SearchAdapter) listView.getAdapter()).getMusicHandler().isPlaying()));
+        }
         finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        releaseMediaPlayer();
+        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
+            ((SearchAdapter) listView.getAdapter()).getMusicHandler().pause();
+        }
         finish();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            if(((ListAdapter) listView.getAdapter()).getMediaPlayer() != null){
-                if(((ListAdapter) listView.getAdapter()).getMediaPlayer().isPlaying()){
-                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().pause();
-                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().release();
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            if(((ListAdapter) listView.getAdapter()).getMediaPlayer() != null){
-                if(!((ListAdapter) listView.getAdapter()).getMediaPlayer().isPlaying()){
-                    Log.d("MediaPlayer", "OnResume pas normal");
-                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().start();
-                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().release();
-                }
-            }
+        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
+            ((SearchAdapter) listView.getAdapter()).getMusicHandler().pause();
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        releaseMediaPlayer();
+        if(listView.getAdapter() != null && listView.getAdapter() instanceof SearchAdapter){
+            ((SearchAdapter) listView.getAdapter()).getMusicHandler().pause();
+        }
         finish();
     }
 
     private void display(ArrayList<Track> trackList){
-        ListAdapter listAdapter = new ListAdapter(this, trackList);
-        listView.setAdapter(listAdapter);
-    }
-
-
-    private void releaseMediaPlayer(){
-        Log.d("MediaPlayer", "Dans releaseMediaPlayer");
-        if (listView.getAdapter() != null && listView.getAdapter() instanceof ListAdapter) {
-            if(((ListAdapter) listView.getAdapter()).getMediaPlayer() != null){
-                if(((ListAdapter) listView.getAdapter()).getMediaPlayer().isPlaying()){
-                    ((ListAdapter) listView.getAdapter()).getMediaPlayer().stop();
-                }
-                ((ListAdapter) listView.getAdapter()).getMediaPlayer().release();
-                ((ListAdapter) listView.getAdapter()).setMediaPlayer(null);
-            }
-        }
+        SearchAdapter searchAdapter = new SearchAdapter(this, trackList);
+        listView.setAdapter(searchAdapter);
     }
 
 }

@@ -18,11 +18,11 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<Track> {
+public class SearchAdapter extends ArrayAdapter<Track> {
 
-    private MediaPlayer mediaPlayer;
+    private MusicHandler musicHandler;
 
-    public ListAdapter(Context context, ArrayList<Track> searchArrayList){
+    public SearchAdapter(Context context, ArrayList<Track> searchArrayList){
         super(context, R.layout.list_item,R.id.trackName, searchArrayList);
     }
 
@@ -38,19 +38,16 @@ public class ListAdapter extends ArrayAdapter<Track> {
             view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
+        musicHandler = new MusicHandler(this.getContext());
         ImageView cover = view.findViewById(R.id.cover);
         TextView track = view.findViewById(R.id.trackName);
         TextView artist = view.findViewById(R.id.artist);
 
-        mediaPlayer = new MediaPlayer();
-
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mediaPlayer.isPlaying())
-                    mediaPlayer.reset();
-                else
-                    playAudio(tracks.getPreview());
+                musicHandler.playMusic(tracks.getPreview());
+
             }
         });
 
@@ -66,29 +63,7 @@ public class ListAdapter extends ArrayAdapter<Track> {
         return view;
     }
 
-    private void playAudio(String preview){
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-        try {
-            mediaPlayer.setDataSource(preview);
-            mediaPlayer.prepare();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mediaPlayer.start();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
-    }
-
-    public void setMediaPlayer(MediaPlayer mediaPlayer) {
-        this.mediaPlayer = mediaPlayer;
+    public MusicHandler getMusicHandler() {
+        return musicHandler;
     }
 }
