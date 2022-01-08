@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -29,12 +31,16 @@ public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Button signIn;
     private EditText editTextEmail, editTextPassword;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         signIn = (Button) findViewById(R.id.signIn);
@@ -120,4 +126,24 @@ public class LogInActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
+        super.onDestroy();
+    }
+
 }

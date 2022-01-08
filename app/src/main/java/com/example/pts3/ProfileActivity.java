@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -38,12 +40,16 @@ public class ProfileActivity extends AppCompatActivity {
     private Button managingProfile;
     private TextView pseudo;
     private ImageView profilePic;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         friendList = (ListView) findViewById(R.id.friendsInvite);
         findFriends = (ImageButton) findViewById(R.id.findFriends);
         signOut = (ImageButton) findViewById(R.id.signOut);
@@ -200,12 +206,21 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
+        super.onDestroy();
     }
 }

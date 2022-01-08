@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -26,12 +28,16 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText pseudo, mail, password;
     private Button button;
     private FirebaseAuth firebaseAuth;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         firebaseAuth = FirebaseAuth.getInstance();
 
         mail = (EditText) findViewById(R.id.mail);
@@ -116,5 +122,24 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
+        super.onDestroy();
     }
 }

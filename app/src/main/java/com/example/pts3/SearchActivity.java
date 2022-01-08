@@ -3,10 +3,11 @@ package com.example.pts3;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -34,12 +35,16 @@ public class SearchActivity extends AppCompatActivity {
     private ListView listView;
     private Track selectedTrack;
     private MediaPlayer mediaPlayer;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         editText = findViewById(R.id.editText);
         listView = (ListView) findViewById(R.id.list_item);
 
@@ -162,6 +167,13 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         mediaPlayer.reset();
@@ -170,6 +182,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
         super.onDestroy();
         mediaPlayer.reset();
         finish();
@@ -183,6 +196,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        unregisterReceiver(internetCheckService);
         super.onStop();
         mediaPlayer.reset();
         finish();

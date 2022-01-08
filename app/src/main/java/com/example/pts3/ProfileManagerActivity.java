@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -27,12 +29,16 @@ public class ProfileManagerActivity extends AppCompatActivity {
 
     private Button sendNewPassword, sendNewMail, sendNewPseudo;
     private EditText newPseudo, oldPassword, newPassword, newMail, emailPassword;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_managing);
 
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         sendNewMail = findViewById(R.id.sendNewMail);
         sendNewPassword = findViewById(R.id.sendNewPassword);
         sendNewPseudo = findViewById(R.id.sendNewPseudo);
@@ -220,5 +226,24 @@ public class ProfileManagerActivity extends AppCompatActivity {
 
         newMail.getText().clear();
         emailPassword.getText().clear();
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
+        super.onDestroy();
     }
 }

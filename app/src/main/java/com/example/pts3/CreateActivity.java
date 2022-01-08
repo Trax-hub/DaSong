@@ -1,8 +1,10 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +42,7 @@ public class CreateActivity extends AppCompatActivity {
     private ImageView pausePlay;
     private MediaPlayer mediaPlayer;
     private FirebaseAuth firebaseAuth;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,10 @@ public class CreateActivity extends AppCompatActivity {
         pausePlay = (ImageView) findViewById(R.id.pause_play);
         validateButton = (Button) findViewById(R.id.validate_button);
         selectedCover.setImageResource(R.drawable.general_cover);
+        internetCheckService = new InternetCheckService();
+
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -166,6 +173,20 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         releaseMediaPlayer();
@@ -176,6 +197,7 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(internetCheckService);
         releaseMediaPlayer();
         finish();
     }

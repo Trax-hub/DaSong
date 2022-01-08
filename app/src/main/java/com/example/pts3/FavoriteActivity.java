@@ -1,5 +1,7 @@
 package com.example.pts3;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -33,6 +35,7 @@ public class FavoriteActivity extends AppCompatActivity {
     private ArrayList<Track> tracks;
     private FavoriteAdapter favoriteAdapter;
     private TextView vide;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +43,9 @@ public class FavoriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
 
         vide = (TextView) findViewById(R.id.vide);
-
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         db = FirebaseFirestore.getInstance();
         tracks = new ArrayList<>();
         listView = (ListView) findViewById(R.id.favList);
@@ -80,6 +85,13 @@ public class FavoriteActivity extends AppCompatActivity {
     private void display(ArrayList<Track> tracks){
         favoriteAdapter = new FavoriteAdapter(this, tracks);
         listView.setAdapter(favoriteAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -39,6 +41,7 @@ public class CommentActivity extends AppCompatActivity {
     private ArrayList<Comment> comments;
     private CommentAdapter commentAdapter;
     private ListView commentListView;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +54,10 @@ public class CommentActivity extends AppCompatActivity {
         postAComment = (EditText) findViewById(R.id.postAComment);
         sendComment = (ImageButton) findViewById(R.id.sendComment);
         commentListView = (ListView) findViewById(R.id.listViewComment);
+        internetCheckService = new InternetCheckService();
+
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
 
         getData();
 
@@ -144,5 +151,24 @@ public class CommentActivity extends AppCompatActivity {
     private void display(ArrayList<Comment> comments){
         commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
+        super.onDestroy();
     }
 }

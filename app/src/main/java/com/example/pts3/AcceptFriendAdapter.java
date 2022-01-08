@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,4 +146,6 @@ public class AcceptFriendAdapter extends ArrayAdapter<User> {
 
         return view;
     }
+
+
 }

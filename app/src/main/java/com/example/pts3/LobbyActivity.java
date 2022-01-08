@@ -1,6 +1,8 @@
 package com.example.pts3;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ public class LobbyActivity extends AppCompatActivity {
 
     private Button signUpButton;
     private Button logInButton;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +23,9 @@ public class LobbyActivity extends AppCompatActivity {
 
         signUpButton = (Button) findViewById(R.id.signUp);
         logInButton = (Button) findViewById(R.id.logIn);
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +42,26 @@ public class LobbyActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(internetCheckService);
+        super.onDestroy();
+    }
 
 }

@@ -68,6 +68,16 @@
             android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:screenOrientation="portrait"/>
+        <activity android:name=".NoConnectionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <receiver android:name=".InternetCheckService">
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
+            </intent-filter>
+        </receiver>
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false"

@@ -1,5 +1,7 @@
 package com.example.pts3;
 
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +33,7 @@ public class FindFriendsActivity extends AppCompatActivity {
 
     private ListView listView;
     private EditText seekingForFriends;
+    private InternetCheckService internetCheckService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +42,9 @@ public class FindFriendsActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.friends_view);
         seekingForFriends = (EditText) findViewById(R.id.seekingForFriends);
-
+        internetCheckService = new InternetCheckService();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         seekingForFriends.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -90,6 +95,13 @@ public class FindFriendsActivity extends AppCompatActivity {
     private void display(ArrayList<User> users){
         FindFriendsAdapter findFriendsAdapter = new FindFriendsAdapter(this, users);
         listView.setAdapter(findFriendsAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
+        super.onStart();
     }
 
 }
