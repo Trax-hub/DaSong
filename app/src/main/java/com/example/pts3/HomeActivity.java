@@ -5,18 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -24,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,11 +55,19 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private InternetCheckService internetCheckService;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user==null){
+            Intent intent = new Intent(HomeActivity.this, LobbyActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
         internetCheckService = new InternetCheckService();
@@ -62,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user==null){
-                    Intent intent = new Intent(HomeActivity.this, LogInActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, LobbyActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -88,6 +102,7 @@ public class HomeActivity extends AppCompatActivity {
                 });
 
         //TODO Si pas d'ami, faire bouton chercher des amis
+        noFriends();
 
         db = FirebaseFirestore.getInstance();
         posts = new ArrayList<>();
@@ -238,8 +253,35 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
 
+    private void noFriends(){
+        FirebaseDatabase.getInstance()
+                .getReference("Friends")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> other) {
+                        if(other.isSuccessful() && other.getResult().getValue() == null){
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HomeActivity.this, R.style.my_dialog);
+                            LayoutInflater inflater = HomeActivity.this.getLayoutInflater();
+                            View dialogView = inflater.inflate(R.layout.dialog_no_friends, null);
+                            dialogBuilder.setView(dialogView);
+                            Button goToAddFriends = dialogView.findViewById(R.id.goToAddFriends);
+                            goToAddFriends.setOnClickListener(view -> {
+                                startActivity(new Intent(HomeActivity.this, FindFriendsActivity.class));
+                                finish();
+                            });
+                            alertDialog = dialogBuilder.create();
+                            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            alertDialog.show();
+                        }
+                    }
+                });
+    }
+
     @Override
     protected void onStart() {
+        firebaseAuth.addAuthStateListener(authStateListener);
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
         super.onStart();
@@ -250,11 +292,8 @@ public class HomeActivity extends AppCompatActivity {
         unregisterReceiver(internetCheckService);
         super.onStop();
         firebaseAuth.removeAuthStateListener(authStateListener);
-    }
-
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(internetCheckService);
-        super.onDestroy();
+        if(alertDialog != null){
+            alertDialog.dismiss();
+        }
     }
 }

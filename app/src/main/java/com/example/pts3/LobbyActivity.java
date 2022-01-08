@@ -58,10 +58,4 @@ public class LobbyActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(internetCheckService);
-        super.onDestroy();
-    }
-
 }

@@ -58,6 +58,8 @@ public class LogInActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetCheckService,intentFilter);
         super.onBackPressed();
         startActivity(new Intent(LogInActivity.this, LobbyActivity.class));
         finish();
@@ -138,12 +140,6 @@ public class LogInActivity extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(internetCheckService);
         super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(internetCheckService);
-        super.onDestroy();
     }
 
 }
