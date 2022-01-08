@@ -1,7 +1,6 @@
-package com.example.pts3;
+package com.example.pts3.controller;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.pts3.R;
+import com.example.pts3.model.Track;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.example.pts3;
+package com.example.pts3.controller;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pts3.R;
+import com.example.pts3.model.Comment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

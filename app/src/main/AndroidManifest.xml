@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SplashScreenActivity"
+        <activity android:name=".controller.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateActivity"
+            android:name=".controller.CreateActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
@@ -31,23 +31,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity"
+        <activity android:name=".controller.SearchActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SignUpActivity"
+        <activity android:name=".controller.SignUpActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".LogInActivity"
+        <activity android:name=".controller.LogInActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".LobbyActivity"
+        <activity android:name=".controller.LobbyActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".HomeActivity"
+        <activity android:name=".controller.HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ProfileActivity"
+        <activity android:name=".controller.ProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -55,23 +55,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".FavoriteActivity"
+        <activity android:name=".controller.FavoriteActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".FindFriendsActivity"
+        <activity android:name=".controller.FindFriendsActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ProfileManagerActivity"
+        <activity android:name=".controller.ProfileManagerActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".CommentActivity"
+        <activity android:name=".controller.CommentActivity"
             android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".NoConnectionActivity"
+        <activity android:name=".controller.NoConnectionActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
-        <receiver android:name=".InternetCheckService">
+        <receiver android:name=".controller.InternetCheckService">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
@@ -79,7 +79,7 @@
             </intent-filter>
         </receiver>
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".controller.MyFirebaseMessagingService"
             android:exported="false"
             android:directBootAware="true">
             <intent-filter>

@@ -1,8 +1,10 @@
-package com.example.pts3;
+package com.example.pts3.controller;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.example.pts3.model.NetworkUtil;
 
 public class InternetCheckService extends BroadcastReceiver {
 

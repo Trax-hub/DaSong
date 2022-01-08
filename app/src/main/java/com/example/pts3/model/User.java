@@ -1,4 +1,4 @@
-package com.example.pts3;
+package com.example.pts3.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.pts3;
+package com.example.pts3.controller;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.pts3.R;
+import com.example.pts3.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,8 +32,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 
 public class FindFriendsAdapter extends ArrayAdapter<User> {

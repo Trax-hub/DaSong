@@ -1,10 +1,12 @@
-package com.example.pts3;
+package com.example.pts3.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pts3.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.pts3;
+package com.example.pts3.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +16,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pts3.R;
+import com.example.pts3.model.Root;
+import com.example.pts3.model.Search;
+import com.example.pts3.model.Track;
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
