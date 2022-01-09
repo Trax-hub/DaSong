@@ -1,5 +1,6 @@
 package com.example.pts3.controller;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -101,6 +102,14 @@ public class FindFriendsActivity extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(internetCheckService);
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(FindFriendsActivity.this, ProfileActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -215,4 +215,12 @@ public class ProfileActivity extends AppCompatActivity {
         unregisterReceiver(internetCheckService);
         super.onStop();
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

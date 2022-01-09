@@ -304,8 +304,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         mediaPlayer.reset();
+        System.out.println("onback    jejfj");
         finish();
     }
 
