@@ -134,33 +134,5 @@ public class FavoriteAdapter extends ArrayAdapter<Track>{
 
             return view;
         }
-
-        private void playAudio(String preview){
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-            try {
-                mediaPlayer.setDataSource(preview);
-                mediaPlayer.prepare();
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mediaPlayer) {
-                        mediaPlayer.start();
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        public MediaPlayer getMediaPlayer() {
-            return mediaPlayer;
-        }
-
-        public void setMediaPlayer(MediaPlayer mediaPlayer) {
-            this.mediaPlayer = mediaPlayer;
-        }
-
-
 }
 
