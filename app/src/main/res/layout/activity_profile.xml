@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/edit"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@+id/profilePic"
         app:layout_constraintEnd_toEndOf="@+id/profilePic"
@@ -58,8 +58,8 @@
         android:id="@+id/signOut"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_login"
         android:background="@color/fui_transparent"
+        android:src="@drawable/ic_login"
         app:layout_constraintBottom_toTopOf="@+id/pseudo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -90,15 +90,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pseudo" />
 
-    <Button
+    <ImageButton
         android:id="@+id/managingProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Paramètres du compte"
-        app:layout_constraintBottom_toTopOf="@+id/friendsInvite"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/ic_settings"
+        app:layout_constraintBottom_toBottomOf="@+id/profilePic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findFriends" />
+        app:layout_constraintStart_toEndOf="@+id/profilePic"
+        app:layout_constraintTop_toBottomOf="@+id/signOut" />
 
     <ListView
         android:id="@+id/friendsInvite"

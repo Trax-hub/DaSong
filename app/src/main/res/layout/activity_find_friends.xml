@@ -39,9 +39,6 @@
             android:listSelector="#2E2E3C"
             tools:listitem="@layout/friends_item" />
 
-
-
-
     </LinearLayout>
 
 </RelativeLayout>

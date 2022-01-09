@@ -38,8 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     static final int REQUEST_MANAGE_PROFILE = 2;
 
     private ListView friendList;
-    private ImageButton signOut, back, findFriends, goToFav;
-    private Button managingProfile;
+    private ImageButton signOut, back, findFriends, goToFav, managingProfile;
     private TextView pseudo;
     private ImageView profilePic;
     private InternetCheckService internetCheckService;
