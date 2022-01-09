@@ -54,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/gifImageView"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Create a post icon" />
+            android:contentDescription="@string/create_a_post_icon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
