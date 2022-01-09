@@ -2,7 +2,6 @@ package com.example.pts3.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -46,7 +45,7 @@ import java.util.Objects;
 
 public class HomeAdapter extends ArrayAdapter<Post> {
 
-    private MediaPlayer mediaPlayer;
+    private final MediaPlayer mediaPlayer;
     private View oldView;
     private boolean mediaPlayerOnBreak=false;
 
@@ -151,7 +150,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                 .addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
                     public void onSuccess(DataSnapshot dataSnapshot) {
-                        creatorOfPost.setText(dataSnapshot.child("pseudo").getValue().toString());
+                        creatorOfPost.setText(Objects.requireNonNull(dataSnapshot.child("pseudo").getValue()).toString());
                     }
                 });
 
@@ -301,6 +300,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                         for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                             HashMap<String, String> map = new HashMap<>();
                                             map.put("liked", FirebaseAuth.getInstance().getUid());
+                                            assert currentUser != null;
                                             db.document(documentSnapshot.getId())
                                                     .collection("/uidWhoLiked").document(currentUser.getUid())
                                                     .set(map).addOnSuccessListener(unused -> {

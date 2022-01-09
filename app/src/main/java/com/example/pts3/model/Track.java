@@ -1,13 +1,14 @@
 package com.example.pts3.model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
-import java.net.URL;
 
 public class Track implements Serializable {
 
-    private String title;
-    private String preview;
-    private String artistName;
+    private final String title;
+    private final String preview;
+    private final String artistName;
     private String cover;
     private String coverMax;
 
@@ -47,6 +48,7 @@ public class Track implements Serializable {
         this.coverMax = coverMax;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Track{" +

@@ -24,11 +24,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AcceptFriendAdapter extends ArrayAdapter<User> {
 
-    private AcceptFriendAdapter adapter;
-    private ArrayList<User> users;
+    private final AcceptFriendAdapter adapter;
+    private final ArrayList<User> users;
 
     public AcceptFriendAdapter(Context context, ArrayList<User> users){
         super(context, R.layout.friend_request_item, R.id.usernameRequest,  users);
@@ -81,7 +82,7 @@ public class AcceptFriendAdapter extends ArrayAdapter<User> {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                friendsDB.child(currentUser.getUid())
+                friendsDB.child(Objects.requireNonNull(currentUser).getUid())
                         .child(user.getUid())
                         .setValue("Friends")
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -121,7 +122,7 @@ public class AcceptFriendAdapter extends ArrayAdapter<User> {
         declineFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                friendRequestDB.child(currentUser.getUid())
+                friendRequestDB.child(Objects.requireNonNull(currentUser).getUid())
                         .child(user.getUid())
                         .removeValue()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

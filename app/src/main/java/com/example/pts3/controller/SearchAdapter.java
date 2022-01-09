@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends ArrayAdapter<Track> {
 
-    private MediaPlayer mediaPlayer;
+    private final MediaPlayer mediaPlayer;
     private boolean mediaPlayerReady=true;
     private String currentPreviewPlayed;
 

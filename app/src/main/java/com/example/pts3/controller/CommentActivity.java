@@ -36,12 +36,9 @@ import java.util.Objects;
 
 public class CommentActivity extends AppCompatActivity {
 
-    private ImageButton backComment;
     private EditText postAComment;
-    private ImageButton sendComment;
     private String postID;
     private ArrayList<Comment> comments;
-    private CommentAdapter commentAdapter;
     private ListView commentListView;
     private InternetCheckService internetCheckService;
 
@@ -49,12 +46,12 @@ public class CommentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
-        postID = getIntent().getStringExtra("PostID").toString();
+        postID = getIntent().getStringExtra("PostID");
 
         comments = new ArrayList<>();
-        backComment = (ImageButton) findViewById(R.id.backComment);
+        ImageButton backComment = (ImageButton) findViewById(R.id.backComment);
         postAComment = (EditText) findViewById(R.id.postAComment);
-        sendComment = (ImageButton) findViewById(R.id.sendComment);
+        ImageButton sendComment = (ImageButton) findViewById(R.id.sendComment);
         commentListView = (ListView) findViewById(R.id.listViewComment);
         internetCheckService = new InternetCheckService();
 
@@ -138,10 +135,10 @@ public class CommentActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
-                                String uid = document.get("uid").toString();
+                                String uid = Objects.requireNonNull(document.get("uid")).toString();
                                 System.out.println();
-                                String comment = document.get("comment").toString();
-                                String date = document.get("date").toString();
+                                String comment = Objects.requireNonNull(document.get("comment")).toString();
+                                String date = Objects.requireNonNull(document.get("date")).toString();
                                 comments.add(new Comment(uid, comment, date));
                             }
                         }
@@ -151,7 +148,7 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void display(ArrayList<Comment> comments){
-        commentAdapter = new CommentAdapter(this, comments);
+        CommentAdapter commentAdapter = new CommentAdapter(this, comments);
         commentListView.setAdapter(commentAdapter);
     }
 

@@ -24,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CommentAdapter extends ArrayAdapter<Comment> {
 
@@ -54,7 +55,7 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String pseudo = snapshot.child("pseudo").getValue().toString();
+                        String pseudo = Objects.requireNonNull(snapshot.child("pseudo").getValue()).toString();
                         pseudoComment.setText(pseudo);
                     }
 

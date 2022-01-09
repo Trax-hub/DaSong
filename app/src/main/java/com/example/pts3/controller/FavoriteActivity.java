@@ -31,7 +31,6 @@ public class FavoriteActivity extends AppCompatActivity {
     private ListView listView;
     private FirebaseFirestore db;
     private ArrayList<Track> tracks;
-    private FavoriteAdapter favoriteAdapter;
     private TextView vide;
     private InternetCheckService internetCheckService;
     private MediaPlayer mediaPlayer;
@@ -63,11 +62,11 @@ public class FavoriteActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot document : task.getResult()){
-                                String title = document.get("title").toString();
-                                String preview = document.get("preview").toString();
-                                String artistName = document.get("artiste").toString();
-                                String cover = document.get("cover").toString();
-                                String coverMax = document.get("coverMax").toString();
+                                String title = Objects.requireNonNull(document.get("title")).toString();
+                                String preview = Objects.requireNonNull(document.get("preview")).toString();
+                                String artistName = Objects.requireNonNull(document.get("artiste")).toString();
+                                String cover = Objects.requireNonNull(document.get("cover")).toString();
+                                String coverMax = Objects.requireNonNull(document.get("coverMax")).toString();
 
                                 tracks.add(new Track(title, preview, artistName, cover, coverMax));
                             }
@@ -83,7 +82,7 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void display(ArrayList<Track> tracks){
-        favoriteAdapter = new FavoriteAdapter(this, tracks, mediaPlayer);
+        FavoriteAdapter favoriteAdapter = new FavoriteAdapter(this, tracks, mediaPlayer);
         listView.setAdapter(favoriteAdapter);
     }
 

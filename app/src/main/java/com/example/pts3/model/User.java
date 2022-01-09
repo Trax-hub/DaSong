@@ -1,12 +1,11 @@
 package com.example.pts3.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class User implements Serializable {
 
-    private String pseudo;
-    private String uid;
+    private final String pseudo;
+    private final String uid;
 
 
     public User(String pseudo, String uid) {

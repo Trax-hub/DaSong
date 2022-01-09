@@ -34,8 +34,6 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText editText;
-    private static HttpURLConnection connection;
     private ListView listView;
     private Track selectedTrack;
     private MediaPlayer mediaPlayer;
@@ -49,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         internetCheckService = new InternetCheckService();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
-        editText = findViewById(R.id.editText);
+        EditText editText = findViewById(R.id.editText);
         listView = (ListView) findViewById(R.id.list_item);
 
         mediaPlayer = new MediaPlayer();
@@ -67,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
                 String s = editable.toString();
 
                 if(s.isEmpty()){
-                    display(new ArrayList<Track>());
+                    display(new ArrayList<>());
                     return;
                 }
 
@@ -120,14 +118,14 @@ public class SearchActivity extends AppCompatActivity {
         BufferedReader reader;
         String line;
         StringBuilder responseContent = new StringBuilder();
-        Root root = new Root(new ArrayList<Search>());
+        Root root = new Root(new ArrayList<>());
 
         try {
             s = StringUtils.stripAccents(s);
             s = s.replace(" ", "_");
             s = "https://api.deezer.com/search?q=" + s;
             URL url = new URL(s);
-            connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);

@@ -25,12 +25,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.Objects;
+
 public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private Button signIn;
     private EditText editTextEmail, editTextPassword;
-    private TextView passwordForgot;
     private InternetCheckService internetCheckService;
 
     @Override
@@ -43,8 +43,8 @@ public class LogInActivity extends AppCompatActivity {
         registerReceiver(internetCheckService,intentFilter);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        signIn = (Button) findViewById(R.id.signIn);
-        passwordForgot = findViewById(R.id.passwordForgot);
+        Button signIn = (Button) findViewById(R.id.signIn);
+        TextView passwordForgot = findViewById(R.id.passwordForgot);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
@@ -114,7 +114,7 @@ public class LogInActivity extends AppCompatActivity {
                                 }
                                 String token = task2.getResult();
                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                                FirebaseDatabase.getInstance().getReference().child("Tokens").child(currentUser.getUid())
+                                FirebaseDatabase.getInstance().getReference().child("Tokens").child(Objects.requireNonNull(currentUser).getUid())
                                         .child("token")
                                         .setValue(token)
                                         .addOnCompleteListener(task1 -> {

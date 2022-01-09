@@ -32,6 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class FindFriendsAdapter extends ArrayAdapter<User> {
@@ -83,11 +84,11 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference friendsDB = FirebaseDatabase.getInstance().getReference().child("Friends");
 
-        friendRequestDB.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        friendRequestDB.child(Objects.requireNonNull(currentUser).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChild(user.getUid())){
-                    String req_type = snapshot.child(user.getUid()).child("requestType").getValue().toString();
+                    String req_type = Objects.requireNonNull(snapshot.child(user.getUid()).child("requestType").getValue()).toString();
                     if(req_type.equals("received")){
                         currentState = "req_received";
                         addFriend.setImageResource(R.drawable.ic_accept);
@@ -149,7 +150,7 @@ public class FindFriendsAdapter extends ArrayAdapter<User> {
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void unused) {
-                                                            Toast.makeText(view.getContext(), "Request sent", Toast.LENGTH_LONG);
+                                                            Toast.makeText(view.getContext(), "Request sent", Toast.LENGTH_LONG).show();
                                                             currentState = "req_sent";
                                                             addFriend.setImageResource(R.drawable.ic_close);
                                                         }

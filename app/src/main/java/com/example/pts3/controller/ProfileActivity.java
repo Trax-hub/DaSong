@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -38,7 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
     static final int REQUEST_MANAGE_PROFILE = 2;
 
     private ListView friendList;
-    private ImageButton signOut, back, findFriends, goToFav, managingProfile;
     private TextView pseudo;
     private ImageView profilePic;
     private InternetCheckService internetCheckService;
@@ -52,13 +50,13 @@ public class ProfileActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
         friendList = (ListView) findViewById(R.id.friendsInvite);
-        findFriends = (ImageButton) findViewById(R.id.findFriends);
-        signOut = (ImageButton) findViewById(R.id.signOut);
-        back = (ImageButton) findViewById(R.id.back);
-        goToFav = (ImageButton) findViewById(R.id.goToFav);
+        ImageButton findFriends = (ImageButton) findViewById(R.id.findFriends);
+        ImageButton signOut = (ImageButton) findViewById(R.id.signOut);
+        ImageButton back = (ImageButton) findViewById(R.id.back);
+        ImageButton goToFav = (ImageButton) findViewById(R.id.goToFav);
         pseudo = (TextView) findViewById(R.id.pseudo);
         profilePic = findViewById(R.id.profilePic);
-        managingProfile = findViewById(R.id.managingProfile);
+        ImageButton managingProfile = findViewById(R.id.managingProfile);
 
         getData();
 
@@ -155,7 +153,6 @@ public class ProfileActivity extends AppCompatActivity {
     private void getData() {
         DatabaseReference friendRequestDB = FirebaseDatabase.getInstance().getReference().child("friendReq");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
         FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app")
                 .getReference("Users")
@@ -165,19 +162,19 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         ArrayList<User> users = new ArrayList<>();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            if (!dataSnapshot.child("uid").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            if (!Objects.equals(dataSnapshot.child("uid").getValue(), Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
                                 String pseudo = (String) dataSnapshot.child("pseudo").getValue();
                                 String uid = (String) dataSnapshot.child("uid").getValue();
                                 users.add(new User(pseudo, uid));
                             }
                         }
                         ArrayList<User> requestUser = new ArrayList<>();
-                        friendRequestDB.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        friendRequestDB.child(Objects.requireNonNull(currentUser).getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (User user : users) {
                                     if (snapshot.hasChild(user.getUid())) {
-                                        String req_type = snapshot.child(user.getUid()).child("requestType").getValue().toString();
+                                        String req_type = Objects.requireNonNull(snapshot.child(user.getUid()).child("requestType").getValue()).toString();
                                         if (req_type.equals("received")) {
                                             requestUser.add(user);
                                         }

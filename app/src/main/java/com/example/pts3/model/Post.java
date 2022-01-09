@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Post {
 
-    private Track track;
-    private String description;
-    private String creatorUid;
-    private String date;
+    private final Track track;
+    private final String description;
+    private final String creatorUid;
+    private final String date;
     private int nbLikes = 0;
     private ArrayList<String> uidLiked;
 

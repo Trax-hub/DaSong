@@ -28,7 +28,6 @@ import java.util.Objects;
 
 public class ProfileManagerActivity extends AppCompatActivity {
 
-    private Button sendNewPassword, sendNewMail, sendNewPseudo;
     private EditText newPseudo, oldPassword, newPassword, newMail, emailPassword;
     private InternetCheckService internetCheckService;
 
@@ -40,9 +39,9 @@ public class ProfileManagerActivity extends AppCompatActivity {
         internetCheckService = new InternetCheckService();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
-        sendNewMail = findViewById(R.id.sendNewMail);
-        sendNewPassword = findViewById(R.id.sendNewPassword);
-        sendNewPseudo = findViewById(R.id.sendNewPseudo);
+        Button sendNewMail = findViewById(R.id.sendNewMail);
+        Button sendNewPassword = findViewById(R.id.sendNewPassword);
+        Button sendNewPseudo = findViewById(R.id.sendNewPseudo);
         newMail = findViewById(R.id.newMail);
         newPseudo = findViewById(R.id.newPseudo);
         oldPassword = findViewById(R.id.oldPassword);
@@ -166,8 +165,8 @@ public class ProfileManagerActivity extends AppCompatActivity {
             }
         });
 
-        newPassword.getText().clear();;
-        oldPassword.getText().clear();;
+        newPassword.getText().clear();
+        oldPassword.getText().clear();
 
     }
 

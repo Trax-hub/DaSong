@@ -28,7 +28,6 @@ import java.util.Objects;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText pseudo, mail, password;
-    private Button button;
     private FirebaseAuth firebaseAuth;
     private InternetCheckService internetCheckService;
 
@@ -45,7 +44,7 @@ public class SignUpActivity extends AppCompatActivity {
         mail = (EditText) findViewById(R.id.mail);
         password = (EditText) findViewById(R.id.password);
         pseudo = (EditText) findViewById(R.id.pseudo);
-        button = (Button) findViewById(R.id.signIn);
+        Button button = (Button) findViewById(R.id.signIn);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            String uid = firebaseUser.getUid();
+                            String uid = Objects.requireNonNull(firebaseUser).getUid();
                             User user = new User(pseudoS, uid);
                             FirebaseDatabase.getInstance("https://android-app-7feb8-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
                                     .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())

@@ -21,11 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FindFriendsActivity extends AppCompatActivity {
 
     private ListView listView;
-    private EditText seekingForFriends;
     private InternetCheckService internetCheckService;
 
     @Override
@@ -34,7 +34,7 @@ public class FindFriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_friends);
 
         listView = (ListView) findViewById(R.id.friends_view);
-        seekingForFriends = (EditText) findViewById(R.id.seekingForFriends);
+        EditText seekingForFriends = (EditText) findViewById(R.id.seekingForFriends);
         internetCheckService = new InternetCheckService();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
@@ -67,7 +67,7 @@ public class FindFriendsActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         ArrayList<User> users = new ArrayList<>();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            if(!dataSnapshot.child("uid").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            if(!Objects.equals(dataSnapshot.child("uid").getValue(), Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())){
                                 String pseudo = (String) dataSnapshot.child("pseudo").getValue();
                                 String uid = (String) dataSnapshot.child("uid").getValue();
                                 users.add(new User(pseudo, uid));

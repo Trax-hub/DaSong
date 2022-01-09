@@ -2,14 +2,12 @@ package com.example.pts3.model;
 
 public class Comment {
 
-    private String uid;
-    private String comment;
-    private String date;
+    private final String uid;
+    private final String comment;
 
     public Comment(String uid, String comment, String date){
         this.uid = uid;
         this.comment = comment;
-        this.date = date;
     }
 
     public String getUidComment() {

@@ -14,8 +14,6 @@ import com.example.pts3.R;
 
 public class LobbyActivity extends AppCompatActivity {
 
-    private Button signUpButton;
-    private Button logInButton;
     private InternetCheckService internetCheckService;
 
     @Override
@@ -23,8 +21,8 @@ public class LobbyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-        signUpButton = (Button) findViewById(R.id.signUp);
-        logInButton = (Button) findViewById(R.id.logIn);
+        Button signUpButton = (Button) findViewById(R.id.signUp);
+        Button logInButton = (Button) findViewById(R.id.logIn);
         internetCheckService = new InternetCheckService();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);

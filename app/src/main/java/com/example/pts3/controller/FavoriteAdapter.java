@@ -1,7 +1,6 @@
 package com.example.pts3.controller;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,9 +30,9 @@ import java.util.Objects;
 
 public class FavoriteAdapter extends ArrayAdapter<Track>{
 
-        private MediaPlayer mediaPlayer;
-        private FavoriteAdapter adapter;
-        private ArrayList<Track> trackArrayList;
+        private final MediaPlayer mediaPlayer;
+        private final FavoriteAdapter adapter;
+        private final ArrayList<Track> trackArrayList;
         private View oldView;
         private boolean mediaPlayerOnBreak=false;
 

@@ -4,18 +4,18 @@ import java.net.URL;
 
 public class Search {
 
-    private int id;
-    private boolean readable;
-    private String title;
-    private String title_short;
-    private String title_version;
-    private String link;
-    private int duration;
-    private int rank;
-    private boolean explicit_lyrics;
-    private String preview;
-    private Artist artist;
-    private Album album;
+    private final int id;
+    private final boolean readable;
+    private final String title;
+    private final String title_short;
+    private final String title_version;
+    private final String link;
+    private final int duration;
+    private final int rank;
+    private final boolean explicit_lyrics;
+    private final String preview;
+    private final Artist artist;
+    private final Album album;
     private String type;
 
     public Search(int id, boolean readable, String title, String title_short, String title_version, String link, int duration, int rank, boolean explicit_lyrics, String preview, Artist artist, Album album) {
@@ -100,18 +100,14 @@ public class Search {
         return album;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public class Album{
-        private int id;
-        private String title;
-        private String cover;
-        private String cover_small;
-        private String cover_medium;
-        private String cover_big;
-        private String cover_xl;
+        private final int id;
+        private final String title;
+        private final String cover;
+        private final String cover_small;
+        private final String cover_medium;
+        private final String cover_big;
+        private final String cover_xl;
 
         public Album(int id, String title, String cover, String cover_small, String cover_medium, String cover_big, String cover_xl) {
             this.id = id;
@@ -127,40 +123,24 @@ public class Search {
             return id;
         }
 
-        public String getTitle() {
-            return title;
-        }
-
         public String getCover() {
             return cover;
-        }
-
-        public String getCoverSmall() {
-            return cover_small;
-        }
-
-        public String getCover_medium() {
-            return cover_medium;
         }
 
         public String getCover_big() {
             return cover_big;
         }
-
-        public String getCover_xl() {
-            return cover_xl;
-        }
     }
 
     public class Artist{
-        private int id;
-        private String name;
-        private URL link;
-        private URL picture;
-        private URL picture_small;
-        private URL picture_medium;
-        private URL picture_big;
-        private URL picture_xl;
+        private final int id;
+        private final String name;
+        private final URL link;
+        private final URL picture;
+        private final URL picture_small;
+        private final URL picture_medium;
+        private final URL picture_big;
+        private final URL picture_xl;
 
         public Artist(int id, String name, URL link, URL picture, URL picture_small, URL picture_medium, URL picture_big, URL picture_xl) {
             this.id = id;
@@ -179,30 +159,6 @@ public class Search {
 
         public String getName() {
             return name;
-        }
-
-        public URL getLink() {
-            return link;
-        }
-
-        public URL getPicture() {
-            return picture;
-        }
-
-        public URL getPicture_small() {
-            return picture_small;
-        }
-
-        public URL getPicture_medium() {
-            return picture_medium;
-        }
-
-        public URL getPicture_big() {
-            return picture_big;
-        }
-
-        public URL getPicture_xl() {
-            return picture_xl;
         }
     }
 

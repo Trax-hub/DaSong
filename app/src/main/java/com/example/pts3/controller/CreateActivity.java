@@ -32,16 +32,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateActivity extends AppCompatActivity {
 
-    private Button validateButton;
-    private Button searchButton;
     private Track track;
     private TextInputEditText description;
-    private ImageView selectedCover;
-    private TextView selectedArtist;
-    private TextView selectedSong;
     private ImageView pausePlay;
     private MediaPlayer mediaPlayer;
     private FirebaseAuth firebaseAuth;
@@ -52,12 +48,12 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_create);
-        selectedSong = (TextView) findViewById(R.id.track_title);
-        selectedArtist = (TextView) findViewById(R.id.track_artist);
-        selectedCover = (ImageView) findViewById(R.id.selected_cover);
+        TextView selectedSong = (TextView) findViewById(R.id.track_title);
+        TextView selectedArtist = (TextView) findViewById(R.id.track_artist);
+        ImageView selectedCover = (ImageView) findViewById(R.id.selected_cover);
         description = (TextInputEditText) findViewById(R.id.description);
         pausePlay = (ImageView) findViewById(R.id.pause_play);
-        validateButton = (Button) findViewById(R.id.validate_button);
+        Button validateButton = (Button) findViewById(R.id.validate_button);
         selectedCover.setImageResource(R.drawable.general_cover);
         internetCheckService = new InternetCheckService();
 
@@ -101,7 +97,7 @@ public class CreateActivity extends AppCompatActivity {
                 if(track != null){
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
-                    Post post = new Post(track, description.getText().toString(), firebaseAuth.getCurrentUser().getUid(), dtf.format(now));
+                    Post post = new Post(track, Objects.requireNonNull(description.getText()).toString(), Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid(), dtf.format(now));
                     Map<String, Object> postMap = new HashMap<>();
                     postMap.put("artist", post.getTrack().getArtistName());
                     postMap.put("cover", post.getTrack().getCover());
@@ -133,7 +129,7 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-        searchButton = (Button) findViewById(R.id.search_button);
+        Button searchButton = (Button) findViewById(R.id.search_button);
 
 
         searchButton.setOnClickListener(new View.OnClickListener() {

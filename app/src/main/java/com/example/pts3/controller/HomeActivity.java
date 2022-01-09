@@ -67,22 +67,26 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+
         mediaPlayer = new MediaPlayer();
 
-        FirebaseStorage.getInstance().getReference()
-                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                .getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profilePic);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                profilePic.setImageResource(R.drawable.ic_account);
-            }
-        });
+        if(user != null){
+            FirebaseStorage.getInstance().getReference()
+                    .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                    .getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Picasso.get().load(uri).into(profilePic);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    profilePic.setImageResource(R.drawable.ic_account);
+                }
+            });
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
         internetCheckService = new InternetCheckService();
@@ -172,7 +176,7 @@ public class HomeActivity extends AppCompatActivity {
                                     FirebaseDatabase.getInstance()
                                             .getReference("Friends")
                                             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                                            .child(Objects.requireNonNull(document.get("userID").toString()))
+                                            .child(Objects.requireNonNull(Objects.requireNonNull(document.get("userID")).toString()))
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                                 @Override
@@ -209,16 +213,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void addPost(QueryDocumentSnapshot document){
-        String title = document.get("title").toString();
-        String preview = document.get("preview").toString();
-        String artistName = document.get("artist").toString();
-        String cover = document.get("cover").toString();
-        String coverMax = document.get("coverMax").toString();
+        String title = Objects.requireNonNull(document.get("title")).toString();
+        String preview = Objects.requireNonNull(document.get("preview")).toString();
+        String artistName = Objects.requireNonNull(document.get("artist")).toString();
+        String cover = Objects.requireNonNull(document.get("cover")).toString();
+        String coverMax = Objects.requireNonNull(document.get("coverMax")).toString();
 
         Track track = new Track(title, preview, artistName, cover, coverMax);
-        String description = document.get("description").toString();
-        String creatorUid = document.get("userID").toString();
-        String date = document.get("date").toString();
+        String description = Objects.requireNonNull(document.get("description")).toString();
+        String creatorUid = Objects.requireNonNull(document.get("userID")).toString();
+        String date = Objects.requireNonNull(document.get("date")).toString();
 
         boolean same = false;
 
@@ -237,7 +241,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void verifPost(){
         db.collection("/Post")
-                .whereEqualTo("userID", Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                .whereEqualTo("userID", Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
