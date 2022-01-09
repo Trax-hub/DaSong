@@ -12,11 +12,10 @@
     <string name="recherche">Recherche…</string>
     <string name="log_out">Log out</string>
     <string name="app_icons">App icons</string>
-    <string name="sign_up">Sign up</string>
-    <string name="log_in">Log in</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="log_in">Se connecter</string>
     <string name="mail">Mail</string>
-    <string name="i_forgot_my_password">I forgot my password</string>
-    <string name="log_in2">Log In</string>
+    <string name="i_forgot_my_password">Mot de passe oublié</string>
     <string name="no_connection_icon">no connection icon</string>
     <string name="oups">Oups !</string>
     <string name="v_rifier_votre_connexion_internet_et_r_essayez">Vérifier votre connexion internet et réessayez !</string>

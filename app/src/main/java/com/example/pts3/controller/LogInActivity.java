@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pts3.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +30,7 @@ public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private Button signIn;
     private EditText editTextEmail, editTextPassword;
+    private TextView passwordForgot;
     private InternetCheckService internetCheckService;
 
     @Override
@@ -43,6 +44,7 @@ public class LogInActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         signIn = (Button) findViewById(R.id.signIn);
+        passwordForgot = findViewById(R.id.passwordForgot);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signOut();
@@ -51,6 +53,13 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userLogin();
+            }
+        });
+
+        passwordForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPassword();
             }
         });
     }
@@ -121,6 +130,35 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void forgotPassword(){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        String emailAddress = editTextEmail.getText().toString();
+
+        if(emailAddress.isEmpty()){
+            editTextEmail.setError("Email required");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(emailAddress).matches()){
+            editTextEmail.setError("Not a valid item");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        auth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LogInActivity.this, "Email envoyé", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(LogInActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     @Override
