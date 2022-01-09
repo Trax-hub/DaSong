@@ -47,9 +47,12 @@ import java.util.Objects;
 public class HomeAdapter extends ArrayAdapter<Post> {
 
     private MediaPlayer mediaPlayer;
+    private View oldView;
+    private boolean mediaPlayerOnBreak=false;
 
-    public HomeAdapter(Context context, ArrayList<Post> postArrayList){
+    public HomeAdapter(Context context, ArrayList<Post> postArrayList, MediaPlayer mediaPlayer){
         super(context, R.layout.post_item, R.id.home_track_title,  postArrayList);
+        this.mediaPlayer=mediaPlayer;
     }
 
     @NonNull
@@ -219,23 +222,37 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             @Override
             public void onClick(View view) {
                 if(post.getTrack() != null) {
-                    if (mediaPlayer == null) {
-                        mediaPlayer = new MediaPlayer();
-                        playAudio(post.getTrack().getPreview());
+
+                    if (mediaPlayer.isPlaying() && view.equals(oldView)){
+                        mediaPlayer.pause();
+                        pausePlay.setImageResource(R.drawable.ic_play);
+                        mediaPlayerOnBreak=true;
+                    } else if(mediaPlayerOnBreak){
+                        mediaPlayer.start();
+                        mediaPlayerOnBreak=false;
                         pausePlay.setImageResource(R.drawable.ic_pause);
-                    } else {
-                        if (mediaPlayer.isPlaying()) {
-                            mediaPlayer.pause();
-                            pausePlay.setImageResource(R.drawable.ic_play);
-                        } else {
-                            mediaPlayer.start();
-                            pausePlay.setImageResource(R.drawable.ic_pause);
-                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                public void onCompletion(MediaPlayer mp) {
-                                    pausePlay.setImageResource(R.drawable.ic_play);
-                                    mediaPlayer = null; // finish current activity
+                    }
+                    else{
+                        if(mediaPlayer.isPlaying() && !view.equals(oldView)) {
+                            ImageView oldBtnPausePlay = oldView.findViewById(R.id.home_pause_play);
+                            oldBtnPausePlay.setImageResource(R.drawable.ic_play);
+                        }
+                        mediaPlayer.reset();
+                        try {
+                            mediaPlayer.setDataSource(post.getTrack().getPreview());
+                            mediaPlayer.setVolume(0.5f, 0.5f);
+                            mediaPlayer.prepare();
+                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                @Override
+                                public void onPrepared(MediaPlayer mediaPlayer) {
+                                    mediaPlayer.setLooping(false);
+                                    mediaPlayer.start();
+                                    pausePlay.setImageResource(R.drawable.ic_pause);
+                                    oldView=view;
                                 }
                             });
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -306,22 +323,6 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         });
 
         return view;
-    }
-
-    private void playAudio(String preview){
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mediaPlayer.setDataSource(preview);
-            mediaPlayer.prepare();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mediaPlayer.start();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private boolean isLiked(Post post, FirebaseUser user){

@@ -1,6 +1,7 @@
 package com.example.pts3.controller;
 
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -33,12 +34,14 @@ public class FavoriteActivity extends AppCompatActivity {
     private FavoriteAdapter favoriteAdapter;
     private TextView vide;
     private InternetCheckService internetCheckService;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
+        mediaPlayer = new MediaPlayer();
         vide = (TextView) findViewById(R.id.vide);
         internetCheckService = new InternetCheckService();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -80,7 +83,7 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     private void display(ArrayList<Track> tracks){
-        favoriteAdapter = new FavoriteAdapter(this, tracks);
+        favoriteAdapter = new FavoriteAdapter(this, tracks, mediaPlayer);
         listView.setAdapter(favoriteAdapter);
     }
 
@@ -88,6 +91,7 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onStart() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
+        display(tracks);
         super.onStart();
     }
 
@@ -97,4 +101,23 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mediaPlayer.reset();
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.reset();
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.reset();
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private InternetCheckService internetCheckService;
     private AlertDialog alertDialog;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+        mediaPlayer = new MediaPlayer();
 
         FirebaseStorage.getInstance().getReference()
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
@@ -201,7 +204,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void display(ArrayList<Post> postArrayList){
-        HomeAdapter homeAdapter = new HomeAdapter(this, postArrayList);
+        HomeAdapter homeAdapter = new HomeAdapter(this, postArrayList, mediaPlayer);
         listView.setAdapter(homeAdapter);
     }
 
@@ -280,6 +283,7 @@ public class HomeActivity extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(authStateListener);
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
+        display(posts);
         super.onStart();
     }
 
@@ -287,9 +291,30 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(internetCheckService);
         super.onStop();
+        mediaPlayer.reset();
         firebaseAuth.removeAuthStateListener(authStateListener);
         if(alertDialog != null){
             alertDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mediaPlayer.reset();
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.reset();
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.reset();
     }
 }

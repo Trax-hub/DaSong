@@ -49,7 +49,6 @@ public class SearchAdapter extends ArrayAdapter<Track> {
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(tracks.getPreview());
                 if(mediaPlayer.isPlaying() && tracks.getPreview().equals(currentPreviewPlayed) && !mediaPlayerReady){
                     mediaPlayer.pause();
                     mediaPlayerReady = true;

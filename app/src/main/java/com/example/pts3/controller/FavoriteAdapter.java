@@ -34,11 +34,14 @@ public class FavoriteAdapter extends ArrayAdapter<Track>{
         private MediaPlayer mediaPlayer;
         private FavoriteAdapter adapter;
         private ArrayList<Track> trackArrayList;
+        private View oldView;
+        private boolean mediaPlayerOnBreak=false;
 
-        public FavoriteAdapter(Context context, ArrayList<Track> trackArrayList){
+        public FavoriteAdapter(Context context, ArrayList<Track> trackArrayList, MediaPlayer mediaPlayer){
             super(context, R.layout.favorite_item,R.id.trackName, trackArrayList);
             this.adapter = this;
             this.trackArrayList = trackArrayList;
+            this.mediaPlayer = mediaPlayer;
         }
 
         @NonNull
@@ -87,15 +90,36 @@ public class FavoriteAdapter extends ArrayAdapter<Track>{
                 }
             });
 
-            mediaPlayer = new MediaPlayer();
-
             cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mediaPlayer.isPlaying())
-                        mediaPlayer.reset();
-                    else
-                        playAudio(tracks.getPreview());
+                    if (tracks.getPreview() != null) {
+
+                        if (mediaPlayer.isPlaying() && view.equals(oldView)) {
+                            mediaPlayer.pause();
+                            mediaPlayerOnBreak = true;
+                        } else if (mediaPlayerOnBreak && view.equals(oldView)) {
+                            mediaPlayer.start();
+                            mediaPlayerOnBreak = false;
+                        } else {
+                            mediaPlayer.reset();
+                            try {
+                                mediaPlayer.setDataSource(tracks.getPreview());
+                                mediaPlayer.setVolume(0.5f, 0.5f);
+                                mediaPlayer.prepare();
+                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                    @Override
+                                    public void onPrepared(MediaPlayer mediaPlayer) {
+                                        mediaPlayer.setLooping(false);
+                                        mediaPlayer.start();
+                                        oldView = view;
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }
             });
 
