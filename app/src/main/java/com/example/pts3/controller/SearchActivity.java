@@ -186,7 +186,6 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(internetCheckService);
         super.onDestroy();
         mediaPlayer.reset();
         finish();
