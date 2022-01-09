@@ -66,6 +66,21 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
 
+        FirebaseStorage.getInstance().getReference()
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profilePic);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilePic.setImageResource(R.drawable.ic_account);
+            }
+        });
+
         firebaseAuth = FirebaseAuth.getInstance();
         internetCheckService = new InternetCheckService();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -83,22 +98,6 @@ public class HomeActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);
 
-        FirebaseStorage.getInstance().getReference()
-                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
-                .getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profilePic);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        profilePic.setImageResource(R.drawable.ic_account);
-                    }
-                });
-
-        //TODO Si pas d'ami, faire bouton chercher des amis
         noFriends();
 
         db = FirebaseFirestore.getInstance();

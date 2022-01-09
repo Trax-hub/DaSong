@@ -38,6 +38,7 @@
             android:drawablePadding="16dp"
             android:paddingHorizontal="32dp"
             android:text="@string/sign_up"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.431"
@@ -53,6 +54,7 @@
             android:drawablePadding="16dp"
             android:paddingHorizontal="32dp"
             android:text="@string/log_in"
+            android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

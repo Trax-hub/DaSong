@@ -26,11 +26,13 @@
             android:paddingStart="60dp"
             android:paddingEnd="50dp"
             android:text="@string/rechercher"
+            android:paddingLeft="60dp"
+            android:paddingRight="50dp"
+            android:fontFamily="@font/poppins_medium"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="20sp"/>
 
-            />
     </LinearLayout>
 
 
@@ -77,6 +79,7 @@
             android:layout_below="@id/cover_layout"
             android:layout_marginTop="1dp"
             android:text="@string/titre"
+            android:fontFamily="@font/poppins_light"
             android:textAlignment="center"
             android:textSize="24sp" />
 
@@ -86,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/track_title"
             android:text="@string/artiste"
+            android:fontFamily="@font/poppins_light"
             android:textSize="16sp"
             android:textAlignment="center"
             android:layout_marginBottom="16dp" />
@@ -111,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:text="@string/commentary"
+            android:fontFamily="@font/poppins_regular"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
@@ -154,11 +159,10 @@
             android:layout_height="52dp"
             android:background="@drawable/default_button"
             android:text="@string/valider"
+            android:fontFamily="@font/poppins_regular"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            />
-
+            android:textSize="20sp"/>
 
     </LinearLayout>
 

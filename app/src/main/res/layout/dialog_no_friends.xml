@@ -21,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pas_amis"
-            android:textSize="15sp"
+            android:fontFamily="@font/poppins_light"
+            android:textSize="14sp"
             android:layout_marginBottom="5dp"/>
 
         <TextView
@@ -29,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"
-            android:textSize="15sp"
+            android:fontFamily="@font/poppins_light"
+            android:textSize="14sp"
             android:layout_marginBottom="5dp"/>
 
         <Button
@@ -39,6 +41,7 @@
             android:background="@drawable/default_button"
             android:padding="10dp"
             android:text="@string/ajouter"
+            android:fontFamily="@font/poppins_regular"
             android:textAllCaps="false"
             android:textSize="15sp" />
     </LinearLayout>
