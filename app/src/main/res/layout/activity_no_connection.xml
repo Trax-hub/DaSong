@@ -68,7 +68,7 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:background="@drawable/default_button"
-            android:drawableStart="@drawable/ic_account"
+            android:drawableStart="@drawable/ic_refresh"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
