@@ -200,7 +200,6 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(internetCheckService);
         releaseMediaPlayer();
         finish();
     }

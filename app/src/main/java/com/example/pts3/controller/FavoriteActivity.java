@@ -91,4 +91,10 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    @Override
+    protected void onStop() {
+        unregisterReceiver(internetCheckService);
+        super.onStop();
+    }
+
 }
