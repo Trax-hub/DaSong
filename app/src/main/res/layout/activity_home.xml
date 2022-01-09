@@ -24,7 +24,7 @@
             android:layout_height="48dp"
             android:layout_marginEnd="82dp"
             android:background="@color/fui_transparent"
-            android:text="Log out"
+            android:text="@string/log_out"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gifImageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/gifImageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Create a post icon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

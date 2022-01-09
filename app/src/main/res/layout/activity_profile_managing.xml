@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="64dp">
@@ -24,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Changer de pseudo :"
+            android:text="@string/changer_de_pseudo"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/newPseudo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,12 +36,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/custom_input"
-            android:hint="Nouveau pseudo"
+            android:hint="@string/nouveau_pseudo"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toTopOf="@+id/sendNewPseudo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            android:autofillHints="text"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/sendNewPseudo"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/default_button"
             android:paddingHorizontal="32dp"
-            android:text="Confirmer"
+            android:text="@string/confirmer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Ancien mot de passe : "
+            android:text="@string/ancien_mot_de_passe"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/oldPassword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,13 +88,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/custom_input"
-            android:hint="Ancien mot de passe"
+            android:hint="@string/ancien_mot_de_passe2"
             android:inputType="textPassword"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toTopOf="@+id/textView8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            android:autofillHints="text" />
 
         <TextView
             android:id="@+id/textView8"
@@ -101,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Nouveau mot de passe : "
+            android:text="@string/nouveau_mot_de_passe"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/newPassword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,13 +116,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/custom_input"
-            android:hint="Nouveau mot de passe"
+            android:hint="@string/nouveau_mot_de_passe2"
             android:inputType="textPassword"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toTopOf="@+id/sendNewPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            android:autofillHints="text" />
 
         <Button
             android:id="@+id/sendNewPassword"
@@ -128,7 +131,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/default_button"
             android:paddingHorizontal="32dp"
-            android:text="Confirmer"
+            android:text="@string/confirmer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Nouvel email :"
+            android:text="@string/nouvel_email"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/newMail"
             app:layout_constraintEnd_toEndOf="parent"
@@ -166,13 +169,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/custom_input"
-            android:hint="Nouvel email"
+            android:hint="@string/nouvel_email2"
             android:inputType="textEmailAddress"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            android:autofillHints="text" />
 
         <TextView
             android:id="@+id/textView11"
@@ -180,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="Mot de passe :"
+            android:text="@string/mot_de_passe2"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/emailPassword"
             app:layout_constraintEnd_toEndOf="parent"
@@ -193,13 +197,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/custom_input"
-            android:hint="Mot de passe"
+            android:hint="@string/mot_de_passe"
             android:inputType="textPassword"
             android:paddingHorizontal="16dp"
             app:layout_constraintBottom_toTopOf="@+id/sendNewMail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            android:autofillHints="text" />
 
         <Button
             android:id="@+id/sendNewMail"
@@ -207,7 +212,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/default_button"
             android:paddingHorizontal="32dp"
-            android:text="Confirmer"
+            android:text="@string/confirmer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

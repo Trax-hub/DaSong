@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".controller.CreateActivity"
-    android:background="#3A3A47"
-    >
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/reseach"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#3A3A47"
         android:orientation="vertical">
 
         <EditText
@@ -26,9 +18,11 @@
             android:background="@drawable/custom_input"
             android:drawableEnd="@drawable/ic_search"
             android:padding="16dp"
-            android:hint="Recherche..."
+            android:hint="@string/recherche"
             android:imeOptions="actionGo"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:autofillHints="text"
+            android:inputType="text" />
 
         <ListView
             android:id="@+id/list_item"
@@ -41,5 +35,3 @@
 
 
     </LinearLayout>
-
-</RelativeLayout>

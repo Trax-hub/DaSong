@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:id="@+id/friendsResearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".controller.CreateActivity"
     android:background="#3A3A47"
-    >
-
-    <LinearLayout
-        android:id="@+id/friendsResearch"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <EditText
             android:id="@+id/seekingForFriends"
@@ -26,9 +17,11 @@
             android:background="@drawable/custom_input"
             android:drawableEnd="@drawable/ic_search"
             android:padding="16dp"
-            android:hint="Recherche..."
+            android:hint="@string/recherche"
             android:imeOptions="actionGo"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:autofillHints=""
+            android:inputType="text" />
 
         <ListView
             android:id="@+id/friends_view"
@@ -36,9 +29,5 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:choiceMode="singleChoice"
-            android:listSelector="#2E2E3C"
-            tools:listitem="@layout/friends_item" />
-
+            android:listSelector="#2E2E3C" />
     </LinearLayout>
-
-</RelativeLayout>

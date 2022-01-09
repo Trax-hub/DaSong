@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/app_icon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -32,7 +33,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mail"
+            android:text="@string/mail"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/mail"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,14 +53,15 @@
             app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Pseudo"
+            android:text="@string/pseudo"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/pseudo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +81,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:ignore="RtlSymmetry" />
 
 
         <TextView
@@ -87,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Password"
+            android:text="@string/password"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +109,8 @@
             app:layout_constraintBottom_toTopOf="@+id/signIn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:ignore="RtlSymmetry" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signIn"
@@ -117,7 +121,7 @@
             android:drawableStart="@drawable/ic_signin"
             android:drawablePadding="16dp"
             android:paddingHorizontal="48dp"
-            android:text="Sign Up"
+            android:text="@string/sign_up2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"

@@ -11,6 +11,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/back_icon"
         android:background="#3A3A47"
         app:layout_constraintBottom_toTopOf="@+id/listViewComment"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +52,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/sendComment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints=""
+            android:inputType="text"
+            tools:ignore="LabelFor"/>
 
         <ImageButton
             android:id="@+id/sendComment"
@@ -62,7 +66,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/postAComment"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="send icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

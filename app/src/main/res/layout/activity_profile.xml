@@ -28,14 +28,14 @@
         app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="@+id/profilePic"
         app:layout_constraintTop_toTopOf="@+id/profilePic"
-        app:layout_constraintVertical_bias="0.843" />
+        app:layout_constraintVertical_bias="0.843"
+        android:contentDescription="@string/edit_icon" />
 
     <TextView
         android:id="@+id/pseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Pseudo"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/back_icon" />
 
     <ImageButton
         android:id="@+id/signOut"
@@ -65,7 +66,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/logout_icon" />
 
     <ImageButton
         android:id="@+id/goToFav"
@@ -76,7 +78,8 @@
         app:layout_constraintBottom_toTopOf="@+id/friendsInvite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/findFriends"
-        app:layout_constraintTop_toBottomOf="@+id/pseudo" />
+        app:layout_constraintTop_toBottomOf="@+id/pseudo"
+        android:contentDescription="@string/music_list_icon" />
 
     <ImageButton
         android:id="@+id/findFriends"
@@ -84,11 +87,12 @@
         android:layout_height="64dp"
         android:background="@color/fui_transparent"
         android:src="@drawable/ic_friend_add"
-        android:text="Find friends"
+        android:text="@string/find_friends"
         app:layout_constraintBottom_toTopOf="@+id/friendsInvite"
         app:layout_constraintEnd_toStartOf="@+id/goToFav"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pseudo" />
+        app:layout_constraintTop_toBottomOf="@+id/pseudo"
+        android:contentDescription="@string/add_friends" />
 
     <ImageButton
         android:id="@+id/managingProfile"
@@ -100,7 +104,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/profilePic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profilePic"
-        app:layout_constraintTop_toBottomOf="@+id/signOut" />
+        app:layout_constraintTop_toBottomOf="@+id/signOut"
+        android:contentDescription="@string/settings_icon" />
 
     <ListView
         android:id="@+id/friendsInvite"
