@@ -306,6 +306,9 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mediaPlayer.reset();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
         finish();
     }
 

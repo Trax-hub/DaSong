@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,7 +74,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
         TextView trackArtist = view.findViewById(R.id.home_track_artist);
         ImageView like = view.findViewById(R.id.like);
         TextView nbLike = view.findViewById(R.id.nbLike);
-        ImageView add = view.findViewById(R.id.add);
+        ImageView addFavorite = view.findViewById(R.id.add);
         TextView creatorOfPost = view.findViewById(R.id.creatorOfPost);
         ImageView comment = view.findViewById(R.id.comment);
         TextView descriptionPost = view.findViewById(R.id.descriptionPost);
@@ -174,7 +175,7 @@ public class HomeAdapter extends ArrayAdapter<Post> {
             }
         });
 
-        add.setOnClickListener(new View.OnClickListener() {
+        addFavorite.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
@@ -204,10 +205,12 @@ public class HomeAdapter extends ArrayAdapter<Post> {
                                 if (task.isSuccessful()) {
                                     if (task.getResult().size() == 0) {
                                         db.add(map);
+                                        Toast.makeText(getContext(), "La musique a bien été ajouté à vos favoris", Toast.LENGTH_LONG).show();
                                     }
                                     for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                                         if (!queryDocumentSnapshot.exists()) {
                                             db.add(map);
+                                            Toast.makeText(getContext(),"La musique a bien été ajouté à vos favoris", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }

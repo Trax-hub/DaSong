@@ -64,14 +64,6 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(internetCheckService,intentFilter);
-        super.onBackPressed();
-        startActivity(new Intent(LogInActivity.this, LobbyActivity.class));
-        finish();
-    }
 
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
@@ -121,6 +113,7 @@ public class LogInActivity extends AppCompatActivity {
                                             Log.d("Token", "Token send to server");
                                         });
                             });
+                    FirebaseMessaging.getInstance().subscribeToTopic("dailyNotification");
                     startActivity(new Intent(LogInActivity.this, HomeActivity.class));
                     finish();
                 } else {
@@ -171,6 +164,13 @@ public class LogInActivity extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(internetCheckService);
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(LogInActivity.this, LobbyActivity.class));
+        finish();
     }
 
 }

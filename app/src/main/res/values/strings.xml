@@ -39,8 +39,8 @@
     <string name="mot_de_passe2">Mot de passe :</string>
     <string name="app_icon">App icons</string>
     <string name="pseudo">Pseudo</string>
-    <string name="password">Password</string>
-    <string name="sign_up2">Sign Up</string>
+    <string name="password">Mot de passe</string>
+    <string name="sign_up2">S\'inscrire</string>
     <string name="pas_amis">Il semble que vous n\'ayez pas encore d\'ami.</string>
     <string name="add">Voulez-vous en ajouter ?</string>
     <string name="ajouter">Ajouter des amis</string>

@@ -1,5 +1,6 @@
 package com.example.pts3.controller;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -104,6 +105,7 @@ public class FavoriteActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mediaPlayer.reset();
+        startActivity(new Intent(this, ProfileActivity.class));
         finish();
     }
 

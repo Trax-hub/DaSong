@@ -52,6 +52,10 @@ public class FindFriendsActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if(editable.toString().isEmpty()){
+                    display(new ArrayList<>());
+                    return;
+                }
                 getData(editable.toString());
             }
         });

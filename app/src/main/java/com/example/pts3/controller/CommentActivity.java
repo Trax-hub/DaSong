@@ -153,6 +153,12 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomeActivity.class));
+    }
+
+    @Override
     protected void onStart() {
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(internetCheckService,intentFilter);

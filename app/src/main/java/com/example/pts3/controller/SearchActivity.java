@@ -179,6 +179,7 @@ public class SearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         mediaPlayer.reset();
+        startActivity(new Intent(this, CreateActivity.class));
         finish();
     }
 

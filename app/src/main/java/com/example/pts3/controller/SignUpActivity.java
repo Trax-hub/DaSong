@@ -57,13 +57,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(SignUpActivity.this, LobbyActivity.class));
-        finish();
-    }
-
     private void registerUser(){
         String mailS = mail.getText().toString().trim();
         String passwordS = password.getText().toString().trim();
@@ -116,7 +109,6 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        FirebaseMessaging.getInstance().subscribeToTopic("dailyNotification");
                                         startActivity(new Intent(SignUpActivity.this, LogInActivity.class));
                                     }
                                 }
@@ -139,4 +131,13 @@ public class SignUpActivity extends AppCompatActivity {
         unregisterReceiver(internetCheckService);
         super.onStop();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, LobbyActivity.class));
+        finish();
+    }
+
+
 }

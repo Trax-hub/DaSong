@@ -240,4 +240,10 @@ public class ProfileManagerActivity extends AppCompatActivity {
         unregisterReceiver(internetCheckService);
         super.onStop();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, ProfileActivity.class));
+    }
 }
